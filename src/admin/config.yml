@@ -1,11 +1,7 @@
 local_backend: true
 backend:
-  name: github
-  repo: LiOS-org/Tech-Informal
+  name: git-gateway
   branch: main
-  auth_type: oauth
-  base_url: dev-xzjhrc6va4yc6hys.us.auth0.com
-  auth_endpoint: /authorize
 media_folder: "public/assets/images"
 public_folder: "/assets/images"
 collections:
