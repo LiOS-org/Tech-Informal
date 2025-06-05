@@ -1,7 +1,6 @@
 local_backend: true
 backend:
-  name: github
-  repo: LiOS-org/Tech-Informal
+  name: git-gateway
   branch: main
 media_folder: "public/assets/images"
 public_folder: "/assets/images"

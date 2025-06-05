@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="/assets/css/techinformal.css">
 </head>
 <body>
+    <script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
      <header class="page-header">
   <div class="container">
     <div class="page-header__content">
@@ -34,56 +45,6 @@
 <div class="section container">
   <h1 class="section-title">Recent articles</h1>
   <ul role="list" class="articles__list flow">
-    
-            <li>
-        <article class="snippet">
-          <img src="/assets/blog/article-1.jpg" alt="My First Article" class="snippet__image">
-          <h3 class="snippet__title"><a href="/blog/2021-05-01-my-first-article/" >My First Article</a></h3>
-          <p class="snippet__meta">by <span>Kevin Powell</span> on <span>5/1/2021</span></p>
-          <p class="snippet__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis accusantium sit illo neque rem omnis quaerat, nam similique vitae delectus ad magni vel quo maxime, magnam placeat. Reprehenderit, distinctio aliquam?</p>
-          <a href="/blog/2021-05-01-my-first-article/" class="btn btn--primary">Continue Reading</a>
-        </article>
-      </li>
-    
-            <li>
-        <article class="snippet">
-          <img src="/assets/blog/article-2.jpg" alt="My Second Article" class="snippet__image">
-          <h3 class="snippet__title"><a href="/blog/2021-05-15-my-second-article/" >My Second Article</a></h3>
-          <p class="snippet__meta">by <span>Kevin Powell</span> on <span>5/15/2021</span></p>
-          <p class="snippet__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis accusantium sit illo neque rem omnis quaerat, nam similique vitae delectus ad magni vel quo maxime, magnam placeat. Reprehenderit, distinctio aliquam?</p>
-          <a href="/blog/2021-05-15-my-second-article/" class="btn btn--primary">Continue Reading</a>
-        </article>
-      </li>
-    
-            <li>
-        <article class="snippet">
-          <img src="/assets/blog/article-3.jpg" alt="My Third Article" class="snippet__image">
-          <h3 class="snippet__title"><a href="/blog/2021-05-28-my-third-article/" >My Third Article</a></h3>
-          <p class="snippet__meta">by <span>Kevin Powell</span> on <span>5/28/2021</span></p>
-          <p class="snippet__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis accusantium sit illo neque rem omnis quaerat, nam similique vitae delectus ad magni vel quo maxime, magnam placeat. Reprehenderit, distinctio aliquam?</p>
-          <a href="/blog/2021-05-28-my-third-article/" class="btn btn--primary">Continue Reading</a>
-        </article>
-      </li>
-    
-            <li>
-        <article class="snippet">
-          <img src="/assets/blog/article-4.jpg" alt="My Fourth Article" class="snippet__image">
-          <h3 class="snippet__title"><a href="/blog/2021-06-01-my-fourth-article/" >My Fourth Article</a></h3>
-          <p class="snippet__meta">by <span>Kevin Powell</span> on <span>6/1/2021</span></p>
-          <p class="snippet__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis accusantium sit illo neque rem omnis quaerat, nam similique vitae delectus ad magni vel quo maxime, magnam placeat. Reprehenderit, distinctio aliquam?</p>
-          <a href="/blog/2021-06-01-my-fourth-article/" class="btn btn--primary">Continue Reading</a>
-        </article>
-      </li>
-    
-            <li>
-        <article class="snippet">
-          <img src="/assets/blog/article-5.jpg" alt="My Fifth Article" class="snippet__image">
-          <h3 class="snippet__title"><a href="/blog/2021-06-15-my-fifth-article/" >My Fifth Article</a></h3>
-          <p class="snippet__meta">by <span>Kevin Powell</span> on <span>6/15/2021</span></p>
-          <p class="snippet__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis accusantium sit illo neque rem omnis quaerat, nam similique vitae delectus ad magni vel quo maxime, magnam placeat. Reprehenderit, distinctio aliquam?</p>
-          <a href="/blog/2021-06-15-my-fifth-article/" class="btn btn--primary">Continue Reading</a>
-        </article>
-      </li>
     
   </ul>
 </div>
