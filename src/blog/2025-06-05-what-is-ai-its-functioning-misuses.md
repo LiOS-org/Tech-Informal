@@ -4,7 +4,7 @@ description: AI is a program with capabilities such as language understanding,
   image recognition, and self improves itself. It lacks consciousness.
 author: MD Saifullah
 date: 2024-04-10T00:00:00.000Z
-featured_image: https://blogger.googleusercontent.com/img/a/AVvXsEgnuIJ6xMAHK-nqmzf_0sLKNY13MhBwOuuCi8hCIk5VLJZBeR4Z9zn_XF5GvKN0XoIqWNHruSVAaDaqYUA9NkAJ3oV1J1mz57ryWW3bfB-K5N_lyXAUlAPAfk1gEAOkDxfjw-InpOgwCnQUE0-QiikA5yT9Kt_AQsevi5tsxRYC9YR3rHbChqjLMXMC6Ymj=w676-h502-rw
+featured_image: /assets/images/image.webp
 imageAlt: A Semiconductor
 tags:
   - post
