@@ -1,0 +1,38 @@
+.header{
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1%;
+    background: var(--frosted_secondary);
+    color: var(--white);
+    border-radius: 5px;
+    font-size: 32px;
+    text-decoration: none;
+    justify-content: space-between;
+}
+.header a{
+    text-decoration: none;
+}
+.header a:visited{
+    color: inherit;
+}
+.header .name{
+    display: flex;
+    margin-left: 5px;
+}
+.header_embedded_navigation{
+    display: flex;
+}
+.header_embedded_navigation .buttons{
+    display: flex;
+    margin-left: 5px;
+    margin-right: 5px;
+    transition: all 0.3s;
+}
+.header_embedded_navigation .buttons:hover{
+    color: var(--primary);
+    transition: all 0.3s;
+}

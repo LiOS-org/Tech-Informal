@@ -1,0 +1,29 @@
+:root{
+    background: var(--black);
+    position: relative;
+
+}
+:root::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200vmax;
+  height: 200vmax;
+  background:
+    radial-gradient(circle at 30% 30%, #ff00cc66, transparent 60%),
+    radial-gradient(circle at 70% 60%, #00ccff66, transparent 60%),
+    radial-gradient(circle at 50% 80%, #ccff0066, transparent 60%);
+  filter: blur(120px);
+  animation: nebulaMove 40s linear infinite alternate;
+  z-index: -1;
+  pointer-events: none;
+}
+@keyframes nebulaMove {
+  0% {
+    transform: translate(-10%, -10%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-5%, -5%) rotate(360deg);
+  }
+}

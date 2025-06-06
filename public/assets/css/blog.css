@@ -1,0 +1,13 @@
+.main-article{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    border-radius: 5px;
+    background: var(--frosted_secondary);
+    color: var(--white);
+}
+.article-title{
+    margin-top: 10%;
+    color: var(--white);
+}

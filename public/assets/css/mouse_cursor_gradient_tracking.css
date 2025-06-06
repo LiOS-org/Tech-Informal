@@ -1,0 +1,19 @@
+.mouse_cursor_gradient_tracking {
+  position: relative;
+  overflow: hidden;
+}
+.mouse_cursor_gradient_tracking::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, pink, transparent);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+.mouse_cursor_gradient_tracking:hover::before {
+  --size: 200px;
+}
