@@ -274,7 +274,7 @@ section,
     margin-bottom: 3rem;
   }
 
-  .main-article__figure figcaption {
+  .main-article_figure figcaption {
     margin: 1rem 0;
     font-size: var(--fs-300);
     opacity: .9;

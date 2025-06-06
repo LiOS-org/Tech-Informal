@@ -7,11 +7,8 @@ layout: base.njk
       <h1 class="article-title">
         {{title}}
       </h1>
-      <figure class="main-article__figure">
+      <figure class="main-article_figure">
         <img src="{{featured_image}}" alt="{{ imageAlt}}">
-        <figcaption>
-        {{imageAlt}}
-        </figcaption>
       </figure>
     {{content | safe}}
   <script src="https://giscus.app/client.js"
