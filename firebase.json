@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "public",
+    "site": "tech-informal",
     "ignore": [
       "firebase.json",
       "**/.*",
