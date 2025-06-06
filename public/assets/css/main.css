@@ -27,3 +27,6 @@
     transform: translate(-5%, -5%) rotate(360deg);
   }
 }
+#featured-articles{
+background: none;
+}
