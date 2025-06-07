@@ -5,12 +5,11 @@
 .blog_snippet{
     display: flex;
     background: var(--frosted_secondary);
-    flex-direction: column-reverse;
+    flex-direction: column;
     border-radius: 5px;
     width:45%;
     min-width: 300px;
     min-height: 700px;
-    height: fit-content;
     margin: 15px;
     align-items: center;
 }
@@ -22,8 +21,6 @@
 .blog_snippet .snippet_image{
     display: flex;
     justify-content: center;
-    top: 0%;
-    position: fixed;
 }
 .blog_snippet .button{
     display: block;

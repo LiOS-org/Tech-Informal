@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "eleventy --serve",
-    "build": "eleventy && pagefind --site public",
+    "build": "eleventy && node scripts/generate-search-index.js",
     "deploy": "eleventy && firebase deploy"
   },
   "repository": {
