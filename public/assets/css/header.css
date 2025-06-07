@@ -1,39 +1,71 @@
-.header{
+.header_embedded_navigation{
     display: flex;
     position: sticky;
-    top: 0;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 1%;
+    top: 2%;
+    width: 97.5%;
+    margin-right: 2.5%;
     background: var(--frosted_secondary);
     color: var(--white);
-    border-radius: 5px;
-    font-size: 32px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     text-decoration: none;
     justify-content: space-between;
     z-index: 5;
 }
-.header a{
+.header_embedded_navigation a{
     text-decoration: none;
 }
-.header a:visited{
+.header_embedded_navigation a:visited{
     color: inherit;
-}
-.header .name{
-    display: flex;
-    margin-left: 5px;
-}
-.header_embedded_navigation{
-    display: flex;
 }
 .header_embedded_navigation .buttons{
     display: flex;
     margin-left: 5px;
     margin-right: 5px;
+    font-size: 32px;
     transition: all 0.3s;
+    align-items: center;
+}
+.header_embedded_navigation .buttons svg{
+    width: 32px;
+    height: 32px;
 }
 .header_embedded_navigation .buttons:hover{
     color: var(--primary);
     transition: all 0.3s;
+}
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* hidden by default */
+  width: 250px;
+  height: 100vh;
+  background: var(--frosted_secondary);
+  color: white;
+  padding: 2rem 1rem;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* Sidebar active state */
+.sidebar.active {
+  left: 0;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 999;
+}
+
+/* Overlay visible */
+.overlay.active {
+  display: block;
 }

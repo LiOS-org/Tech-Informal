@@ -21,15 +21,25 @@
     });
   }
 </script>
-    <div  class="header frosted_background frosted_texture">
-  <div class="name "><a href="/">Tech Informal</a></div>
-  <div class="header_embedded_navigation">
-      <div class="buttons"><a href="/">Home</a></div>
+    
+  <div class="header_embedded_navigation frosted_background frosted_texture">
+      <!-- Hamburger Icon -->
+      <a id="hamburger" aria-label="Open Menu" class="hamburger buttons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16" /><path d="M4 18h16" /><path d="M4 6h16" /></svg></a>
+      <div class="buttons "><a href="/">Tech Informal</a></div>
       <div class="buttons "><a href="/blog">Blog</a></div>
   </div>
-</div>
-  <div id="searchbox"></div>
-<div id="hits"></div>
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar frosted_background frosted_texture">
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+  </nav>
+</aside>
+<div id="overlay" class="overlay"></div>
     <main>
          
 <article class="main-article frosted_background frosted_texture">
@@ -63,5 +73,7 @@
 </article>
 
     </main>
+  <script type="module" src="/assets/firebase.js"></script>
+  <script src="/assets/js/hamburger_menu.js"></script>
 </body>
 </html>
