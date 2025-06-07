@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/techinformal.css">
     <script src="/assets/js/mouse_cursor_gradient_tracking.js"></script>
   </head>
@@ -25,6 +25,7 @@
     <main>
     {{ content | safe }}
     </main>
+    {% include "navigation.njk" %}
   <script type="module" src="/assets/firebase.js"></script>
   <script src="/assets/js/hamburger_menu.js"></script>
 </body>
