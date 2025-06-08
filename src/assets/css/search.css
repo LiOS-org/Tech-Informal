@@ -1,0 +1,69 @@
+/* Highly modified, any new update of pagefind may break it so update with caution */
+#search {
+    display: flex;
+    margin-top: 5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+#search input {
+    -webkit-backdrop-filter: blur(14px) brightness(75%);
+    backdrop-filter: blur(14px) brightness(75%);
+    mix-blend-mode: normal;
+    z-index: 1;
+    background: var(--frosted_secondary);
+    border: none;
+    color: var(--white);
+}
+#search input:focus{
+    border: none;
+    outline: none;
+}
+#search input::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: inherit;
+}
+#search button{
+    color: var(--white);
+    background: none;
+    z-index: 2;
+}
+#search .pagefind-ui__message.svelte-e9gkc3 {
+    color: var(--white);
+}
+#search .pagefind-ui__result{
+    -webkit-backdrop-filter: blur(14px) brightness(75%);
+    backdrop-filter: blur(14px) brightness(75%);
+    mix-blend-mode: normal;
+    z-index: 1;
+    background: var(--frosted_secondary);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+#search .pagefind-ui__result::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: inherit;
+}
+#search .pagefind-ui__result a{
+    color: var(--primary);
+}
