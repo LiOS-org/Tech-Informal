@@ -10,6 +10,8 @@ imageAlt: Interacting with UPI illustration
 tags:
   - post
   - payments&transactions
+type:
+  - blog
 ---
 UPI stands for Unified Payment Interface is a payment technology developed by National Corporation of India (NPCI) that was launched on April 11,2016. It enables users to link their bank account directly to a Virtual Payment Address (VPA) in this case it is UPI ID, and it generally looks like <Your email address/ Phone number>@<UPI service handle> and is used to transfer money between bank accounts seamlessly.
 It is completely a Real-Time system that means it facilitates inter-bank transfers almost instantly as compared to other payment methods that can take up to days for funds to transfer.
