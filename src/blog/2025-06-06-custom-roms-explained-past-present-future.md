@@ -11,6 +11,8 @@ tags:
   - featured
   - custom-roms
   - android
+type:
+  - blog
 ---
 What  are custom ROMs?</h1>
 
