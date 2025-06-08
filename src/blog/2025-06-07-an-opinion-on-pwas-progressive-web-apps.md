@@ -8,6 +8,8 @@ featured_image: /assets/images/oig5.jpg
 imageAlt: pwa illustration
 tags:
   - post
+type:
+  - blog
 ---
 While browsing web have you ever got a prompt saying install this site as an app following with some benefits? I got and, in this blog,
 I am going to discuss about that.
