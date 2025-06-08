@@ -1,9 +1,12 @@
 local_backend: true
+
 backend:
   name: git-gateway
   branch: main
+
 media_folder: "public/assets/images"
 public_folder: "/assets/images"
+
 collections:
   - name: "blog"
     label: "Blog"
@@ -19,3 +22,4 @@ collections:
       - { label: "Featured Image", name: "featured_image", widget: "image" }
       - { label: "Image caption", name: "imageAlt", widget: "string" }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
+      - { label: "Type", name: "type", widget: "string", default: ["blog"] }

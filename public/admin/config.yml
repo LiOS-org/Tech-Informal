@@ -1,9 +1,12 @@
 local_backend: true
+
 backend:
   name: git-gateway
   branch: main
+
 media_folder: "public/assets/images"
 public_folder: "/assets/images"
+
 collections:
   - name: "blog"
     label: "Blog"
@@ -19,19 +22,4 @@ collections:
       - { label: "Featured Image", name: "featured_image", widget: "image" }
       - { label: "Image caption", name: "imageAlt", widget: "string" }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
-      - { label: "Type", name: "type", widget: "list", default: ["blog"]}
-  - name: "article"
-    label: "Article"
-    folder: "src/article"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "string" }
-      - { label: "Author", name: "author", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Featured Image", name: "featured_image", widget: "image" }
-      - { label: "Image caption", name: "imageAlt", widget: "string" }
-      - { label: "Tags", name: "tags", widget: "list", default: ["article"] }
-      - { label: "Type", name: "type", widget: "list", default: ["article"]}
+      - { label: "Type", name: "type", widget: "list", default: ["blog"] }

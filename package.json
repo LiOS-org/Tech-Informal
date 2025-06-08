@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "eleventy --serve",
     "build": "eleventy && npx -y pagefind --site public/blog",
-    "deploy": "eleventy && firebase deploy"
+    "deploy": " npx -y pagefind --site public/blog && eleventy  && firebase deploy "
   },
   "repository": {
     "type": "git",
