@@ -59,3 +59,9 @@
     width: 100%;
     text-align: center;
 }
+.content_type{
+    color:var(--secondary)
+}
+.content_type .type{
+    color: var(--primary);
+}

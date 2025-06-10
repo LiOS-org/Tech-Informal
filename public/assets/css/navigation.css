@@ -1,0 +1,55 @@
+.navigation_container_bottom {
+  position: fixed;
+  display: flex;
+  width: fit-content;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-right: auto;
+  bottom: 5%;
+  background: var(--frosted_secondary);
+  transition: opacity 0.5s ease;
+  z-index: 10;
+  flex-direction: row;
+}
+.navigation_icon{
+  height: 50px;
+  width: 50px;
+  color: var(--white);
+}
+.navigation_buttons{
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border-radius: 5px;
+  min-width: 100px;
+  transition: all 0.5s;
+  text-align: center;
+  align-items: center;
+  z-index: 11;
+  flex-direction: column;
+}
+.navigation_buttons:visited{
+    color: var(--white);
+}
+.navigation_buttons svg{
+  display: flex;
+  height: 40px;
+}
+.navigation_buttons .navigation_icon_name{
+  display: flex;
+  font-size: 18px;
+}
+/* On hover effects */
+.navigation_buttons:hover{
+  background: var(--frosted_secondary);
+  color: var(--secondary);
+  transition: all 0.5s;
+}
+.navigation_buttons:hover  .navigation_icon{
+  color: var(--primary);
+  transition: all 0.5s;
+}
+.navigation_buttons:hover .navigation_icon_name{
+  color: var(--primary);
+  transition: all 0.5s;
+}
