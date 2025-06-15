@@ -9,5 +9,5 @@
     --frosted_white:var(--e1e2eb);
     --frosted_black:var(--000000);
     /* Gradoent Tracking */
-    --gradient_tracking:var(var(--frosted_secondary))
+    --mouse_cursor_gradient_tracking:var(var(--primary))
 }
