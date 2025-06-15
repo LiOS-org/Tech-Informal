@@ -1,0 +1,15 @@
+---
+title: "Article"
+layout: "base.njk"
+---
+
+<div data-pagefind-ignore class="section container">
+  <h1 class="section-title">Recent Articles</h1>
+  <div role="list" class="articles__list flow">
+    <div class="blog_snippet_container">
+      {% for article in collections.article %}
+        {% include "article-snippet.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

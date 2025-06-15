@@ -2,7 +2,7 @@ const { DateTime } = require("luxon");
 module.exports = function(eleventyConfig) {
 
     // Add a passthrough copy for the CSS file
-    eleventyConfig.addPassthroughCopy("./src/assests");
+    eleventyConfig.addPassthroughCopy("./src/assets");
     eleventyConfig.addPassthroughCopy("./src/assets/firebase.js");
     eleventyConfig.addPassthroughCopy("./src/assets/css");
     eleventyConfig.addPassthroughCopy("./src/assets/js");

@@ -1,24 +1,44 @@
-# JAMStack personal blog - starter files
+# Tech Informal – Blogs, Articles, and Newsletter
 
-These are the starting files used by [Kevin Powell](https://kevinpowell.co) to create a personal blog site for the [Codementor](https://www.codementor.io/) DevProjects Challenge, [Create a fast and secure blog using JAMStack](https://www.codementor.io/projects/web/create-a-fast-and-secure-blog-using-jamstack-c93coupnxb). You are free to use them however you want to get started with the challenge, if you'd like to start working on creating the site without worrying about the content itself.
+This repository hosts the source code, comment discussions (as GitHub Discussions), and backend services for **Tech Informal** by **LiOS-org**.
 
-The provided files are finished pages using regular HTML and CSS. The HTML files can be broken down into peices, and used to build out the different templates and partial files using a templating language of your choice.
+---
 
-The styling of the pages is already complete. That said, the `design-files` folder contains both a Figma file, and .jpg of a design if you want to try to build it from scratch. You do not need to use this design at all either, it depends on how you wish to approach the challenge.
+## 🛠️ Contributions
 
-The `src` folder contains files so that you can get your project up and running without worrying about content for posts/articles. That folder contains:
+**Yes, contributions are allowed** — with the following conditions:
 
-- HTML files to use as a base for the different page layouts. These can be turned into the templates that will be used.
-- CSS file for styling the pages
-- 5 blog articles in the `blog` folder
-- images and a logo in the `assets` folder
+### ✅ Allowed in Pull Requests:
+- Editing of HTML, CSS, and JavaScript files.
+- Addition of assets (e.g. images or videos), **but not deletion** without explicit permission (to prevent breaking changes).
 
-The articles are written in Markdown, and include Front Matter. Depending on the Static Site Generator you use, it is possible that you will have to modify these a little if you wish to use them. 
+### ❌ Not Allowed in Pull Requests:
+The following folders are **off-limits** and **must not be modified**. Any PR touching these will be **rejected immediately**:
+- `src/blog`
+- `src/article`
+- `public/blog`
+- `public/article`
 
-## DevProjects Challenge
+### ✍️ Adding New Content:
+- All new content (articles, blogs, etc.) must be added via the **Content Manager**.
+- Access to the Content Manager is **invite-only**.
+- If you'd like access, please open an issue in the repository.
 
-As mentioned, these files are here to help get started with a DevProjects challenge. Please visit the [challenge page](#) to learn more about the challenge.
+---
 
-## Tutorial
+## 📜 Licensing & Redistribution
 
-You can [watch this video](https://youtu.be/4wD00RT6d-g) to see how Kevin uses Eleventy, Netlify, and Netlify CMS to create a full-featured blog site built entirely with static files.
+This project is licensed under the **GPL-3.0 License**.  
+You can read the full license [here](https://github.com/LiOS-org/Tech-Informal/blob/main/LICENSE).
+
+### Key Licensing Terms:
+- **All contributions** (code, content, assets) are under GPL-3.
+- Forks that **host and serve** content (Articles, Blogs, or Newsletters) from this repo **must include a clear hyperlink** back to the original:
+  - [tech-informal.web.app](https://tech-informal.web.app)
+
+---
+
+## 📛 Branding Assets License Notice
+
+The files in `src/assets/images` and `public/assets/images` folders (including `favicon.svg` or any favicon file format in the repository) are **not** covered by the GPL-3 license.  
+They remain the property of **LiOS-org** and **may not be reused or redistributed without explicit permission**.

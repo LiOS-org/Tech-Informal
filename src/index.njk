@@ -1,14 +1,17 @@
 ---
-title: Tech Informal
+title: Tech Informal - Articles, Blogs, and Newsletter
 description: Tech Informal is your go-to place for simplified explanations of tech, AI, software, and gadgets. Learn, explore, and stay updated.
 layout: 'base.njk'
 ---
 <section data-pagefind-ignore id="featured-articles" class="featured-articles">
   <div class="container flow">
-    <h2 class="section-title text-center ">Featured Blogs</h2>
+    <h2 class="section-title text-center ">Featured Contents</h2>
     <div  class="blog_snippet_container">
       {% for post in collections.featured %}
-        {% include "article-snippet.njk" %}
+        {% include "blog-snippet.njk" %}
+      {% endfor %}
+      {% for article in collections.featured %}
+
       {% endfor %}
     </div>
   </div>
