@@ -1,36 +1,78 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://tech-informal.web.app/</loc>
-  </url>
-  <url>
-    <loc>https://tech-informal.web.app/about/</loc>
-  </url>
-  <url>
-    <loc>https://tech-informal.web.app/blog/</loc>
-  </url>
-  <url>
-    <loc>https://tech-informal.web.app/contact/</loc>
-  </url>
-  <url>
-    <loc>https://tech-informal.web.app/blog/2025-06-05-what-is-ai-its-functioning-misuses/</loc>
-  </url>
-  <url>
-    <loc>https://tech-informal.web.app/blog/2025-06-06-custom-roms-explained-past-present-future/</loc>
-  </url>
-  <url>
-    <loc>https://tech-informal.web.app/blog/2025-06-06-concept-of-generative-ai-in-creative-field/</loc>
+    <loc>https://tech-informal.web.app/all-articles/</loc>
+    <lastmod>2025-06-05T11:23:19.331Z</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tech-informal.web.app/article/</loc>
+    <lastmod>2025-06-15T15:41:47.765Z</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tech-informal.web.app/search/</loc>
+    <loc>https://tech-informal.web.app/blog/2025-06-05-what-is-ai-its-functioning-misuses/</loc>
+    <lastmod>2025-06-15T15:41:47.767Z</lastmod>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://tech-informal.web.app/assets/images/image.webp</image:loc>
+      <image:title>A Semiconductor</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://tech-informal.web.app/blog/2025-06-07-an-opinion-on-pwas-progressive-web-apps/</loc>
+    <loc>https://tech-informal.web.app/blog/2025-06-06-concept-of-generative-ai-in-creative-field/</loc>
+    <lastmod>2025-06-15T15:41:47.767Z</lastmod>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://tech-informal.web.app/assets/images/ai-in-creative-field.jpg</image:loc>
+      <image:title>An illustration of AI</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://tech-informal.web.app/blog/2025-06-06-custom-roms-explained-past-present-future/</loc>
+    <lastmod>2025-06-15T15:41:47.767Z</lastmod>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://tech-informal.web.app/assets/images/oig2.jpg</image:loc>
+      <image:title>Multiple Android Bots</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://tech-informal.web.app/blog/2025-06-06-upi-a-revolution-that-made-payment-easier/</loc>
+    <lastmod>2025-06-15T15:41:47.768Z</lastmod>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://tech-informal.web.app/assets/images/oig4.jpg</image:loc>
+      <image:title>Interacting with UPI illustration</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://tech-informal.web.app/blog/2025-06-07-an-opinion-on-pwas-progressive-web-apps/</loc>
+    <lastmod>2025-06-15T15:41:47.768Z</lastmod>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://tech-informal.web.app/assets/images/oig5.jpg</image:loc>
+      <image:title>pwa illustration</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://tech-informal.web.app/blog/</loc>
+    <lastmod>2025-06-15T15:41:47.765Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tech-informal.web.app/index.html/</loc>
+    <lastmod>2025-06-15T15:41:47.765Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tech-informal.web.app/individual-article/</loc>
+    <lastmod>2025-06-06T15:38:24.095Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tech-informal.web.app/search/</loc>
+    <lastmod>2025-06-15T15:41:47.766Z</lastmod>
+    <priority>0.8</priority>
   </url>
 </urlset>
