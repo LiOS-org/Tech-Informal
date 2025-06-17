@@ -8,7 +8,6 @@ node_modules
 # macOS related files
 .DS_Store
 src/admin/config.yml
-public/robots.txt
 public/BingSiteAuth.xml
 public/google85bf64fc444d13bb.html
 src/assets/firebase.js
