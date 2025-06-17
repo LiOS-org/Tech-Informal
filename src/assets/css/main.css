@@ -30,3 +30,16 @@
 #featured-articles{
 background: none;
 }
+/* For SEO */
+.for_seo{
+    border-radius: 100vw;
+    background: var(--frosted_white);
+    text-align: center;
+    color: var(--white);
+    display: block;
+}
+.for_seo p{
+    max-width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}

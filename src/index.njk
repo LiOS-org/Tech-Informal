@@ -4,7 +4,19 @@ description: Tech Informal is your go-to place for simplified explanations of te
 layout: 'base.njk'
 ---
 <section data-pagefind-ignore id="featured-articles" class="featured-articles">
-  <div class="container flow">
+<!-- For SEO -->
+<div class="for_seo frosted_background frosted_texture">
+  <h1>Tech Informal</h1>
+  <p>
+    Tech Informal is your go-to source for clear and engaging content on technology, AI, software, and gadgets. 
+    Whether you're a beginner or tech-savvy, we simplify complex topics so anyone can learn, explore, and stay updated.
+  </p>
+  <p>
+    Our platform features <strong>blogs, articles, and newsletters</strong> that break down the latest in tech and AI — 
+    all written to be accessible, informative, and fun to read.
+  </p>
+</div>
+  <div class="container flow" style="margin-top: 15px;">
     <h2 class="section-title text-center ">Featured Contents</h2>
     <div  class="blog_snippet_container">
       {% for post in collections.featured %}

@@ -9,7 +9,7 @@
     border-radius: 5px;
     width:45%;
     min-width: 300px;
-    min-height: 700px;
+    max-height: fit-content;
     margin: 15px;
     align-items: center;
 }
