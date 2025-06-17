@@ -33,7 +33,7 @@ background: none;
 /* For SEO */
 .for_seo{
     border-radius: 100vw;
-    background: var(--frosted_white);
+    background: var(--frosted_secondary);
     text-align: center;
     color: var(--white);
     display: block;
