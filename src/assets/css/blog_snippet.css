@@ -12,6 +12,12 @@
     max-height: fit-content;
     margin: 15px;
     align-items: center;
+    transition: all 0.3s linear;
+}
+.blog_snippet:hover{
+    background: var(--frosted_white);
+    transition: all 0.3s linear;
+    scale: 1.02;
 }
 .blog_snippet .snippet__content{
     display: flex;
