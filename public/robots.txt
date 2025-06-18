@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
+
 Sitemap: https://tech-informal.web.app/sitemap.xml
