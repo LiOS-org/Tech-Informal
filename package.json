@@ -8,7 +8,7 @@
     "start": "eleventy --serve",
     "sitemap": "node sitemap.js ",
     "pagefind": "npx -y pagefind --site public &&  npx -y pagefind --site public/article",
-    "build": "npm run sitemap && npm run pagefind && eleventy",
+    "build": "eleventy && npm run sitemap && npm run pagefind",
     "deploy": "npm run build && firebase deploy"
   },
   "repository": {

@@ -19,16 +19,30 @@ function getPriority(url) {
 
 function isAllowedForImageSitemap(urlPath) {
   return (
-    urlPath.startsWith('/blog/') && urlPath !== '/blog/' ||
+    (urlPath.startsWith('/blog/') && urlPath !== '/blog/') ||
     urlPath.startsWith('/article/')
   );
 }
 
 function imageExists(imgPath) {
   try {
-    const localPath = path.join(publicDir, imgPath.replace(baseUrl, ''));
+    // Skip external images
+    if (!imgPath.startsWith(baseUrl)) {
+      return false;
+    }
+    
+    const parsed = new URL(imgPath);
+    let filePath = parsed.pathname;
+    
+    // Remove leading slash for consistent paths
+    if (filePath.startsWith('/')) {
+      filePath = filePath.substring(1);
+    }
+    
+    const localPath = path.join(publicDir, decodeURIComponent(filePath));
     return fs.existsSync(localPath);
   } catch (err) {
+    console.error(`Error checking image: ${imgPath}`, err);
     return false;
   }
 }
@@ -41,56 +55,79 @@ function extractFirstImage(fullHtmlPath) {
     const src = img.attr('src');
     if (!src) return null;
 
-    const absUrl = src.startsWith('http') ? src : baseUrl + src;
-    const exists = imageExists(absUrl);
-    if (!exists) return null;
+    // Handle relative/absolute paths
+    let absUrl;
+    if (src.startsWith('http')) {
+      absUrl = src;
+    } else if (src.startsWith('/')) {
+      absUrl = baseUrl + src;
+    } else {
+      absUrl = baseUrl + '/' + src;
+    }
+
+    if (!imageExists(absUrl)) return null;
 
     return {
       url: absUrl,
       title: img.attr('alt') || undefined,
       caption: img.attr('title') || undefined,
     };
-  } catch {
+  } catch (err) {
+    console.error(`Error extracting image from ${fullHtmlPath}:`, err);
     return null;
   }
 }
 
-function getAllHtmlPaths(dirPath, basePath = '') {
+function getAllHtmlPaths(dirPath) {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
   let urls = [];
 
   for (let entry of entries) {
     const fullPath = path.join(dirPath, entry.name);
-    const relPath = path.join(basePath, entry.name);
 
     if (entry.isDirectory()) {
-      urls = urls.concat(getAllHtmlPaths(fullPath, relPath));
+      urls = urls.concat(getAllHtmlPaths(fullPath));
     } else if (entry.isFile() && entry.name === 'index.html') {
-      const urlPath = relPath.replace(/\/index\.html$/, '');
-      const segments = urlPath.split(path.sep).filter(Boolean);
-      if (!EXCLUDE.includes(segments[0])) {
-        const url = '/' + segments.join('/') + '/';
-        const lastmod = fs.statSync(fullPath).mtime.toISOString();
-        const priority = getPriority(url);
-
-        let img = null;
-        if (isAllowedForImageSitemap(url)) {
-          img = extractFirstImage(fullPath);
-        }
-
-        urls.push({
-          url,
-          lastmod,
-          priority,
-          ...(img && {
-            img: {
-              url: img.url,
-              caption: img.caption,
-              title: img.title,
-            }
-          })
-        });
+      // Get relative path from public directory
+      const relativePath = path.relative(publicDir, dirPath);
+      
+      // Handle root directory case
+      let url;
+      if (relativePath === '.' || relativePath === '') {
+        url = '/';
+      } else {
+        // Normalize Windows paths
+        const normalizedPath = relativePath.replace(/\\/g, '/');
+        url = `/${normalizedPath}/`;
       }
+      
+      // Skip excluded sections
+      const segments = url.split('/').filter(Boolean);
+      if (segments.length > 0 && EXCLUDE.includes(segments[0])) {
+        console.log(`⏭ Excluding: ${url}`);
+        continue;
+      }
+
+      const lastmod = fs.statSync(fullPath).mtime.toISOString();
+      const priority = getPriority(url);
+
+      let img = null;
+      if (isAllowedForImageSitemap(url)) {
+        img = extractFirstImage(fullPath);
+      }
+
+      urls.push({
+        url,
+        lastmod,
+        priority,
+        ...(img && {
+          img: {
+            url: img.url,
+            caption: img.caption,
+            title: img.title,
+          }
+        })
+      });
     }
   }
 
@@ -99,25 +136,49 @@ function getAllHtmlPaths(dirPath, basePath = '') {
 
 (async () => {
   const pages = getAllHtmlPaths(publicDir);
-  const stream = new SitemapStream({ hostname: baseUrl });
-
-  for (const page of pages) {
-    const { img, ...urlEntry } = page;
-    if (img) {
-      stream.write({
-        ...urlEntry,
-        img: [img],
-      });
-    } else {
-      stream.write(urlEntry);
+  
+  // Log all URLs for debugging
+  console.log('Generated URLs:');
+  pages.forEach(page => console.log(`- ${page.url}`));
+  
+  const stream = new SitemapStream({ 
+    hostname: baseUrl,
+    xmlns: {
+      image: true,
+      news: false,
+      xhtml: false,
+      video: false
     }
-  }
+  });
 
+  // Write pages to sitemap
+  for (const page of pages) {
+    const entry = {
+      url: page.url,
+      lastmod: page.lastmod,
+      priority: page.priority
+    };
+    
+    if (page.img) {
+      entry.img = [{
+        url: page.img.url,
+        caption: page.img.caption,
+        title: page.img.title
+      }];
+    }
+    
+    stream.write(entry);
+  }
   stream.end();
 
   const rawXml = await streamToPromise(stream).then(data => data.toString());
   const prettyXml = prettifyXml(rawXml, { indent: 2 });
 
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), prettyXml);
-  console.log(`✅ Sitemap generated with ${pages.length} entries (with conditional image tags)`);
+  console.log(`✅ Sitemap generated with ${pages.length} valid entries`);
+  console.log(`🔥 Fixes applied:
+  - Fixed URL normalization error
+  - Improved root path handling
+  - Added debug logging
+  - Enhanced URL validation`);
 })();

@@ -2,7 +2,7 @@
     display: flex;
     position: sticky;
     top: 2%;
-    width: 97.5%;
+    width: 95%;
     margin-right: 2.5%;
     background: var(--frosted_secondary);
     color: var(--white);
@@ -11,6 +11,14 @@
     text-decoration: none;
     justify-content: space-between;
     z-index: 5;
+    transition: all 0.3s linear;
+}
+.header_title{
+  margin-left: 2.5%;
+}
+.header_embedded_navigation:hover{
+  width: 97.5%;
+  transition: all 0.3s linear;
 }
 .header_embedded_navigation a{
     text-decoration: none;
