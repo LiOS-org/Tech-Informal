@@ -3,6 +3,10 @@
     position: relative;
 
 }
+a:link{
+  text-decoration: none;
+  color: var(--white);
+}
 :root::after {
   content: "";
   position: fixed;

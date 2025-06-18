@@ -6,7 +6,7 @@ backend:
 
 media_folder: "public/assets/images"
 public_folder: "/assets/images"
-site_url: "https://Tech-Informal.web.app/{{title}}"
+site_url: "https://Tech-Informal.web.app"
 display_url: "https://Tech-Informal.web.app"
 logo_url: "https://tech-informal.web.app/assets/images/favicon.png"
 show_preview_links: true
@@ -18,6 +18,7 @@ collections:
     folder: "src/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "blog/{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "string" }
@@ -34,6 +35,7 @@ collections:
     folder: "src/article"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "article/{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "string" }
