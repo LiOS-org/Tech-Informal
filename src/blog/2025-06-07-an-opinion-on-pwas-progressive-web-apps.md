@@ -5,6 +5,7 @@ description: PWA stands for progressive web app, which is used to deliver a
 author: MD Saifullah
 date: 2024-04-17T00:00:00.000Z
 featured_image: /assets/images/oig5.jpg
+showcase_image: /assets/images/oig5.jpg
 imageAlt: pwa illustration
 tags:
   - post
