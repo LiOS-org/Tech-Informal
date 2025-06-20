@@ -6,6 +6,7 @@ description: UPI stands for Unified Payment Interface is a payment technology
 author: MD Saifullah
 date: 2024-04-30T00:00:00.000Z
 featured_image: /assets/images/oig4.jpg
+showcase_image: /assets/images/oig4.jpg
 imageAlt: Interacting with UPI illustration
 tags:
   - post
