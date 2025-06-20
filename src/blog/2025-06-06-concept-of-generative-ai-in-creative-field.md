@@ -6,6 +6,7 @@ description: It’s a subset of AI that creates new content using techniques lik
 author: MD Saifullah
 date: 2024-10-04T00:00:00.000Z
 featured_image: /assets/images/ai-in-creative-field.jpg
+showcase_image: /assets/images/ai-in-creative-field.jpg
 imageAlt: An illustration of AI
 tags:
   - post
