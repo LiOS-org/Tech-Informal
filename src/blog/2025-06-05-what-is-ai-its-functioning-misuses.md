@@ -5,6 +5,7 @@ description: AI is a program with capabilities such as language understanding,
 author: MD Saifullah
 date: 2024-04-10T00:00:00.000Z
 featured_image: /assets/images/image.webp
+showcase_image: /assets/images/image.webp
 imageAlt: A Semiconductor
 tags:
   - post
