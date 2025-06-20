@@ -5,6 +5,7 @@ description: Custom ROMs has been a great part of the Android Community. In this
 author: MD Saifullah
 date: 2024-05-24T00:00:00.000Z
 featured_image: /assets/images/oig2.jpg
+showcase_image: /assets/images/oig2.jpg
 imageAlt: Multiple Android Bots
 tags:
   - post
