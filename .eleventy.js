@@ -9,6 +9,8 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("./src/assets/blog");
     eleventyConfig.addPassthroughCopy("./src/assets/images");
     eleventyConfig.addPassthroughCopy("./src/admin");
+    eleventyConfig.addPassthroughCopy("./src/404.html");
+    eleventyConfig.addPassthroughCopy("./src/onesignal.js");
     eleventyConfig.addFilter("postDate", (dateObj) => {
         return DateTime.fromJSDate(dateObj).toLocaleString("DateTime.DATE_MED");
     }

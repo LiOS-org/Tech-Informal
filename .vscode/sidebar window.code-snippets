@@ -1,0 +1,12 @@
+{"windows": {
+  "prefix": "window",
+  "body": [
+    "<div id=\"$1\" class=\"frosted_background frosted_texture window\">",
+    "  <div class=\"title_bar frosted_texture\">",
+    "    <div class=\"close_button\"><a href=\"#\">X</a></div>",
+    "  </div>",
+    "  $2",
+    "</div>"
+  ],
+  "description": "Add windows"
+}}

@@ -1,0 +1,110 @@
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* hidden by default */
+  width: 250px;
+  height: 100vh;
+  background: var(--frosted_secondary);
+  color: var(--white);
+  padding: 2rem 1rem;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar a:visited{
+  color: var(--white);
+}
+.sidebar a:visited:hover{
+  color: var(--primary);
+}
+/* Sidebar active state */
+.sidebar.active {
+  left: 0;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: none;
+  z-index: 501;
+}
+
+/* Overlay visible */
+.overlay.active {
+  display: block;
+}
+/* Buttons */
+.sidebar_button{
+    background: none;
+    border-radius: 5px;
+    height: fit-content;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    transition: all 0.3s ease-in-out;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.sidebar_button svg{
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+    margin-left: 5px;
+    transition: all 0.3s ease-in-out;
+}
+.sidebar_button:hover{
+    background: var(--frosted_secondary);
+    color: var(--primary);
+    transition: all 0.3s ease-in-out;
+}
+/* Settings Specific */
+.settings_sidebar{
+  width: 15%;
+  background: var(--frosted_white);
+  border-radius: 5px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  height: 100%;
+  margin-left: 2.5%;
+}
+.settings_content{
+  width: 75%;
+  background: var(--frosted_white);
+  border-radius: 5px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  height: 100%;
+  margin-right: 2.5%;
+}
+#Settings .main_content{
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  color: var(--white);
+}
+#Settings label{
+  text-align: center;
+  cursor: pointer;
+  align-items: center;
+}
+.settings_page{
+  display:none
+}
+.settings_page:target{
+  display: flex;
+}
+#tab-notifications:checked ~ #page-notifications{
+  display: flex;
+}

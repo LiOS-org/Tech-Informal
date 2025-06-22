@@ -42,15 +42,52 @@
   </div>
 <!-- Sidebar -->
 <aside id="sidebar" class="sidebar frosted_background frosted_texture">
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about/">About</a></li>
-      <li><a href="/blog/">Blog</a></li>
-      <li><a href="/contact/">Contact</a></li>
-    </ul>
-  </nav>
+  <a href="#About" class="frosted_background frosted_texture sidebar_button">
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" />  <path d="M12 16v-4" />  <path d="M12 8h.01" /></svg> About
+  </a>
+  <a href="#Settings" class="frosted_background frosted_texture sidebar_button">
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />  <circle cx="12" cy="12" r="3" /></svg> Settings
+  </a>
 </aside>
+<!-- Windows -->
+<div id="About" class="frosted_background frosted_texture window">
+  <div class="title_bar frosted_texture">
+    <div class="close_button"><a  href="#">X</a></div>
+  </div>
+    <div class="main_content">
+      <video  autoplay loop playsinline>
+        <source src="/assets/images/favicon.mp4" type="video/mp4">
+      </video>
+      <h1>Tech Informal</h1><br>
+      <p>Tech Informal is your go-to place for simplified explanations of tech, AI, software, and gadgets. Learn, explore, and stay updated. <br>
+        Tech Informal uses <a href="https://github.com">Github</a> to host source code and also uses it as a backend for <b>CMS</b> and Comments via <b>Giscus.</b>
+      </p>
+      <br>
+      <h3>Licensing Information</h3><br>
+      <div class="window_box_container frosted_background frosted_texture">
+        <a class="window_box" href="https://github.com/LiOS-org/Tech-Informal?tab=GPL-3.0-1-ov-file"><div class="left"><b>Source Code</b></div><div class="right">GPL-3.0</div></a>
+        <a href="https://github.com/lucide-icons/lucide?tab=ISC-1-ov-file" class="window_box"><div class="left"><b>Lucid Icons</b></div><div class="right">ISC License</div></a>
+        <a href="https://github.com/LiOS-org/Tech-Informal?tab=readme-ov-file#-branding-assets-license-notice" class="window_box"><div class="left"><b>Images & Videos</b></div><div class="right">Unlicensed or Licensed Separately</div></a>
+      </div>
+    </div>
+</div>
+<div id="Settings" class="frosted_background frosted_texture window">
+  <div class="title_bar frosted_texture">
+    <div class="close_button"><a href="#">X</a></div>
+  </div>
+  <div class="main_content">
+    <div class="settings_sidebar">
+      <label for="tab-notifications" class="window_box">Notifications</label>
+    </div>
+    <div class="settings_content">
+      <input type="radio" name="settings_tab" id="tab-notifications" hidden checked>
+      <div class="settings_page" id="page-notifications">
+        We use Push Notifications to inform our users about every update you can turn On and Off Notifications any time.
+        <div class='onesignal-customlink-container'></div>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="overlay" class="overlay"></div>
     <main>
     
