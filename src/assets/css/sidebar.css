@@ -64,13 +64,13 @@
     transition: all 0.3s ease-in-out;
 }
 .sidebar_button:hover{
-    background: var(--frosted_secondary);
+    background: var(--frosted_primary);
     color: var(--primary);
     transition: all 0.3s ease-in-out;
 }
 /* Settings Specific */
 .settings_sidebar{
-  width: 15%;
+  width: 40%;
   background: var(--frosted_white);
   border-radius: 5px;
   margin-top: 15px;
@@ -79,7 +79,7 @@
   margin-left: 2.5%;
 }
 .settings_content{
-  width: 75%;
+  width: 50%;
   background: var(--frosted_white);
   border-radius: 5px;
   margin-top: 15px;
@@ -103,8 +103,5 @@
   display:none
 }
 .settings_page:target{
-  display: flex;
-}
-#tab-notifications:checked ~ #page-notifications{
   display: flex;
 }

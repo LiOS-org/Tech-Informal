@@ -72,6 +72,7 @@
 .window_box:hover{
     background: var(--frosted_primary);
     transition: all 0.3s ease-in-out;
+    color: var(--primary);
 }
 .window_box .left{
     margin-left: 0%;
@@ -108,4 +109,9 @@
 }
 #Settings:target{
     display: flex;
+}
+/* Notifications */
+#tab-notifications:checked ~ #page-notifications{
+  display: flex;
+  flex-direction: column;
 }
