@@ -42,3 +42,5 @@ You can read the full license [here](https://github.com/LiOS-org/Tech-Informal/b
 
 The files in `src/assets/images` and `public/assets/images` folders (including `favicon.svg` or any favicon file format in the repository) are **not** covered by the GPL-3 license.  
 They remain the property of **LiOS-org** and **may not be reused or redistributed without explicit permission**.
+
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/LiOS-org/Tech-Informal?utm_source=oss&utm_medium=github&utm_campaign=LiOS-org%2FTech-Informal&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
