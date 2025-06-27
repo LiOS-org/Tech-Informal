@@ -2,8 +2,9 @@ import { db } from '../firebase.js';
 import {
   collection, addDoc, query, where, getDocs,
   orderBy, serverTimestamp, updateDoc, doc,
-  arrayUnion, arrayRemove
+  arrayUnion, arrayRemove, deleteDoc
 } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+
 
 // Post a comment or reply
 export async function postComment(postId, content, user, parentId = null) {
@@ -38,6 +39,9 @@ export async function fetchComments(postId) {
   const replies = comments.filter(c => c.parentId);
 
   return { topLevel, replies };
+}
+export async function deleteComment(commentId) {
+  await deleteDoc(doc(db, "comments", commentId));
 }
 
 // Toggle like/dislike

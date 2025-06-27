@@ -1,166 +1,178 @@
-
-import { login, logout, watchUser } from './auth.js';
-import { postComment, fetchComments } from './comments.js';
-
-const loginBtn = document.querySelector("#loginBtn");
-const logoutBtn = document.querySelector("#logoutBtn");
-const commentInput = document.querySelector("#commentInput");
-const submitComment = document.querySelector("#submitComment");
-const commentForm = document.querySelector("#comment-form");
-const userInfo = document.querySelector("#user-info");
-const userName = document.querySelector("#user-name");
-const userPhoto = document.querySelector("#user-photo");
-const commentsContainer = document.querySelector("#comments-container");
+import { login, logout, watchUser, loginWith, loginWithEmail, registerWithEmail, getUserRole } from './auth.js';
+import { postComment, fetchComments, deleteComment } from './comments.js';
 
 let currentUser = null;
-const postId = window.location.pathname; // use URL as post ID
+let currentUserRole = "user";
+const postId = window.location.pathname;
 
-// Auth status
-watchUser(user => {
-  currentUser = user;
-  if (user) {
-    loginBtn.style.display = "none";
-    commentForm.style.display = "block";
-    userInfo.style.display = "flex";
-    userName.textContent = user.displayName;
-    userPhoto.src = user.photoURL;
-  } else {
-    loginBtn.style.display = "inline-block";
-    commentForm.style.display = "none";
-    userInfo.style.display = "none";
-  }
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.querySelector("#loginBtn");
+  const logoutBtn = document.querySelector("#logoutBtn");
+  const commentInput = document.querySelector("#commentInput");
+  const submitComment = document.querySelector("#submitComment");
+  const commentForm = document.querySelector("#comment-form");
+  const userInfo = document.querySelector("#user-info");
+  const userName = document.querySelector("#user-name");
+  const userPhoto = document.querySelector("#user-photo");
+  const commentsContainer = document.querySelector("#comments-container");
+  const sidebarLogin = document.getElementById("sidebar-login");
+  const sidebarLogout = document.getElementById("sidebar-logout");
 
-// Login in sidebar
-const sidebarLogin = document.getElementById("sidebar-login");
-const sidebarLogout = document.getElementById("sidebar-logout");
+  // Watch auth state
+  watchUser(async (user) => {
+    currentUser = user;
 
-watchUser(user => {
-  currentUser = user;
-  const isLoggedIn = !!user;
+    if (user) {
+      currentUserRole = await getUserRole(user.uid);
 
-  // Comment visibility
-  loginBtn.style.display = isLoggedIn ? "none" : "inline-block";
-  commentForm.style.display = isLoggedIn ? "block" : "none";
-  userInfo.style.display = isLoggedIn ? "flex" : "none";
+      loginBtn.style.display = "none";
+      commentForm.style.display = "block";
+      userInfo.style.display = "flex";
+      userName.textContent = user.displayName;
+      userPhoto.src = user.photoURL;
 
-  // Sidebar button toggle
-  sidebarLogin.style.display = isLoggedIn ? "none" : "block";
-  sidebarLogout.style.display = isLoggedIn ? "block" : "none";
+      sidebarLogin.style.display = "none";
+      sidebarLogout.style.display = "block";
+    } else {
+      currentUserRole = "user";
 
-  // Show user name and photo
-  if (isLoggedIn) {
-    userName.textContent = user.displayName;
-    userPhoto.src = user.photoURL;
-  }
-});
+      loginBtn.style.display = "inline-block";
+      commentForm.style.display = "none";
+      userInfo.style.display = "none";
 
-sidebarLogout.addEventListener("click", (e) => {
-  e.preventDefault();
-  logout();
-});
+      sidebarLogin.style.display = "block";
+      sidebarLogout.style.display = "none";
+    }
 
-// Events
-// loginBtn.addEventListener("click", login);, commented out because not uusing it but works
-logoutBtn.addEventListener("click", logout);
-submitComment.addEventListener("click", async () => {
-  const content = commentInput.value.trim();
-  if (!content) return;
-  await postComment(postId, content, currentUser);
-  commentInput.value = "";
-  renderComments();
-});
-
-// Render Comments
-async function renderComments() {
-  const { topLevel, replies } = await fetchComments(postId);
-
-  commentsContainer.innerHTML = "";
-
-  topLevel.forEach(comment => {
-    const el = document.createElement("div");
-    el.className = "comment frosted_background";
-    el.innerHTML = `
-      <div style="display:flex; gap: 8px; align-items:center;">
-        <img src="${comment.author.photo}" width="28" style="border-radius: 100vh;">
-        <strong>${comment.author.name}</strong>
-      </div>
-      <p>${comment.content}</p>
-    `;
-    commentsContainer.appendChild(el);
+    renderComments();
   });
-}
 
-renderComments();
-import { loginWith } from './auth.js';
-// Google
-const loginGoogleBtn = document.getElementById("login-google");
-if (loginGoogleBtn) {
-  loginGoogleBtn.addEventListener("click", async () => {
+  // Handle comment submission
+  submitComment.addEventListener("click", async () => {
+    const content = commentInput.value.trim();
+    if (!content) return;
+    await postComment(postId, content, currentUser);
+    commentInput.value = "";
+    renderComments();
+  });
+
+  // Logout buttons
+  logoutBtn.addEventListener("click", logout);
+  sidebarLogout.addEventListener("click", (e) => {
+    e.preventDefault();
+    logout();
+  });
+
+  // Render comments with delete access check
+  async function renderComments() {
+    const { topLevel } = await fetchComments(postId);
+    commentsContainer.innerHTML = "";
+
+    topLevel.forEach(comment => {
+      const canDelete = currentUser &&
+        (
+          currentUser.uid === comment.author.uid ||
+          currentUserRole === "mod" ||
+          currentUserRole === "owner"
+        );
+
+      const el = document.createElement("div");
+      el.className = "comment frosted_background";
+      el.innerHTML = `
+        <div style="display:flex; gap: 8px; align-items:center;">
+          <img src="${comment.author.photo}" width="28" style="border-radius: 100vh;">
+          <strong>${comment.author.name}</strong>
+          ${canDelete
+            ? `<button class="delete-comment-btn button frosted_background" data-id="${comment.id}" style="margin-left:auto;">Delete</button>`
+            : ""
+          }
+        </div>
+        <p>${comment.content}</p>
+      `;
+      commentsContainer.appendChild(el);
+    });
+
+    document.querySelectorAll(".delete-comment-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const commentId = btn.getAttribute("data-id");
+        if (confirm("Delete this comment?")) {
+          await deleteComment(commentId);
+          renderComments();
+        }
+      });
+    });
+  }
+
+  // Google Login
+  const loginGoogleBtn = document.getElementById("login-google");
+  if (loginGoogleBtn) {
+    loginGoogleBtn.addEventListener("click", async () => {
+      try {
+        await loginWith("google");
+        window.location.hash = "";
+      } catch (e) {
+        console.error("Google login failed:", e);
+        alert("Google login failed. Please try again.");
+      }
+    });
+  }
+
+  // GitHub Login
+  const loginGitHubBtn = document.getElementById("login-github");
+  if (loginGitHubBtn) {
+    loginGitHubBtn.addEventListener("click", async () => {
+      try {
+        await loginWith("github");
+        window.location.hash = "";
+      } catch (err) {
+        if (
+          err.code === "auth/popup-closed-by-user" ||
+          err.code === "auth/cancelled-popup-request"
+        ) return;
+
+        if (currentUser) {
+          console.warn("GitHub login threw error, but user is signed in:", currentUser);
+          window.location.hash = "";
+          return;
+        }
+
+        console.error("GitHub login failed:", err);
+        alert("GitHub login failed. Please try again.");
+      }
+    });
+  }
+
+  // Email Login
+  document.getElementById("login-email-btn")?.addEventListener("click", async () => {
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    if (!email || !password) return alert("Enter both email and password");
+
     try {
-      await loginWith("google");
-      window.location.hash = ""; // Close login window
-    } catch (e) {
-      console.error("Google login failed:", e);
-      alert("Google login failed. Please try again.");
+      await loginWithEmail(email, password);
+      window.location.hash = "";
+    } catch (err) {
+      console.error(err);
+      alert("Login failed: " + err.message);
     }
   });
-}
-// Github
-document.getElementById("login-github")?.addEventListener("click", async () => {
-  try {
-    await loginWith("github");
-    window.location.hash = "";
-  } catch (err) {
-    // Ignore harmless errors like popup closed or canceled request
-    if (
-      err.code === "auth/popup-closed-by-user" ||
-      err.code === "auth/cancelled-popup-request"
-    ) return;
 
-    // Check if user is already signed in despite the error
-    if (currentUser) {
-      console.warn("GitHub login threw error, but user is signed in:", currentUser);
-      window.location.hash = "";
-      return;
+  // Email Register
+  document.getElementById("register-email-btn")?.addEventListener("click", async () => {
+    const name = document.getElementById("login-name").value.trim();
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+
+    if (!name || !email || !password) {
+      return alert("Please enter name, email, and password");
     }
 
-    console.error("GitHub login failed:", err);
-    alert("GitHub login failed. Please try again.");
-  }
-});
-// Email
-import { loginWithEmail, registerWithEmail } from './auth.js';
-
-document.getElementById("login-email-btn").addEventListener("click", async () => {
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
-
-  if (!email || !password) return alert("Enter both email and password");
-
-  try {
-    await loginWithEmail(email, password);
-    window.location.hash = "";
-  } catch (err) {
-    console.error(err);
-    alert("Login failed: " + err.message);
-  }
-});
-
-document.getElementById("register-email-btn").addEventListener("click", async () => {
-  const name = document.getElementById("login-name").value.trim();
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
-
-  if (!name || !email || !password) {
-    return alert("Please enter name, email, and password");
-  }
-
-  try {
-    await registerWithEmail(email, password, name);
-    window.location.hash = "";
-  } catch (err) {
-    console.error(err);
-    alert("Registration failed: " + err.message);
-  }
+    try {
+      await registerWithEmail(email, password, name);
+      window.location.hash = "";
+    } catch (err) {
+      console.error(err);
+      alert("Registration failed: " + err.message);
+    }
+  });
 });

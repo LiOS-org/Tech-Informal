@@ -1,8 +1,13 @@
 import {
   fetchSignInMethodsForEmail,
-  linkWithCredential
+  linkWithCredential,
+
 } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
-import { auth } from '../firebase.js';
+import {
+  getDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+import { auth, db } from '../firebase.js';
 import {
   GoogleAuthProvider,
   GithubAuthProvider,
@@ -79,4 +84,14 @@ export async function registerWithEmail(email, password, displayName) {
     displayName: displayName
   });
   return userCredential;
+}
+// Get roles
+export async function getUserRole(uid) {
+  try {
+    const roleDoc = await getDoc(doc(db, "roles", uid));
+    return roleDoc.exists() ? roleDoc.data().role : "user";
+  } catch (err) {
+    console.error("Error fetching user role:", err);
+    return "user";
+  }
 }
