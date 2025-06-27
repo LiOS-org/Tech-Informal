@@ -9,6 +9,7 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <link rel="shortcut icon" href="/assets/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/techinformal.css">
+    <script type="module" src="/assets/js/main.js"></script>
     <!-- One Signal -->
      <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
      <script src="/onesignal.js"></script>
@@ -47,6 +48,11 @@
   </a>
   <a href="#Settings" class="frosted_background sidebar_button">
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />  <circle cx="12" cy="12" r="3" /></svg> Settings
+  </a>
+  <a href="#login" id="sidebar-login" class="frosted_background sidebar_button" style="display: none;">Login
+  </a>
+  <a href="#" id="sidebar-logout" class="frosted_background sidebar_button" style="display: none;">Logout
+    
   </a>
 </aside>
 <!-- Windows -->
@@ -88,6 +94,28 @@
     </div>
   </div>
 </div>
+  <!-- Login -->
+  <div id="login" class="frosted_background frosted_texture window">
+    <div class="title_bar ">
+      <div class="close_button"><a  href="#">X</a></div>
+    </div>
+    <div class="main_content">
+      <!-- Email -->    
+       <h3>Sign in (for registration use login providers)</h3>
+        <input id="login-name" type="text" placeholder="Your Name" class="frosted_background input" />
+        <input id="login-email" type="email" placeholder="Email" class="frosted_background input" />
+        <input id="login-password" type="password" placeholder="Password" class="frosted_background input" />
+        <div style="margin-top: 10px;">
+          <button id="login-email-btn" class="frosted_background button">Login with Email</button>
+          <!-- <button id="register-email-btn" class="frosted_background button">Register</button> -->
+        </div>
+      <h3>Login Providers</h3>
+      <!-- Google -->
+        <button id="login-google" class="frosted_background button">Sign in with Google</button>
+      <!-- Github -->
+        <button id="login-github" class="frosted_background button">Sign in with GitHub</button>
+    </div>
+  </div>
 <div id="overlay" class="overlay"></div>
     <main>
          
@@ -102,25 +130,28 @@
       </figure>
     <div style="text-align: left;">In past AI has evolved in many new forms and one of them is <b>Generative AI,</b>&nbsp;it is a very interesting field that merges <b>Artificial Intelligence</b>&nbsp;with <b>Creativity.</b></div><div style="text-align: left;"><b><br /><h2 style="text-align: left;">Concept of Generative AI</h2><div>You might have thought about this question "What is the concept of generative AI &amp; why it is important?", In simple words&nbsp;<b>Generative AI</b>&nbsp;refers to a set of tools and algorithms that can <b>generate new content</b>&nbsp;automatically, to do so generative AI uses techniques or technologies such as <b>neural network, deep learning, </b>and <b>probabilistic models </b>although the main highlight of generative AI is they can learn from existing data and generate new content by extending their existing data.</div><h2 style="text-align: left;">Relevance to Creative Arts</h2><div>Talking about Creative Arts, it requires lots of thinking and practice to improve creativity but generative AI lacks both <b>abilities to think and practice</b>, but generative AI has the potential to <b>transform the creative process</b>&nbsp;in arts and design, with correct prompt it can generate high quality media including images, concept art music etcetera.</div><h2 style="text-align: left;">Generative AI as a Tool</h2><div>I am not sure you are aware of it or not but there is an ongoing debate about whether generative AI is an agent or a tool. Even we consider it a tool, tools are not neutral. What I want to say is when photography was emerged painters were feared of it, they thought it would be end of art, similarly many people are feared that it would end their job especially jobs related to creativity, In my opinion there is no need to worry that it would end creative jobs instead we should learn how to use it and how we can speed up our work using generative AI, creative people can use generative AI to get an illustration of their idea and can set a baseline of their work using it.</div><h2 style="text-align: left;">Conclusion</h2><div>Like other technologies like computers and vehicles there is no doubt that generative AI will take over some jobs but at the same time it will open many other job opportunities, the most important thing is we should know how to use AI and how can we improve our work using it and as I mentioned earlier there is no need to&nbsp; fear that it will end jobs instead we should sharpen our skills and create more unique things while collaborating with AI.</div><p style="text-align: left;">That's all for this blog, thanks for reading and I hope you enjoyed it bye.</p>
 
-  <script src="https://giscus.app/client.js"
-        data-repo="LiOS-org/Tech-Informal"
-        data-repo-id="R_kgDOO2iCJA"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOO2iCJM4CrGTw"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="transparent_dark"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
   </div>
 </article>
+<div id="comment-section" class="frosted_background">
+  <div class="auth_and_comment_form frosted_background">
+    <div id="auth-area">
+      <a href="#login" id="loginBtn" class="frosted_background button" style="display: none;">Sign in to comment</a>
+      <div id="user-info" style="display: none;">
+        <img id="user-photo" src="" alt="User photo" width="32" style="border-radius: 50%;">
+        <span id="user-name"></span>
+        <button id="logoutBtn" class="frosted_background button">Logout</button>
+      </div>
+    </div>
+    <div id="comment-form" class="frosted_background" style="display: none; margin-top: 1rem;">
+      <textarea id="commentInput" rows="3" placeholder="Write a comment..."></textarea><br>
+      <button id="submitComment" class="frosted_background button">Post Comment</button>
+    </div>
+  </div>
 
+  <div id="comments-container">
+    <!-- Comments will be rendered here -->
+  </div>
+</div>
     </main>
     <div class="navigation_container_bottom frosted_background frosted_texture">
     <a href="/" class="navigation_buttons"><svg class="navigation_icon"  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
@@ -134,6 +165,8 @@
     </a>
 </div>
   <script type="module" src="/assets/firebase.js"></script>
+  <script type="module" src="/assets/auth.js"></script>
+  <script type="module" src="/assets/comments.js"></script>
   <script src="/assets/js/hamburger_menu.js"></script>
 </body>
 </html>

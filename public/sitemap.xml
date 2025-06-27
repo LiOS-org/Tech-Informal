@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://tech-informal.web.app/article/</loc>
-    <lastmod>2025-06-22T17:31:14.893Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.992Z</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tech-informal.web.app/blog/2025-06-05-what-is-ai-its-functioning-misuses/</loc>
-    <lastmod>2025-06-22T17:31:14.894Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.993Z</lastmod>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://tech-informal.web.app/assets/images/image.webp</image:loc>
@@ -16,7 +16,7 @@
   </url>
   <url>
     <loc>https://tech-informal.web.app/blog/2025-06-06-concept-of-generative-ai-in-creative-field/</loc>
-    <lastmod>2025-06-22T17:31:14.895Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.993Z</lastmod>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://tech-informal.web.app/assets/images/ai-in-creative-field.jpg</image:loc>
@@ -25,7 +25,7 @@
   </url>
   <url>
     <loc>https://tech-informal.web.app/blog/2025-06-06-custom-roms-explained-past-present-future/</loc>
-    <lastmod>2025-06-22T17:31:14.895Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.994Z</lastmod>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://tech-informal.web.app/assets/images/oig2.webp</image:loc>
@@ -34,7 +34,7 @@
   </url>
   <url>
     <loc>https://tech-informal.web.app/blog/2025-06-06-upi-a-revolution-that-made-payment-easier/</loc>
-    <lastmod>2025-06-22T17:31:14.895Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.994Z</lastmod>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://tech-informal.web.app/assets/images/oig4.jpg</image:loc>
@@ -43,7 +43,7 @@
   </url>
   <url>
     <loc>https://tech-informal.web.app/blog/2025-06-07-an-opinion-on-pwas-progressive-web-apps/</loc>
-    <lastmod>2025-06-22T17:31:14.895Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.994Z</lastmod>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://tech-informal.web.app/assets/images/oig5.jpg</image:loc>
@@ -52,17 +52,17 @@
   </url>
   <url>
     <loc>https://tech-informal.web.app/blog/</loc>
-    <lastmod>2025-06-22T17:31:14.894Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.992Z</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tech-informal.web.app/</loc>
-    <lastmod>2025-06-22T17:31:14.894Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.992Z</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://tech-informal.web.app/search/</loc>
-    <lastmod>2025-06-22T17:31:14.894Z</lastmod>
+    <lastmod>2025-06-27T06:11:27.993Z</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

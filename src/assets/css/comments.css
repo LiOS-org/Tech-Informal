@@ -1,0 +1,77 @@
+#comment-section{
+    background: var(--frosted_secondary);
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: column;
+    color: var(--white);
+    margin-bottom: 15%;
+}
+.auth_and_comment_form{
+    display: flex;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    background: var(--frosted_secondary);
+    border-radius: inherit;
+    margin-top: 15px;
+    flex-direction: column;
+}
+#auth-area{
+    margin: 5px 5px 5px 5px;
+    width: 100%;
+}
+#auth-area #user-name{
+    margin-left: 5px;
+}
+#auth-area #loginBtn{
+    margin-right: 15px;
+    margin-left: auto;
+}
+#commentInput{
+    background: var(--frosted_secondary);
+    border: 2px solid var(--white);
+    color: var(--white);
+    outline: none;
+    border-radius: 5px;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-left: 2.5%;
+    max-width: 95%;
+}
+#submitComment,#loginBtn{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+#commentInput::placeholder{
+    color: var(--frosted_white);
+}
+#comments-container{
+    display: flex;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    border-radius: inherit;
+    margin-top: 15px;
+    flex-direction: column;
+}
+.comment{
+    background: var(--frosted_secondary);
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.comment div{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.comment p{
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 16px;    
+}

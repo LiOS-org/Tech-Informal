@@ -68,6 +68,7 @@
 }
 .window h3{
     margin-left: 5%;
+    color: var(--white);
 }
 .window_box:hover{
     background: var(--frosted_primary);
@@ -81,6 +82,11 @@
 }
 .window_box .right{
     display: flex;
+}
+.window .button{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 /* Windows */
 /* About */
@@ -114,4 +120,25 @@
 #tab-notifications:checked ~ #page-notifications{
   display: flex;
   flex-direction: column;
+}
+/* login */
+#login{
+    display: none;
+}
+#login:target{
+    display: flex;
+}
+#login input{
+    background: var(--frosted_secondary);
+    outline: none;
+    color: var(--white);
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+#login input::placeholder{
+    color: var(--frosted_white);
 }

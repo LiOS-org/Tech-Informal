@@ -9,6 +9,7 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <link rel="shortcut icon" href="/assets/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/techinformal.css">
+    <script type="module" src="/assets/js/main.js"></script>
     <!-- One Signal -->
      <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
      <script src="/onesignal.js"></script>
@@ -47,6 +48,11 @@
   </a>
   <a href="#Settings" class="frosted_background sidebar_button">
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />  <circle cx="12" cy="12" r="3" /></svg> Settings
+  </a>
+  <a href="#login" id="sidebar-login" class="frosted_background sidebar_button" style="display: none;">Login
+  </a>
+  <a href="#" id="sidebar-logout" class="frosted_background sidebar_button" style="display: none;">Logout
+    
   </a>
 </aside>
 <!-- Windows -->
@@ -88,6 +94,28 @@
     </div>
   </div>
 </div>
+  <!-- Login -->
+  <div id="login" class="frosted_background frosted_texture window">
+    <div class="title_bar ">
+      <div class="close_button"><a  href="#">X</a></div>
+    </div>
+    <div class="main_content">
+      <!-- Email -->    
+       <h3>Sign in (for registration use login providers)</h3>
+        <input id="login-name" type="text" placeholder="Your Name" class="frosted_background input" />
+        <input id="login-email" type="email" placeholder="Email" class="frosted_background input" />
+        <input id="login-password" type="password" placeholder="Password" class="frosted_background input" />
+        <div style="margin-top: 10px;">
+          <button id="login-email-btn" class="frosted_background button">Login with Email</button>
+          <!-- <button id="register-email-btn" class="frosted_background button">Register</button> -->
+        </div>
+      <h3>Login Providers</h3>
+      <!-- Google -->
+        <button id="login-google" class="frosted_background button">Sign in with Google</button>
+      <!-- Github -->
+        <button id="login-github" class="frosted_background button">Sign in with GitHub</button>
+    </div>
+  </div>
 <div id="overlay" class="overlay"></div>
     <main>
     <section data-pagefind-ignore id="featured-articles" class="featured-articles">
@@ -169,6 +197,8 @@
     </a>
 </div>
   <script type="module" src="/assets/firebase.js"></script>
+  <script type="module" src="/assets/auth.js"></script>
+  <script type="module" src="/assets/comments.js"></script>
   <script src="/assets/js/hamburger_menu.js"></script>
 </body>
 </html>

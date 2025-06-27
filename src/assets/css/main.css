@@ -51,3 +51,16 @@ background: none;
     margin-left: 10%;
     margin-right: 10%;
 }
+/* Buttons */
+.button{
+  background: var(--frosted_secondary);
+  color: var(--white);
+  border-style: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+.button:hover{
+  background: var(--frosted_primary);
+  transition: all 0.3s ease-in-out;
+}

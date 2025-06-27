@@ -11,21 +11,25 @@ layout: base.njk
         <img src="{{showcase_image}}" alt="{{ imageAlt}}">
       </figure>
     {{content | safe}}
-  <script src="https://giscus.app/client.js"
-        data-repo="LiOS-org/Tech-Informal"
-        data-repo-id="R_kgDOO2iCJA"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOO2iCJM4CrGTw"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="transparent_dark"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
   </div>
 </article>
+<div id="comment-section" class="frosted_background">
+  <div class="auth_and_comment_form frosted_background">
+    <div id="auth-area">
+      <a href="#login" id="loginBtn" class="frosted_background button" style="display: none;">Sign in to comment</a>
+      <div id="user-info" style="display: none;">
+        <img id="user-photo" src="" alt="User photo" width="32" style="border-radius: 50%;">
+        <span id="user-name"></span>
+        <button id="logoutBtn" class="frosted_background button">Logout</button>
+      </div>
+    </div>
+    <div id="comment-form" class="frosted_background" style="display: none; margin-top: 1rem;">
+      <textarea id="commentInput" rows="3" placeholder="Write a comment..."></textarea><br>
+      <button id="submitComment" class="frosted_background button">Post Comment</button>
+    </div>
+  </div>
+
+  <div id="comments-container">
+    <!-- Comments will be rendered here -->
+  </div>
+</div>
