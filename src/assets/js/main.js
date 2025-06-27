@@ -1,3 +1,4 @@
+
 import { login, logout, watchUser } from './auth.js';
 import { postComment, fetchComments } from './comments.js';
 
@@ -109,8 +110,21 @@ if (loginGoogleBtn) {
 document.getElementById("login-github")?.addEventListener("click", async () => {
   try {
     await loginWith("github");
-    window.location.hash = ""; // Close login window
+    window.location.hash = "";
   } catch (err) {
+    // Ignore harmless errors like popup closed or canceled request
+    if (
+      err.code === "auth/popup-closed-by-user" ||
+      err.code === "auth/cancelled-popup-request"
+    ) return;
+
+    // Check if user is already signed in despite the error
+    if (currentUser) {
+      console.warn("GitHub login threw error, but user is signed in:", currentUser);
+      window.location.hash = "";
+      return;
+    }
+
     console.error("GitHub login failed:", err);
     alert("GitHub login failed. Please try again.");
   }

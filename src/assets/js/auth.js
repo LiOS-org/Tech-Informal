@@ -1,3 +1,7 @@
+import {
+  fetchSignInMethodsForEmail,
+  linkWithCredential
+} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 import { auth } from '../firebase.js';
 import {
   GoogleAuthProvider,
@@ -17,7 +21,7 @@ export function login() {
 }
 
 // Flexible login (used in #login window)
-export function loginWith(providerName) {
+export async function loginWith(providerName) {
   let provider;
   switch (providerName) {
     case 'google':
@@ -25,11 +29,32 @@ export function loginWith(providerName) {
       break;
     case 'github':
       provider = new GithubAuthProvider();
+      provider.addScope('user:email'); // ensures email is received from GitHub
       break;
     default:
       throw new Error("Unsupported provider: " + providerName);
   }
-  return signInWithPopup(auth, provider);
+
+  try {
+    return await signInWithPopup(auth, provider);
+  } catch (err) {
+    // Handle account-exists error by linking accounts
+    if (err.code === 'auth/account-exists-with-different-credential') {
+      const pendingCred = err.credential;
+      const email = err.customData.email;
+
+      const methods = await fetchSignInMethodsForEmail(auth, email);
+      if (methods.includes('google.com')) {
+        // Sign in with Google first
+        const googleUser = await signInWithPopup(auth, new GoogleAuthProvider());
+        // Then link GitHub to Google account
+        await linkWithCredential(googleUser.user, pendingCred);
+        return { user: googleUser.user };
+      }
+    }
+
+    throw err;
+  }
 }
 
 // Logout
