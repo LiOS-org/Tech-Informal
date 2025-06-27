@@ -62,7 +62,6 @@
     border-radius: inherit;
     margin-top: 15px;
     flex-direction: column;
-    padding-bottom: 200px;
 }
 .comment{
     background: var(--frosted_secondary);
@@ -78,4 +77,7 @@
     margin-top: 5px;
     margin-left: 5px;
     font-size: 16px;    
+}
+.show_more_container{
+    padding-bottom: 200px;
 }
