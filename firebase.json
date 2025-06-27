@@ -19,18 +19,24 @@
     ]
   },
   "headers": [
-  {
-    "source": "/sitemap.xml",
-    "headers": [
-      {
-        "key": "Content-Type",
-        "value": "application/xml"
-      },
-      {
-        "key": "Cache-Control",
-        "value": "public, max-age=0"
-      }
-    ]
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0"
+        }
+      ]
+    }
+  ],
+  "firestore": {
+    "database": "(default)",
+    "location": "asia-south2",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
-]
 }
