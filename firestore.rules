@@ -1,34 +1,13 @@
+// ✅ Last known good version - after fixing 7:26pm bug
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // 🔐 ROLES COLLECTION
-    match /roles/{uid} {
-      // Users can read their own role
-      allow read: if request.auth != null && request.auth.uid == uid;
-
-      // No one can write roles from the frontend
-      allow write: if false;
-    }
-
-    // 💬 COMMENTS COLLECTION
-    match /comments/{commentId} {
-      // Anyone can read comments
+    match /{document=**} {
+      // Allow anyone to read
       allow read: if true;
-
-      // Only logged-in users can post comments
-      allow create: if request.auth != null;
-
-      // Only author OR mod/owner can delete
-      allow delete: if request.auth != null &&
-        (
-          request.auth.uid == resource.data.author.uid || 
-          get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role in ["mod", "owner"]
-        );
-
-      // (Optional) prevent update if you want
-      allow update: if false;
+      // Allow only authenticated users to write
+      allow write: if request.auth != null;
     }
   }
 }

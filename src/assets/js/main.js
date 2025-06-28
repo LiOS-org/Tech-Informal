@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const parentId = btn.getAttribute("data-id");
       const container = btn.parentElement.querySelector(".replies");
+      container.style.display = "block";
 
       if (container.querySelector("textarea")) return; // prevent multiple boxes
 
