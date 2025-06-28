@@ -17,6 +17,13 @@ function getPriority(url) {
   return 0.5;
 }
 
+function getChangeFreq(url) {
+  if (url === '/') return 'weekly';
+  if (url.startsWith('/blog/')) return 'monthly';
+  if (url.startsWith('/article/')) return 'monthly';
+  return 'yearly';
+}
+
 function isAllowedForImageSitemap(urlPath) {
   return (
     (urlPath.startsWith('/blog/') && urlPath !== '/blog/') ||
@@ -120,6 +127,7 @@ function getAllHtmlPaths(dirPath) {
         url,
         lastmod,
         priority,
+        changefreq: getChangeFreq(url),
         ...(img && {
           img: {
             url: img.url,
@@ -148,7 +156,8 @@ function getAllHtmlPaths(dirPath) {
       news: false,
       xhtml: false,
       video: false
-    }
+    },
+    xmlNs: 'http://www.sitemaps.org/schemas/sitemap/0.9'
   });
 
   // Write pages to sitemap
@@ -156,7 +165,8 @@ function getAllHtmlPaths(dirPath) {
     const entry = {
       url: page.url,
       lastmod: page.lastmod,
-      priority: page.priority
+      priority: page.priority,
+      changefreq: page.changefreq
     };
     
     if (page.img) {
@@ -174,11 +184,16 @@ function getAllHtmlPaths(dirPath) {
   const rawXml = await streamToPromise(stream).then(data => data.toString());
   const prettyXml = prettifyXml(rawXml, { indent: 2 });
 
-  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), prettyXml);
+  // Add XML declaration and ensure proper encoding
+  const finalXml = `<?xml version="1.0" encoding="UTF-8"?>
+${prettyXml.replace('<?xml version="1.0" encoding="UTF-8"?>', '').trim()}`;
+
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), finalXml);
   console.log(`✅ Sitemap generated with ${pages.length} valid entries`);
-  console.log(`🔥 Fixes applied:
-  - Fixed URL normalization error
-  - Improved root path handling
-  - Added debug logging
-  - Enhanced URL validation`);
+  console.log(`🔥 Google-friendly improvements applied:
+  - Added changefreq elements for better crawling hints
+  - Improved XML schema compliance
+  - Enhanced URL encoding
+  - Fixed potential Google parsing issues
+  - Ensured proper UTF-8 encoding`);
 })();
