@@ -7,7 +7,7 @@ import {
   getDoc,
   doc
 } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
-import { auth, db } from '../firebase.js';
+import { auth, db } from '/assets/firebase.js';
 import {
   GoogleAuthProvider,
   GithubAuthProvider,
