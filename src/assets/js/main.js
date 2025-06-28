@@ -157,10 +157,15 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", async () => {
       const commentId = btn.getAttribute("data-id");
       if (confirm("Delete this comment?")) {
-        await deleteComment(commentId);
-        lastVisibleComment = null;
-        hasMoreComments = true;
-        renderComments();
+        try {
+          await deleteComment(commentId, currentUser, currentUserRole);
+          lastVisibleComment = null;
+          hasMoreComments = true;
+          renderComments();
+        } catch (error) {
+          console.error("Failed to delete comment:", error);
+          alert("Failed to delete comment. Please check your permissions and try again.");
+        }
       }
     });
   });

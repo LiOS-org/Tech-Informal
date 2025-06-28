@@ -2,7 +2,8 @@ import { db } from '../firebase.js';
 import {
   collection, addDoc, query, where, getDocs,
   orderBy, serverTimestamp, updateDoc, doc,
-  arrayUnion, arrayRemove, deleteDoc, startAfter, limit
+  arrayUnion, arrayRemove, deleteDoc, startAfter, limit,
+  writeBatch
 } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
 // Post a comment or reply
@@ -56,6 +57,108 @@ export async function fetchComments(postId, limitCount = 10, startAfterDoc = nul
   };
 }
 
-export async function deleteComment(commentId) {
-  await deleteDoc(doc(db, "comments", commentId));
+export async function deleteComment(commentId, currentUser, userRole) {
+  try {
+    // First, check if this comment has any replies
+    const repliesQuery = query(
+      collection(db, "comments"),
+      where("parentId", "==", commentId)
+    );
+    
+    const repliesSnapshot = await getDocs(repliesQuery);
+    
+    // If there are replies, we need to handle them differently based on user permissions
+    if (repliesSnapshot.size > 0) {
+      // Mods and owners can delete any comment and all its replies
+      if (userRole === "mod" || userRole === "owner") {
+        const batch = writeBatch(db);
+        
+        // Delete the parent comment
+        batch.delete(doc(db, "comments", commentId));
+        
+        // Delete all replies
+        repliesSnapshot.forEach((replyDoc) => {
+          batch.delete(replyDoc.ref);
+        });
+        
+        await batch.commit();
+        console.log(`Comment ${commentId} and ${repliesSnapshot.size} replies deleted successfully by ${userRole}`);
+      } else {
+        // Regular users: only delete replies they own, then delete parent
+        const batch = writeBatch(db);
+        
+        // Delete the parent comment
+        batch.delete(doc(db, "comments", commentId));
+        
+        // Only delete replies authored by the current user
+        repliesSnapshot.forEach((replyDoc) => {
+          const replyData = replyDoc.data();
+          if (replyData.author.uid === currentUser.uid) {
+            batch.delete(replyDoc.ref);
+          }
+        });
+        
+        await batch.commit();
+        
+        // Count remaining replies (authored by others)
+        const remainingReplies = repliesSnapshot.docs.filter(
+          doc => doc.data().author.uid !== currentUser.uid
+        ).length;
+        
+        if (remainingReplies > 0) {
+          console.log(`Comment ${commentId} deleted. ${remainingReplies} replies by other users remain orphaned.`);
+        } else {
+          console.log(`Comment ${commentId} and all replies deleted successfully`);
+        }
+      }
+    } else {
+      // No replies, just delete the comment
+      await deleteDoc(doc(db, "comments", commentId));
+      console.log(`Comment ${commentId} deleted successfully (no replies)`);
+    }
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    throw error; // Re-throw so the UI can handle it
+  }
+}
+
+// Function to clean up orphaned replies (replies whose parent comments no longer exist)
+// This is useful for database maintenance
+export async function cleanupOrphanedReplies(postId) {
+  try {
+    // Get all comments for this post
+    const allCommentsQuery = query(
+      collection(db, "comments"),
+      where("postId", "==", postId)
+    );
+    
+    const allCommentsSnapshot = await getDocs(allCommentsQuery);
+    const allComments = [];
+    allCommentsSnapshot.forEach(doc => allComments.push({ id: doc.id, ref: doc.ref, ...doc.data() }));
+    
+    // Separate parent comments and replies
+    const parentComments = allComments.filter(c => !c.parentId);
+    const replies = allComments.filter(c => c.parentId);
+    const parentIds = new Set(parentComments.map(p => p.id));
+    
+    // Find orphaned replies
+    const orphanedReplies = replies.filter(r => !parentIds.has(r.parentId));
+    
+    if (orphanedReplies.length > 0) {
+      const batch = writeBatch(db);
+      orphanedReplies.forEach(reply => {
+        batch.delete(reply.ref);
+      });
+      
+      await batch.commit();
+      console.log(`Cleaned up ${orphanedReplies.length} orphaned replies`);
+      return orphanedReplies.length;
+    }
+    
+    console.log("No orphaned replies found");
+    return 0;
+  } catch (error) {
+    console.error("Error cleaning up orphaned replies:", error);
+    throw error;
+  }
 }
