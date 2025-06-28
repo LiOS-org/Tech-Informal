@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   topLevel.forEach(parent => {
     const role = userRoleMap[parent.author.uid];
-    const badge = role === "mod" ? `<span class="badge">[mod]</span>` :
-                  role === "owner" ? `<span class="badge">[owner]</span>` : "";
+    const badge = role === "mod" ? `<span class="badge">mod</span>` :
+                  role === "owner" ? `<span class="badge">owner</span>` : "";
 
     const canDelete = currentUser &&
       (currentUser.uid === parent.author.uid || currentUserRole === "mod" || currentUserRole === "owner");
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div style="display:flex; gap: 8px; align-items:center;">
         <img src="${parent.author.photo}" width="28" style="border-radius: 100vh;">
         <strong>${parent.author.name}</strong> ${badge}
-        ${canDelete ? `<button class="delete-comment-btn button frosted_background" data-id="${parent.id}" style="margin-left:auto;">Delete</button>` : ""}
+        ${canDelete ? `<button class="delete-comment-btn button frosted_background" data-id="${parent.id}" style="margin-left:auto;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>` : ""}
       </div>
       <p>${parent.content}</p>
       <button class="reply-btn button frosted_background" data-id="${parent.id}">Reply</button>
@@ -132,8 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .filter(r => r.parentId === parent.id)
       .forEach(reply => {
         const replyRole = userRoleMap[reply.author.uid];
-        const replyBadge = replyRole === "mod" ? `<span class="badge">[mod]</span>` :
-                           replyRole === "owner" ? `<span class="badge">[owner]</span>` : "";
+        const replyBadge = replyRole === "mod" ? `<span class="badge">mod</span>` :
+                           replyRole === "owner" ? `<span class="badge">owner</span>` : "";
 
         const canDeleteReply = currentUser &&
           (currentUser.uid === reply.author.uid || currentUserRole === "mod" || currentUserRole === "owner");
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div style="display:flex; gap: 8px; align-items:center;">
             <img src="${reply.author.photo}" width="24" style="border-radius: 100vh;">
             <strong>${reply.author.name}</strong> ${replyBadge}
-            ${canDeleteReply ? `<button class="delete-comment-btn button frosted_background" data-id="${reply.id}" style="margin-left:auto;">Delete</button>` : ""}
+            ${canDeleteReply ? `<button class="delete-comment-btn button frosted_background" data-id="${reply.id}" style="margin-left:auto;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>` : ""}
           </div>
           <p>${reply.content}</p>
         `;
@@ -187,6 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (container.querySelector("textarea")) return; // prevent multiple boxes
 
       const input = document.createElement("textarea");
+      input.id = "commentInput";
       input.placeholder = "Write a reply...";
       input.style = "width:100%; margin-top:6px; padding:6px;";
       const submit = document.createElement("button");

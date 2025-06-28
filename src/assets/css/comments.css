@@ -81,3 +81,12 @@
 .show_more_container{
     padding-bottom: 200px;
 }
+.delete-comment-btn{
+    align-items: center;
+}
+.badge{
+    border: 2px groove var(--primary);
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+}
