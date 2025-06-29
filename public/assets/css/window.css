@@ -102,8 +102,9 @@
     margin-right: 40%;
     border-radius: 100vh;
 }
-#About h1{
+.window_header{
     text-align: center;
+    font-size: 32px;
 }
 #About:target{
     display: flex;
