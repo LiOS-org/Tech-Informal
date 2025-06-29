@@ -71,3 +71,9 @@
 .content_type .type{
     color: var(--primary);
 }
+.snippet__content .button{
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    text-align: center;
+}

@@ -12,7 +12,18 @@ layout: base.njk
       </figure>
     {{content | safe}}
   </div>
+  <a href="#comment-section" class="button">Comments</a>
 </article>
+<!-- Featured Contents -->
+ <div class="inblog_featured_content_container frosted_background">
+  <div class="section_title">Featured Blogs</div>
+  <div class="inblog_featured_content frosted_background">
+     {% for post in collections.featured | shuffle | limit(2) %}
+       {% include "inblog_featured_blog.njk" %}
+     {% endfor %}
+     </div>
+  </div>
+<!-- Comments Section -->
 <div id="comment-section" class="frosted_background">
   <div class="auth_and_comment_form frosted_background">
     <div id="auth-area">

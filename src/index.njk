@@ -19,11 +19,8 @@ layout: 'base.njk'
   <div class="container flow" style="margin-top: 15px;">
     <h2 class="section-title text-center ">Featured Contents</h2>
     <div  class="blog_snippet_container">
-      {% for post in collections.featured %}
+      {% for post in collections.featured | shuffle | limit(4) %}
         {% include "blog-snippet.njk" %}
-      {% endfor %}
-      {% for article in collections.featured %}
-
       {% endfor %}
     </div>
   </div>

@@ -3,6 +3,7 @@
     margin-left: 2.5%;
     margin-right: 2.5%;
     display: flex;
+    flex-direction: column;
     border-radius: 5px;
     background: var(--frosted_secondary);
     color: var(--white);
@@ -21,4 +22,12 @@
 }
 .article-title{
     color: var(--white);
+}
+.section_title{
+    color: var(--white);
+    font-size: 32px;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
