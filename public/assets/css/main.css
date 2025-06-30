@@ -1,7 +1,7 @@
 :root{
     background: var(--black);
     position: relative;
-
+    scroll-behavior: smooth;
 }
 a:link{
   text-decoration: none;

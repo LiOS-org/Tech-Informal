@@ -23,17 +23,36 @@
     display: flex;
     flex-direction: row;
     width:100%;
+    height: 200px;
     margin-top: 5px;
     margin-bottom: 5px;
     border-radius: inherit;
-    overflow: scroll;
-    max-height: fit-content;
+    overflow: hidden;
     background: var(--frosted_secondary);
 }
+@media screen and (min-height:400px) {
+    .text_clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4; /* You can change this based on how many lines you want */
+    line-clamp: 4; /*For browsers that support it*/
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+}
 .inblog_featured_blog .featured_image img{
-    height: 200px;
+    height: 100%;
     width: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    aspect-ratio: 1 / 1;
     background: none;
+    align-items: center;
+}
+.inblog_featured_blog .featured_image{
+    overflow: hidden;
+    width: auto;
+    height: 100%;
     align-items: center;
 }
 .inblog_featured_blog .blog_snippet_body{
@@ -42,4 +61,8 @@
 }
 .inblog_featured_blog .blog_snippet{
     background: none;
+}
+.inblog_featured_blog .snippet__content{
+    z-index: 1;
+    width: 80%;
 }
