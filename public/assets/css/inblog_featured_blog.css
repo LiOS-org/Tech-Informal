@@ -30,9 +30,9 @@
     max-height: fit-content;
     background: var(--frosted_secondary);
 }
-.inblog_featured_blog .snippet_image {
-    max-height: auto;
-    width: 300px;
+.inblog_featured_blog .featured_image img{
+    height: 200px;
+    width: 200px;
     background: none;
     align-items: center;
 }

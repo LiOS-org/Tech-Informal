@@ -2,9 +2,10 @@
 #search {
     display: flex;
     margin-top: 5%;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-bottom: 15px;
 }
 #search input {
     -webkit-backdrop-filter: blur(14px) brightness(75%);
@@ -18,6 +19,9 @@
 #search input:focus{
     border: none;
     outline: none;
+}
+#search input::placeholder{
+    color: var(--white);
 }
 #search input::before{
     content: '';
