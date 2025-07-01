@@ -11,9 +11,15 @@ service cloud.firestore {
       // Only authenticated users can create comments
       allow create: if request.auth != null;
       
-      // Users can update their own comments
-      allow update: if request.auth != null && 
-                   request.auth.uid == resource.data.author.uid;
+      // Users can update their own comments, or mods/owners can pin/unpin any comment
+      allow update: if request.auth != null && (
+        // Users can update their own comments (except pinned field)
+        (request.auth.uid == resource.data.author.uid && 
+         !('pinned' in request.resource.data.keys())) ||
+        // Mods and owners can pin/unpin any comment
+        (exists(/databases/$(database)/documents/roles/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role in ["mod", "owner"])
+      );
       
       // Users can delete their own comments, or check role for mods/owners
       // Mods and owners can delete any comment (including cascade deletion)
@@ -22,6 +28,18 @@ service cloud.firestore {
         exists(/databases/$(database)/documents/roles/$(request.auth.uid)) &&
         get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role in ["mod", "owner"]
       );
+    }
+    
+    // Reactions collection (likes/dislikes)
+    match /reactions/{reactionId} {
+      // Anyone can read reactions
+      allow read: if true;
+      
+      // Only authenticated users can create reactions
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      
+      // Users can update/delete their own reactions
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId;
     }
     
     // Roles collection

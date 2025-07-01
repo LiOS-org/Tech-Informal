@@ -1,10 +1,12 @@
 import { login, logout, watchUser, loginWith, loginWithEmail, registerWithEmail, getUserRole } from '/assets/js/auth.js';
-import { getDoc, doc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
-import { postComment, fetchComments, deleteComment } from '/assets/js/comments.js';
+import { getDoc, doc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+import { postComment, fetchComments, deleteComment, pinComment, unpinComment } from '/assets/js/comments.js';
 import { db } from '/assets/firebase.js';
 
 let currentUser = null;
 let currentUserRole = "user";
+let globalUID = null;
+let globalDocId = null;
 let userRoleMap = {};
 let lastVisibleComment = null;
 let hasMoreComments = true;
@@ -124,14 +126,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const canDelete = currentUser &&
         (currentUser.uid === parent.author.uid || currentUserRole === "mod" || currentUserRole === "owner");
+      
+      const canPin = currentUser && (currentUserRole === "mod" || currentUserRole === "owner");
+      const isPinned = parent.pinned || false;
+      const pinnedIndicator = isPinned ? `<span class="pinned-indicator" style="color: #ffa500; font-weight: bold; margin-left: 8px;">📌 Pinned</span>` : "";
+      
+      const pinButton = canPin ? 
+        (isPinned ? 
+          `<button class="unpin-comment-btn button frosted_background" data-id="${parent.id}" style="margin-left:8px;">Unpin</button>` :
+          `<button class="pin-comment-btn button frosted_background" data-id="${parent.id}" style="margin-left:8px;">Pin</button>`
+        ) : "";
 
       const parentEl = document.createElement("div");
-      parentEl.className = "comment frosted_background";
+      parentEl.className = `comment frosted_background ${isPinned ? 'pinned-comment' : ''}`;
+      parentEl.style.border = isPinned ? "2px solid #ffa500" : "";
       parentEl.innerHTML = `
         <div style="display:flex; gap: 8px; align-items:center;">
           <img src="${parent.author.photo}" width="28" style="border-radius: 100vh;">
-          <strong>${parent.author.name}</strong> ${badge}
-          ${canDelete ? `<button class="delete-comment-btn button frosted_background" data-id="${parent.id}" style="margin-left:auto;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>` : ""}
+          <strong>${parent.author.name}</strong> ${badge} ${pinnedIndicator}
+          <div style="margin-left:auto; display:flex; gap:4px;">
+            ${pinButton}
+            ${canDelete ? `<button class="delete-comment-btn button frosted_background" data-id="${parent.id}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>` : ""}
+          </div>
         </div>
         <p>${parent.content}</p>
         <button class="reply-btn button frosted_background" data-id="${parent.id}">Reply</button>
@@ -202,6 +218,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
       repliesContainer.style.display = isVisible ? "none" : "block";
       btn.textContent = isVisible ? "Show Replies" : "Hide Replies";
+    });
+  });
+
+  // Pin button logic
+  document.querySelectorAll(".pin-comment-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const commentId = btn.getAttribute("data-id");
+      try {
+        await pinComment(commentId, currentUser, currentUserRole);
+        lastVisibleComment = null;
+        hasMoreComments = true;
+        renderComments();
+      } catch (error) {
+        console.error("Failed to pin comment:", error);
+        alert("Failed to pin comment: " + error.message);
+      }
+    });
+  });
+
+  // Unpin button logic
+  document.querySelectorAll(".unpin-comment-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const commentId = btn.getAttribute("data-id");
+      try {
+        await unpinComment(commentId, currentUser, currentUserRole);
+        lastVisibleComment = null;
+        hasMoreComments = true;
+        renderComments();
+      } catch (error) {
+        console.error("Failed to unpin comment:", error);
+        alert("Failed to unpin comment: " + error.message);
+      }
     });
   });
 
@@ -314,4 +362,65 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Registration failed: " + err.message);
     }
   });
+  // --- Page metadata tracking ---
+async function initPageMetadata() {
+  // Remove or comment out the next line to enable on all domains:
+  // if (!location.hostname.includes("localhost")) return;
+
+  const title = document.title.trim();
+  const path = window.location.pathname;
+  const collectionName = "pageMeta";
+  const type = path.includes("/blog/") ? "blog" :
+               path.includes("/article/") ? "article" : null;
+
+  let uid = localStorage.getItem("page-uid-" + path);
+  const slugBase = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+  if (!uid) {
+    uid = crypto.randomUUID();
+    localStorage.setItem("page-uid-" + path, uid);
+  }
+
+  const docId = slugBase + "-" + uid;
+  globalUID = uid;
+  globalDocId = docId;
+  
+  // Make globalDocId available to other scripts
+  window.globalDocId = docId;
+  window.globalUID = uid;
+
+  console.log('Initializing page metadata:', {
+    docId,
+    uid,
+    path,
+    title
+  });
+
+  const docRef = doc(db, collectionName, docId);
+  
+  // Check if document already exists to prevent unnecessary writes
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) {
+    await setDoc(docRef, {
+      uid,
+      title,
+      type,
+      path,
+      likes: 0,
+      dislikes: 0,
+      createdAt: new Date()
+    });
+    console.log('Created new page metadata document');
+  } else {
+    console.log('Page metadata document already exists');
+    // Only update if title has changed
+    const existingData = docSnap.data();
+    if (existingData.title !== title) {
+      await updateDoc(docRef, { title });
+      console.log('Updated page title in metadata');
+    }
+  }
+  }
+
+  initPageMetadata();
 });

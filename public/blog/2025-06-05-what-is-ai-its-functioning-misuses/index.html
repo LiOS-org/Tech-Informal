@@ -10,6 +10,7 @@
     <script type="module" src="/assets/firebase.js"></script>
     <script type="module" src="/assets/auth.js"></script>
     <script type="module" src="/assets/comments.js"></script>
+    <script type="module" src="/assets/js/likes.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
     <link rel="stylesheet" href="/assets/css/techinformal.css">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -147,6 +148,25 @@
 <li>Sundar Pichai has a positive opinion regarding AI, and he thinks AI is probably the most important thing humans have ever developed and will not destroy us.</li>
 </ul><h1>My opinion</h1><p>I agree with Sundar Pichai and i also think AI has the potential of helping humans in every field and will automate simple tasks.</p><p>But we should not ignore warnings of other people's we should regulate AI development and usage and we should also not make them able to replicate themselves.</p><p>And also, I don’t think AI is going to replace humans but humans using AI can probably replace other humans, but we should use AI wisely.</p><p>AI is like a knife, and it can used for both to cut an apple and help you or can be used to murder and second one is dangerous.</p><p>There is only one way to stop it and it is to spread awareness about that.</p><h1>Thank You</h1><p>Thanks for reading till here it was not all more about AI in other post.
 
+    
+    <!-- Like/Dislike Section -->
+    <div class="reactions-section">
+      <div class="reactions-container">
+        <button id="like-btn" class="reaction-btn like-btn" title="Like this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+          </svg>
+          <span id="like-count">0</span>
+        </button>
+        
+        <button id="dislike-btn" class="reaction-btn dislike-btn" title="Dislike this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/>
+          </svg>
+          <span id="dislike-count">0</span>
+        </button>
+      </div>
+    </div>
   </div>
   <a style="text-align: center;" href="#comment-section" class="button">Comments</a>
 </article>
@@ -157,23 +177,23 @@
      
                  <div class="frosted_background inblog_featured_blog">
             <div class="featured_image">
-              <img src="/assets/images/ai-in-creative-field.jpg" alt="Concept of Generative AI in creative field." class="blog_snippet__image">
-            </div>
-            <div class="snippet__content">
-              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-concept-of-generative-ai-in-creative-field/" >Concept of Generative AI in creative field.</a></h3>
-              <p class="content_type">Type: <b class="type">blog</b></p>
-              <p class="text_clamp blog_snippet_body ">It’s a subset of AI that creates new content using techniques like neural networks and deep learning. It learns from data to extend its knowledge.</p>
-            </div>
-          </div>
-     
-                 <div class="frosted_background inblog_featured_blog">
-            <div class="featured_image">
               <img src="/assets/images/image.webp" alt="What is AI? its functioning &amp; misuses." class="blog_snippet__image">
             </div>
             <div class="snippet__content">
               <h3 class="blog_snippet_title"><a href="/blog/2025-06-05-what-is-ai-its-functioning-misuses/" >What is AI? its functioning &amp; misuses.</a></h3>
               <p class="content_type">Type: <b class="type">blog</b></p>
               <p class="text_clamp blog_snippet_body ">AI is a program with capabilities such as language understanding, image recognition, and self improves itself. It lacks consciousness.</p>
+            </div>
+          </div>
+     
+                 <div class="frosted_background inblog_featured_blog">
+            <div class="featured_image">
+              <img src="/assets/images/oig2.webp" alt="Custom ROMs Explained: Past, Present &amp; Future" class="blog_snippet__image">
+            </div>
+            <div class="snippet__content">
+              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-custom-roms-explained-past-present-future/" >Custom ROMs Explained: Past, Present &amp; Future</a></h3>
+              <p class="content_type">Type: <b class="type">blog</b></p>
+              <p class="text_clamp blog_snippet_body ">Custom ROMs has been a great part of the Android Community. In this blog I have explained it&#39;s past present and the past of Lineage OS</p>
             </div>
           </div>
      

@@ -10,6 +10,7 @@
     <script type="module" src="/assets/firebase.js"></script>
     <script type="module" src="/assets/auth.js"></script>
     <script type="module" src="/assets/comments.js"></script>
+    <script type="module" src="/assets/js/likes.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
     <link rel="stylesheet" href="/assets/css/techinformal.css">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -135,6 +136,25 @@
       </figure>
     <div style="text-align: left;">In past AI has evolved in many new forms and one of them is <b>Generative AI,</b>&nbsp;it is a very interesting field that merges <b>Artificial Intelligence</b>&nbsp;with <b>Creativity.</b></div><div style="text-align: left;"><b><br /><h2 style="text-align: left;">Concept of Generative AI</h2><div>You might have thought about this question "What is the concept of generative AI &amp; why it is important?", In simple words&nbsp;<b>Generative AI</b>&nbsp;refers to a set of tools and algorithms that can <b>generate new content</b>&nbsp;automatically, to do so generative AI uses techniques or technologies such as <b>neural network, deep learning, </b>and <b>probabilistic models </b>although the main highlight of generative AI is they can learn from existing data and generate new content by extending their existing data.</div><h2 style="text-align: left;">Relevance to Creative Arts</h2><div>Talking about Creative Arts, it requires lots of thinking and practice to improve creativity but generative AI lacks both <b>abilities to think and practice</b>, but generative AI has the potential to <b>transform the creative process</b>&nbsp;in arts and design, with correct prompt it can generate high quality media including images, concept art music etcetera.</div><h2 style="text-align: left;">Generative AI as a Tool</h2><div>I am not sure you are aware of it or not but there is an ongoing debate about whether generative AI is an agent or a tool. Even we consider it a tool, tools are not neutral. What I want to say is when photography was emerged painters were feared of it, they thought it would be end of art, similarly many people are feared that it would end their job especially jobs related to creativity, In my opinion there is no need to worry that it would end creative jobs instead we should learn how to use it and how we can speed up our work using generative AI, creative people can use generative AI to get an illustration of their idea and can set a baseline of their work using it.</div><h2 style="text-align: left;">Conclusion</h2><div>Like other technologies like computers and vehicles there is no doubt that generative AI will take over some jobs but at the same time it will open many other job opportunities, the most important thing is we should know how to use AI and how can we improve our work using it and as I mentioned earlier there is no need to&nbsp; fear that it will end jobs instead we should sharpen our skills and create more unique things while collaborating with AI.</div><p style="text-align: left;">That's all for this blog, thanks for reading and I hope you enjoyed it bye.</p>
 
+    
+    <!-- Like/Dislike Section -->
+    <div class="reactions-section">
+      <div class="reactions-container">
+        <button id="like-btn" class="reaction-btn like-btn" title="Like this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+          </svg>
+          <span id="like-count">0</span>
+        </button>
+        
+        <button id="dislike-btn" class="reaction-btn dislike-btn" title="Dislike this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/>
+          </svg>
+          <span id="dislike-count">0</span>
+        </button>
+      </div>
+    </div>
   </div>
   <a style="text-align: center;" href="#comment-section" class="button">Comments</a>
 </article>
@@ -145,23 +165,23 @@
      
                  <div class="frosted_background inblog_featured_blog">
             <div class="featured_image">
+              <img src="/assets/images/oig2.webp" alt="Custom ROMs Explained: Past, Present &amp; Future" class="blog_snippet__image">
+            </div>
+            <div class="snippet__content">
+              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-custom-roms-explained-past-present-future/" >Custom ROMs Explained: Past, Present &amp; Future</a></h3>
+              <p class="content_type">Type: <b class="type">blog</b></p>
+              <p class="text_clamp blog_snippet_body ">Custom ROMs has been a great part of the Android Community. In this blog I have explained it&#39;s past present and the past of Lineage OS</p>
+            </div>
+          </div>
+     
+                 <div class="frosted_background inblog_featured_blog">
+            <div class="featured_image">
               <img src="/assets/images/ai-in-creative-field.jpg" alt="Concept of Generative AI in creative field." class="blog_snippet__image">
             </div>
             <div class="snippet__content">
               <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-concept-of-generative-ai-in-creative-field/" >Concept of Generative AI in creative field.</a></h3>
               <p class="content_type">Type: <b class="type">blog</b></p>
               <p class="text_clamp blog_snippet_body ">It’s a subset of AI that creates new content using techniques like neural networks and deep learning. It learns from data to extend its knowledge.</p>
-            </div>
-          </div>
-     
-                 <div class="frosted_background inblog_featured_blog">
-            <div class="featured_image">
-              <img src="/assets/images/image.webp" alt="What is AI? its functioning &amp; misuses." class="blog_snippet__image">
-            </div>
-            <div class="snippet__content">
-              <h3 class="blog_snippet_title"><a href="/blog/2025-06-05-what-is-ai-its-functioning-misuses/" >What is AI? its functioning &amp; misuses.</a></h3>
-              <p class="content_type">Type: <b class="type">blog</b></p>
-              <p class="text_clamp blog_snippet_body ">AI is a program with capabilities such as language understanding, image recognition, and self improves itself. It lacks consciousness.</p>
             </div>
           </div>
      

@@ -90,3 +90,47 @@
     text-align: center;
     padding: 5px;
 }
+
+/* Pinned Comment Styles */
+.pinned-comment {
+    border: 2px groove var(--primary);
+    background: var(--frosted_primary);
+    box-shadow: 0 2px 8px var(--frosted_primary);
+    position: relative;
+}
+
+.pinned-indicator {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-left: 8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pin-comment-btn, .unpin-comment-btn {
+    background: var(--frosted_primary);
+    color: var(--white);
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.pin-comment-btn:hover {
+    background: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px var(--frosted_primary);
+}
+
+.unpin-comment-btn {
+    background: var(--secondary);
+}
+
+.unpin-comment-btn:hover {
+    background: var(--secondary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px var(--frosted_secondary);
+}

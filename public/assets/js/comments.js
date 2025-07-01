@@ -19,7 +19,8 @@ export async function postComment(postId, content, user, parentId = null) {
       photo: user.photoURL
     },
     likes: [],
-    dislikes: []
+    dislikes: [],
+    pinned: false
   });
 }
 
@@ -44,10 +45,24 @@ export async function fetchComments(postId, limitCount = 10, startAfterDoc = nul
 
   const snapshot = await getDocs(baseQuery);
   const comments = [];
-  snapshot.forEach(doc => comments.push({ id: doc.id, ref: doc.ref, ...doc.data() }));
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    // Add pinned field if it doesn't exist (for backward compatibility)
+    if (data.pinned === undefined) {
+      data.pinned = false;
+    }
+    comments.push({ id: doc.id, ref: doc.ref, ...data });
+  });
 
-  const topLevel = comments.filter(c => !c.parentId);
-  const replies = comments.filter(c => c.parentId);
+  // Separate pinned and non-pinned comments
+  const pinnedComments = comments.filter(c => c.pinned === true);
+  const regularComments = comments.filter(c => c.pinned !== true);
+  
+  // Combine with pinned comments first
+  const sortedComments = [...pinnedComments, ...regularComments];
+
+  const topLevel = sortedComments.filter(c => !c.parentId);
+  const replies = sortedComments.filter(c => c.parentId);
 
   return {
     topLevel,
@@ -119,6 +134,40 @@ export async function deleteComment(commentId, currentUser, userRole) {
   } catch (error) {
     console.error("Error deleting comment:", error);
     throw error; // Re-throw so the UI can handle it
+  }
+}
+
+// Pin a comment (only for admin/mod users)
+export async function pinComment(commentId, currentUser, userRole) {
+  if (userRole !== "owner" && userRole !== "mod") {
+    throw new Error("Only admins and moderators can pin comments");
+  }
+  
+  try {
+    await updateDoc(doc(db, "comments", commentId), {
+      pinned: true
+    });
+    console.log(`Comment ${commentId} pinned successfully`);
+  } catch (error) {
+    console.error("Error pinning comment:", error);
+    throw error;
+  }
+}
+
+// Unpin a comment (only for admin/mod users)
+export async function unpinComment(commentId, currentUser, userRole) {
+  if (userRole !== "owner" && userRole !== "mod") {
+    throw new Error("Only admins and moderators can unpin comments");
+  }
+  
+  try {
+    await updateDoc(doc(db, "comments", commentId), {
+      pinned: false
+    });
+    console.log(`Comment ${commentId} unpinned successfully`);
+  } catch (error) {
+    console.error("Error unpinning comment:", error);
+    throw error;
   }
 }
 

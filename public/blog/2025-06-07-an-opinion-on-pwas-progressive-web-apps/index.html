@@ -10,6 +10,7 @@
     <script type="module" src="/assets/firebase.js"></script>
     <script type="module" src="/assets/auth.js"></script>
     <script type="module" src="/assets/comments.js"></script>
+    <script type="module" src="/assets/js/likes.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
     <link rel="stylesheet" href="/assets/css/techinformal.css">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -198,6 +199,25 @@ No App Store Required: PWAs don't need users to sign up for any specific store, 
 <p>One more thing I want to say is many web developers aren't using PWA or event they are using PWA there are not utilizing it full potential or they just use it to make taskbar and start menu shortcuts.</p>
 <p>That's all thanks for reading.</p>
 
+    
+    <!-- Like/Dislike Section -->
+    <div class="reactions-section">
+      <div class="reactions-container">
+        <button id="like-btn" class="reaction-btn like-btn" title="Like this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+          </svg>
+          <span id="like-count">0</span>
+        </button>
+        
+        <button id="dislike-btn" class="reaction-btn dislike-btn" title="Dislike this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/>
+          </svg>
+          <span id="dislike-count">0</span>
+        </button>
+      </div>
+    </div>
   </div>
   <a style="text-align: center;" href="#comment-section" class="button">Comments</a>
 </article>
@@ -219,12 +239,12 @@ No App Store Required: PWAs don't need users to sign up for any specific store, 
      
                  <div class="frosted_background inblog_featured_blog">
             <div class="featured_image">
-              <img src="/assets/images/image.webp" alt="What is AI? its functioning &amp; misuses." class="blog_snippet__image">
+              <img src="/assets/images/ai-in-creative-field.jpg" alt="Concept of Generative AI in creative field." class="blog_snippet__image">
             </div>
             <div class="snippet__content">
-              <h3 class="blog_snippet_title"><a href="/blog/2025-06-05-what-is-ai-its-functioning-misuses/" >What is AI? its functioning &amp; misuses.</a></h3>
+              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-concept-of-generative-ai-in-creative-field/" >Concept of Generative AI in creative field.</a></h3>
               <p class="content_type">Type: <b class="type">blog</b></p>
-              <p class="text_clamp blog_snippet_body ">AI is a program with capabilities such as language understanding, image recognition, and self improves itself. It lacks consciousness.</p>
+              <p class="text_clamp blog_snippet_body ">It’s a subset of AI that creates new content using techniques like neural networks and deep learning. It learns from data to extend its knowledge.</p>
             </div>
           </div>
      

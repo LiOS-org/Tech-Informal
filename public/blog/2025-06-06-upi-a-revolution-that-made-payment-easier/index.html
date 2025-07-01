@@ -10,6 +10,7 @@
     <script type="module" src="/assets/firebase.js"></script>
     <script type="module" src="/assets/auth.js"></script>
     <script type="module" src="/assets/comments.js"></script>
+    <script type="module" src="/assets/js/likes.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
     <link rel="stylesheet" href="/assets/css/techinformal.css">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -148,6 +149,25 @@ USD 199) to Rs 5 lakh (USD 5998) for hospitals and educational institutions whic
 <p>Recently UPI is also gaining attention outside India due to its easy to use and more secure nature.</p>
 <p>Outside India, Bhutan is the first country to implement UPI followed by Malaysia, Nepal, Sri Lanka, UK and some countries of EU along with Oman and UAE.</p>
 
+    
+    <!-- Like/Dislike Section -->
+    <div class="reactions-section">
+      <div class="reactions-container">
+        <button id="like-btn" class="reaction-btn like-btn" title="Like this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+          </svg>
+          <span id="like-count">0</span>
+        </button>
+        
+        <button id="dislike-btn" class="reaction-btn dislike-btn" title="Dislike this post">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/>
+          </svg>
+          <span id="dislike-count">0</span>
+        </button>
+      </div>
+    </div>
   </div>
   <a style="text-align: center;" href="#comment-section" class="button">Comments</a>
 </article>
@@ -158,23 +178,23 @@ USD 199) to Rs 5 lakh (USD 5998) for hospitals and educational institutions whic
      
                  <div class="frosted_background inblog_featured_blog">
             <div class="featured_image">
-              <img src="/assets/images/oig2.webp" alt="Custom ROMs Explained: Past, Present &amp; Future" class="blog_snippet__image">
-            </div>
-            <div class="snippet__content">
-              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-custom-roms-explained-past-present-future/" >Custom ROMs Explained: Past, Present &amp; Future</a></h3>
-              <p class="content_type">Type: <b class="type">blog</b></p>
-              <p class="text_clamp blog_snippet_body ">Custom ROMs has been a great part of the Android Community. In this blog I have explained it&#39;s past present and the past of Lineage OS</p>
-            </div>
-          </div>
-     
-                 <div class="frosted_background inblog_featured_blog">
-            <div class="featured_image">
               <img src="/assets/images/ai-in-creative-field.jpg" alt="Concept of Generative AI in creative field." class="blog_snippet__image">
             </div>
             <div class="snippet__content">
               <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-concept-of-generative-ai-in-creative-field/" >Concept of Generative AI in creative field.</a></h3>
               <p class="content_type">Type: <b class="type">blog</b></p>
               <p class="text_clamp blog_snippet_body ">It’s a subset of AI that creates new content using techniques like neural networks and deep learning. It learns from data to extend its knowledge.</p>
+            </div>
+          </div>
+     
+                 <div class="frosted_background inblog_featured_blog">
+            <div class="featured_image">
+              <img src="/assets/images/oig2.webp" alt="Custom ROMs Explained: Past, Present &amp; Future" class="blog_snippet__image">
+            </div>
+            <div class="snippet__content">
+              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-custom-roms-explained-past-present-future/" >Custom ROMs Explained: Past, Present &amp; Future</a></h3>
+              <p class="content_type">Type: <b class="type">blog</b></p>
+              <p class="text_clamp blog_snippet_body ">Custom ROMs has been a great part of the Android Community. In this blog I have explained it&#39;s past present and the past of Lineage OS</p>
             </div>
           </div>
      
