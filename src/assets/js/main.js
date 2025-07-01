@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       const canPin = currentUser && (currentUserRole === "mod" || currentUserRole === "owner");
       const isPinned = parent.pinned || false;
-      const pinnedIndicator = isPinned ? `<span class="pinned-indicator" style="color: #ffa500; font-weight: bold; margin-left: 8px;">📌 Pinned</span>` : "";
+      const pinnedIndicator = isPinned ? `<span class="pinned-indicator" style="color: var(--white); font-weight: bold; margin-left: 8px;">📌 Pinned</span>` : "";
       
       const pinButton = canPin ? 
         (isPinned ? 
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const parentEl = document.createElement("div");
       parentEl.className = `comment frosted_background ${isPinned ? 'pinned-comment' : ''}`;
-      parentEl.style.border = isPinned ? "2px solid #ffa500" : "";
+      parentEl.style.border = isPinned ? "2px groove var(--primary)" : "";
       parentEl.innerHTML = `
         <div style="display:flex; gap: 8px; align-items:center;">
           <img src="${parent.author.photo}" width="28" style="border-radius: 100vh;">
