@@ -1,7 +1,7 @@
 ---
 title: "Custom ROMs Explained: Past, Present & Future"
 description: Custom ROMs has been a great part of the Android Community. In this
-  blog I have explained it's past present and the past of Lineage OS
+  blog I have explained it's past present and the future of Lineage OS
 author: MD Saifullah
 date: 2024-05-24T00:00:00.000Z
 featured_image: /assets/images/oig2.jpg
