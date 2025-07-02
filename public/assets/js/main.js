@@ -1,5 +1,5 @@
 import { login, logout, watchUser, loginWith, loginWithEmail, registerWithEmail, getUserRole } from '/assets/js/auth.js';
-import { getDoc, doc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+import { getDoc, doc, setDoc, updateDoc, increment, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 import { postComment, fetchComments, deleteComment, pinComment, unpinComment } from '/assets/js/comments.js';
 import { db } from '/assets/firebase.js';
 
@@ -363,64 +363,118 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   // --- Page metadata tracking ---
+// Global flag to prevent multiple initializations
+let pageMetadataInitialized = false;
+let pageMetadataPromise = null;
+
 async function initPageMetadata() {
+  // Prevent multiple simultaneous initializations
+  if (pageMetadataInitialized) {
+    console.log('Page metadata already initialized');
+    return pageMetadataPromise;
+  }
+  
+  if (pageMetadataPromise) {
+    console.log('Page metadata initialization in progress, waiting...');
+    return pageMetadataPromise;
+  }
+
   // Remove or comment out the next line to enable on all domains:
   // if (!location.hostname.includes("localhost")) return;
 
-  const title = document.title.trim();
-  const path = window.location.pathname;
-  const collectionName = "pageMeta";
-  const type = path.includes("/blog/") ? "blog" :
-               path.includes("/article/") ? "article" : null;
+  pageMetadataPromise = (async () => {
+    try {
+      const title = document.title.trim();
+      const path = window.location.pathname;
+      const collectionName = "pageMeta";
+      const type = path.includes("/blog/") ? "blog" :
+                   path.includes("/article/") ? "article" : null;
 
-  let uid = localStorage.getItem("page-uid-" + path);
-  const slugBase = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      // Use a more robust key for localStorage
+      const storageKey = `page-uid-${path}`;
+      let uid = localStorage.getItem(storageKey);
+      const slugBase = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-  if (!uid) {
-    uid = crypto.randomUUID();
-    localStorage.setItem("page-uid-" + path, uid);
-  }
+      // If no UID exists, check if there's already a document with this path to avoid duplicates
+      if (!uid) {
+        console.log('No UID found in localStorage, checking for existing documents...');
+        
+        // Query for existing documents with the same path
+        const pathQuery = query(
+          collection(db, collectionName),
+          where("path", "==", path)
+        );
+        const existingDocs = await getDocs(pathQuery);
+        
+        if (!existingDocs.empty) {
+          // Use the UID from the first existing document
+          const existingDoc = existingDocs.docs[0];
+          uid = existingDoc.data().uid;
+          localStorage.setItem(storageKey, uid);
+          console.log('Found existing document, using UID:', uid);
+        } else {
+          // Create new UID only if no existing document found
+          uid = crypto.randomUUID();
+          localStorage.setItem(storageKey, uid);
+          console.log('Created new UID:', uid);
+        }
+      }
 
-  const docId = slugBase + "-" + uid;
-  globalUID = uid;
-  globalDocId = docId;
-  
-  // Make globalDocId available to other scripts
-  window.globalDocId = docId;
-  window.globalUID = uid;
+      const docId = slugBase + "-" + uid;
+      globalUID = uid;
+      globalDocId = docId;
+      
+      // Make globalDocId available to other scripts
+      window.globalDocId = docId;
+      window.globalUID = uid;
 
-  console.log('Initializing page metadata:', {
-    docId,
-    uid,
-    path,
-    title
-  });
+      console.log('Initializing page metadata:', {
+        docId,
+        uid,
+        path,
+        title
+      });
 
-  const docRef = doc(db, collectionName, docId);
-  
-  // Check if document already exists to prevent unnecessary writes
-  const docSnap = await getDoc(docRef);
-  if (!docSnap.exists()) {
-    await setDoc(docRef, {
-      uid,
-      title,
-      type,
-      path,
-      likes: 0,
-      dislikes: 0,
-      createdAt: new Date()
-    });
-    console.log('Created new page metadata document');
-  } else {
-    console.log('Page metadata document already exists');
-    // Only update if title has changed
-    const existingData = docSnap.data();
-    if (existingData.title !== title) {
-      await updateDoc(docRef, { title });
-      console.log('Updated page title in metadata');
+      const docRef = doc(db, collectionName, docId);
+      
+      // Check if document already exists to prevent unnecessary writes
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        await setDoc(docRef, {
+          uid,
+          title,
+          type,
+          path,
+          likes: 0,
+          dislikes: 0,
+          createdAt: new Date()
+        });
+        console.log('Created new page metadata document');
+      } else {
+        console.log('Page metadata document already exists');
+        // Only update if title has changed
+        const existingData = docSnap.data();
+        if (existingData.title !== title) {
+          await updateDoc(docRef, { title });
+          console.log('Updated page title in metadata');
+        }
+      }
+      
+      pageMetadataInitialized = true;
+      return { uid, docId };
+    } catch (error) {
+      console.error('Error initializing page metadata:', error);
+      pageMetadataPromise = null; // Reset on error so it can be retried
+      throw error;
     }
-  }
-  }
+  })();
+  
+  return pageMetadataPromise;
+}
 
-  initPageMetadata();
+// Export the function to window so other scripts can use it
+window.initPageMetadata = initPageMetadata;
+
+// Initialize page metadata
+initPageMetadata();
 });

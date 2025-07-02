@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content=""/>
+    <meta name="description" content="Mod Tools for Tech Informal."/>
     <link rel="alternate" type="application/atom+xml" title="Tech Informal" href="/atom.xml" />
-    <title>Search</title>
+    <title>Tech Informal - Mod Tools</title>
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
     <script type="module" src="/assets/firebase.js"></script>
     <script type="module" src="/assets/auth.js"></script>
@@ -126,113 +126,63 @@
 </aside>
 <div id="overlay" class="overlay"></div>
     <main>
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-ui.js"></script>
-<div id="search"></div>
- <div class="inblog_featured_content_container frosted_background">
-  <div class="section_title">Featured Blogs</div>
-  <div id="search-featured-content" class="inblog_featured_content">
-    <div class="loading-state" style="text-align: center; padding: 2rem; opacity: 0.7;">
-      <p>Loading featured content...</p>
+    
+<div data-pagefind-ignore class="mod_tools_container frosted_background">
+    <div id="auth-check" style="display: none;">
+        <div class="unauthorized-message frosted_background" style="text-align: center; padding: 2rem; margin: 2rem;">
+            <h2>🔒 Access Denied</h2>
+            <p>You need to be authenticated with mod or owner privileges to access this page.</p>
+            <a href="#login" class="button frosted_background">Sign In</a>
+        </div>
     </div>
-  </div>
+
+    <div id="mod-tools-content" style="display: none;">
+        <h1 class="section-title">🛠️ Mod Tools</h1>
+        
+        <!-- Featured Contents Management -->
+        <div class="featured_contents_section frosted_background" style="margin: 1rem 0; padding: 1rem; border-radius: 8px;">
+            <h2 class="section-title">✨ Manage Featured Contents</h2>
+            
+            <div class="tools-navigation" style="margin: 1rem 0;">
+                <a href="/mod-tools/all-contents/" class="button frosted_background">📝 Add Content to Featured</a>
+                <button id="refresh-featured" class="button frosted_background">🔄 Refresh List</button>
+                <button id="force-sync-btn" class="button frosted_background">🔄 Force Sync All Content</button>
+            </div>
+
+            <div id="featured-list" class="featured-list">
+                <div class="loading-spinner" style="text-align: center; padding: 2rem;">
+                    <p>Loading featured content...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="stats_section frosted_background" style="margin: 1rem 0; padding: 1rem; border-radius: 8px;">
+            <h2 class="section-title">📊 Content Statistics</h2>
+            <div id="content-stats" class="stats-grid">
+                <div class="stat-item frosted_background">
+                    <span class="stat-number" id="total-posts">-</span>
+                    <span class="stat-label">Total Posts</span>
+                </div>
+                <div class="stat-item frosted_background">
+                    <span class="stat-number" id="featured-count">-</span>
+                    <span class="stat-label">Featured Posts</span>
+                </div>
+                <div class="stat-item frosted_background">
+                    <span class="stat-number" id="blog-count">-</span>
+                    <span class="stat-label">Blogs</span>
+                </div>
+                <div class="stat-item frosted_background">
+                    <span class="stat-number" id="article-count">-</span>
+                    <span class="stat-label">Articles</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script type="module">
-import { db } from '/assets/firebase.js';
-import { 
-    collection, 
-    getDocs, 
-    query, 
-    where,
-    limit
-} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+<script type="module" src="/assets/js/mod-tools.js"></script>
 
-// Load featured content for search page
-async function loadSearchFeaturedContent() {
-    const contentElement = document.getElementById('search-featured-content');
-    
-    try {
-        // Query for featured posts (limit to 6 for search page)
-        const featuredQuery = query(
-            collection(db, "posts"),
-            where("featured", "==", true),
-            limit(6)
-        );
-        
-        const querySnapshot = await getDocs(featuredQuery);
-        const featuredPosts = [];
-        
-        querySnapshot.forEach((doc) => {
-            featuredPosts.push({
-                id: doc.id,
-                ...doc.data()
-            });
-        });
-        
-        if (featuredPosts.length === 0) {
-            contentElement.innerHTML = `
-                <div style="text-align: center; padding: 2rem; opacity: 0.7;">
-                    <p>📝 No featured content available.</p>
-                </div>
-            `;
-            return;
-        }
-        
-        // Shuffle the posts
-        const shuffled = shuffleArray(featuredPosts);
-        
-        const featuredHTML = shuffled.map(post => `
-            <div class="frosted_background inblog_featured_blog">
-                <div class="featured_image">
-                    <img src="${post.featured_image || '/assets/images/image.webp'}" 
-                         alt="${post.title}" 
-                         class="blog_snippet__image">
-                </div>
-                <div class="snippet__content">
-                    <h3 class="blog_snippet_title">
-                        <a href="${post.url}">${post.title}</a>
-                    </h3>
-                    <p class="content_type">
-                        Type: <b class="type">${post.type || 'blog'}</b>
-                    </p>
-                    <p class="text_clamp blog_snippet_body">${post.description || ''}</p>
-                </div>
-            </div>
-        `).join('');
-        
-        contentElement.innerHTML = featuredHTML;
-        
-    } catch (error) {
-        console.error('Error loading featured content:', error);
-        contentElement.innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: #dc3545;">
-                <p>❌ Error loading featured content.</p>
-            </div>
-        `;
-    }
-}
-
-// Utility function
-function shuffleArray(array) {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(loadSearchFeaturedContent, 1000);
-});
-</script>
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        new PagefindUI({ element: "#search", showSubResults: true });
-    });
-</script> 
 
     </main>
     <div class="navigation_container_bottom frosted_background frosted_texture">

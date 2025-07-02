@@ -16,12 +16,5 @@ layout: 'base.njk'
     all written to be accessible, informative, and fun to read.
   </p>
 </div>
-  <div class="container flow" style="margin-top: 15px;">
-    <h2 class="section-title text-center ">Featured Contents</h2>
-    <div  class="blog_snippet_container">
-      {% for post in collections.featured | shuffle | limit(4) %}
-        {% include "blog-snippet.njk" %}
-      {% endfor %}
-    </div>
-  </div>
 </section> 
+  <div class="blog_snippet_container">{% include "featured-content.njk" %}</div>

@@ -197,13 +197,41 @@ async function updateCountsUI() {
   if (dislikeCount) dislikeCount.textContent = dislikes;
 }
 
-function initializeLikeSystem() {
+async function initializeLikeSystem() {
   console.log('Initializing like system...');
   
   // Only proceed if we have the necessary elements
   if (!likeBtn || !dislikeBtn || !likeCount || !dislikeCount) {
     console.log('Like/dislike elements not found on this page');
     return;
+  }
+  
+  // Wait for page metadata to be initialized
+  if (window.initPageMetadata) {
+    try {
+      await window.initPageMetadata();
+      console.log('Page metadata initialized for like system');
+    } catch (error) {
+      console.error('Failed to initialize page metadata for like system:', error);
+    }
+  } else {
+    console.warn('initPageMetadata not available, waiting for it...');
+    // Poll for the function to become available
+    let attempts = 0;
+    while (!window.initPageMetadata && attempts < 50) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+    }
+    if (window.initPageMetadata) {
+      try {
+        await window.initPageMetadata();
+        console.log('Page metadata initialized for like system (after waiting)');
+      } catch (error) {
+        console.error('Failed to initialize page metadata for like system (after waiting):', error);
+      }
+    } else {
+      console.error('initPageMetadata still not available after waiting');
+    }
   }
   
   // Add event listeners

@@ -7,7 +7,7 @@ const prettifyXml = require('prettify-xml');
 
 const baseUrl = 'https://tech-informal.web.app';
 const publicDir = path.join(__dirname, 'public');
-const EXCLUDE = ['404', 'admin'];
+const EXCLUDE = ['404', 'admin', 'mod-tools']; // Exclusion list for specific pages
 
 function getPriority(url) {
   const depth = url.split('/').filter(Boolean).length;

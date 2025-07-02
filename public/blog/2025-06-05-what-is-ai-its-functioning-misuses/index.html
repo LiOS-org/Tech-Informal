@@ -12,7 +12,9 @@
     <script type="module" src="/assets/comments.js"></script>
     <script type="module" src="/assets/js/likes.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/sync-content.js"></script>
     <link rel="stylesheet" href="/assets/css/techinformal.css">
+    <link rel="stylesheet" href="/assets/css/mod_tools.css">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <!-- One Signal -->
      <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -171,34 +173,107 @@
   <a style="text-align: center;" href="#comment-section" class="button">Comments</a>
 </article>
 <!-- Featured Contents -->
- <div class="inblog_featured_content_container frosted_background">
+<div id="inblog-featured-section" class="inblog_featured_content_container frosted_background">
   <div class="section_title">Featured Blogs</div>
-  <div class="inblog_featured_content">
-     
-                 <div class="frosted_background inblog_featured_blog">
-            <div class="featured_image">
-              <img src="/assets/images/oig2.webp" alt="Custom ROMs Explained: Past, Present &amp; Future" class="blog_snippet__image">
-            </div>
-            <div class="snippet__content">
-              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-custom-roms-explained-past-present-future/" >Custom ROMs Explained: Past, Present &amp; Future</a></h3>
-              <p class="content_type">Type: <b class="type">blog</b></p>
-              <p class="text_clamp blog_snippet_body ">Custom ROMs has been a great part of the Android Community. In this blog I have explained it&#39;s past present and the past of Lineage OS</p>
-            </div>
-          </div>
-     
-                 <div class="frosted_background inblog_featured_blog">
-            <div class="featured_image">
-              <img src="/assets/images/ai-in-creative-field.jpg" alt="Concept of Generative AI in creative field." class="blog_snippet__image">
-            </div>
-            <div class="snippet__content">
-              <h3 class="blog_snippet_title"><a href="/blog/2025-06-06-concept-of-generative-ai-in-creative-field/" >Concept of Generative AI in creative field.</a></h3>
-              <p class="content_type">Type: <b class="type">blog</b></p>
-              <p class="text_clamp blog_snippet_body ">It’s a subset of AI that creates new content using techniques like neural networks and deep learning. It learns from data to extend its knowledge.</p>
-            </div>
-          </div>
-     
-     </div>
+  <div id="inblog-featured-content" class="inblog_featured_content">
+    <div class="loading-state" style="text-align: center; padding: 2rem; opacity: 0.7;">
+      <p>Loading featured content...</p>
+    </div>
   </div>
+</div>
+
+<script type="module">
+import { db } from '/assets/firebase.js';
+import { 
+    collection, 
+    getDocs, 
+    query, 
+    where,
+    limit
+} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+
+// Load featured content for blog pages
+async function loadInblogFeaturedContent() {
+    const contentElement = document.getElementById('inblog-featured-content');
+    
+    try {
+        // Query for featured posts (limit to 2 for blog pages)
+        const featuredQuery = query(
+            collection(db, "posts"),
+            where("featured", "==", true),
+            limit(3) // Get 3 and exclude current post if needed
+        );
+        
+        const querySnapshot = await getDocs(featuredQuery);
+        const featuredPosts = [];
+        
+        querySnapshot.forEach((doc) => {
+            const post = { id: doc.id, ...doc.data() };
+            // Exclude current post if URL matches
+            if (post.url !== window.location.pathname) {
+                featuredPosts.push(post);
+            }
+        });
+        
+        if (featuredPosts.length === 0) {
+            contentElement.innerHTML = `
+                <div style="text-align: center; padding: 2rem; opacity: 0.7;">
+                    <p>📝 No featured content available.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Shuffle and take first 2
+        const shuffled = shuffleArray(featuredPosts).slice(0, 2);
+        
+        const featuredHTML = shuffled.map(post => `
+            <div class="frosted_background inblog_featured_blog">
+                <div class="featured_image">
+                    <img src="${post.featured_image || '/assets/images/image.webp'}"
+                         alt="${post.title}" 
+                         class="blog_snippet__image">
+                </div>
+                <div class="snippet__content">
+                    <h3 class="blog_snippet_title">
+                        <a href="${post.url}">${post.title}</a>
+                    </h3>
+                    <p class="content_type">
+                        Type: <b class="type">${post.type || 'blog'}</b>
+                    </p>
+                    <p class="text_clamp blog_snippet_body">${post.description || ''}</p>
+                </div>
+            </div>
+        `).join('');
+        
+        contentElement.innerHTML = featuredHTML;
+        
+    } catch (error) {
+        console.error('Error loading featured content:', error);
+        contentElement.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: #dc3545;">
+                <p>❌ Error loading featured content.</p>
+            </div>
+        `;
+    }
+}
+
+// Utility function
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Add a small delay to ensure Firebase is initialized
+    setTimeout(loadInblogFeaturedContent, 1000);
+});
+</script>
 <!-- Comments Section -->
 <div id="comment-section" class="frosted_background">
   <div class="auth_and_comment_form frosted_background">

@@ -7,12 +7,103 @@ layout: "base.njk"
 <div id="search"></div>
  <div class="inblog_featured_content_container frosted_background">
   <div class="section_title">Featured Blogs</div>
-  <div class="inblog_featured_content">
-     {% for post in collections.featured | shuffle | limit(10) %}
-       {% include "inblog_featured_blog.njk" %}
-     {% endfor %}
-     </div>
+  <div id="search-featured-content" class="inblog_featured_content">
+    <div class="loading-state" style="text-align: center; padding: 2rem; opacity: 0.7;">
+      <p>Loading featured content...</p>
+    </div>
   </div>
+</div>
+
+<script type="module">
+import { db } from '/assets/firebase.js';
+import { 
+    collection, 
+    getDocs, 
+    query, 
+    where,
+    limit
+} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+
+// Load featured content for search page
+async function loadSearchFeaturedContent() {
+    const contentElement = document.getElementById('search-featured-content');
+    
+    try {
+        // Query for featured posts (limit to 6 for search page)
+        const featuredQuery = query(
+            collection(db, "posts"),
+            where("featured", "==", true),
+            limit(6)
+        );
+        
+        const querySnapshot = await getDocs(featuredQuery);
+        const featuredPosts = [];
+        
+        querySnapshot.forEach((doc) => {
+            featuredPosts.push({
+                id: doc.id,
+                ...doc.data()
+            });
+        });
+        
+        if (featuredPosts.length === 0) {
+            contentElement.innerHTML = `
+                <div style="text-align: center; padding: 2rem; opacity: 0.7;">
+                    <p>📝 No featured content available.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Shuffle the posts
+        const shuffled = shuffleArray(featuredPosts);
+        
+        const featuredHTML = shuffled.map(post => `
+            <div class="frosted_background inblog_featured_blog">
+                <div class="featured_image">
+                    <img src="${post.featured_image || '/assets/images/image.webp'}" 
+                         alt="${post.title}" 
+                         class="blog_snippet__image">
+                </div>
+                <div class="snippet__content">
+                    <h3 class="blog_snippet_title">
+                        <a href="${post.url}">${post.title}</a>
+                    </h3>
+                    <p class="content_type">
+                        Type: <b class="type">${post.type || 'blog'}</b>
+                    </p>
+                    <p class="text_clamp blog_snippet_body">${post.description || ''}</p>
+                </div>
+            </div>
+        `).join('');
+        
+        contentElement.innerHTML = featuredHTML;
+        
+    } catch (error) {
+        console.error('Error loading featured content:', error);
+        contentElement.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: #dc3545;">
+                <p>❌ Error loading featured content.</p>
+            </div>
+        `;
+    }
+}
+
+// Utility function
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(loadSearchFeaturedContent, 1000);
+});
+</script>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
         new PagefindUI({ element: "#search", showSubResults: true });

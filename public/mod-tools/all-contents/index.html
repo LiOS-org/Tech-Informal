@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content=""/>
+    <meta name="description" content="Manage and add content to featured collection."/>
     <link rel="alternate" type="application/atom+xml" title="Tech Informal" href="/atom.xml" />
-    <title>Search</title>
+    <title>All Contents - Mod Tools - Tech Informal</title>
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
     <script type="module" src="/assets/firebase.js"></script>
     <script type="module" src="/assets/auth.js"></script>
@@ -126,113 +126,80 @@
 </aside>
 <div id="overlay" class="overlay"></div>
     <main>
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-ui.js"></script>
-<div id="search"></div>
- <div class="inblog_featured_content_container frosted_background">
-  <div class="section_title">Featured Blogs</div>
-  <div id="search-featured-content" class="inblog_featured_content">
-    <div class="loading-state" style="text-align: center; padding: 2rem; opacity: 0.7;">
-      <p>Loading featured content...</p>
+    
+<div data-pagefind-ignore class="all_contents_container frosted_background">
+    <div id="auth-check" style="display: none;">
+        <div class="unauthorized-message frosted_background" style="text-align: center; padding: 2rem; margin: 2rem;">
+            <h2>🔒 Access Denied</h2>
+            <p>You need to be authenticated with mod or owner privileges to access this page.</p>
+            <a href="#login" class="button frosted_background">Sign In</a>
+        </div>
     </div>
-  </div>
+
+    <div id="all-contents-content" style="display: none;">
+        <h1 class="section-title">📝 All Contents</h1>
+        
+        <div class="navigation-header" style="margin: 1rem 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="/mod-tools/" class="button frosted_background">← Back to Mod Tools</a>
+            <button id="force-sync-all-btn" class="button frosted_background">🔄 Force Sync All Content</button>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="search-filter-section frosted_background" style="padding: 1rem; margin: 1rem 0; border-radius: 8px;">
+            <div class="search-controls">
+                <input type="text" id="content-search" placeholder="Search by title or description..." class="frosted_background input" style="width: 100%; margin-bottom: 1rem;">
+                
+                <div class="filter-controls" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <select id="type-filter" class="frosted_background input">
+                        <option value="">All Types</option>
+                        <option value="blog">Blogs</option>
+                        <option value="article">Articles</option>
+                    </select>
+                    
+                    <select id="featured-filter" class="frosted_background input">
+                        <option value="">All Content</option>
+                        <option value="featured">Featured Only</option>
+                        <option value="not-featured">Not Featured</option>
+                    </select>
+                    
+                    <button id="clear-filters" class="button frosted_background">Clear Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Statistics -->
+        <div class="content-stats frosted_background" style="padding: 1rem; margin: 1rem 0; border-radius: 8px;">
+            <div class="stats-row" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div class="stat-badge">
+                    <span id="total-visible">0</span> items shown
+                </div>
+                <div class="stat-badge">
+                    <span id="featured-visible">0</span> featured
+                </div>
+                <div class="stat-badge">
+                    <span id="not-featured-visible">0</span> not featured
+                </div>
+            </div>
+        </div>
+
+        <!-- Content List -->
+        <div id="content-list" class="content-list">
+            <div class="loading-spinner" style="text-align: center; padding: 2rem;">
+                <p>Loading all content...</p>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination-controls" style="display: none; text-align: center; margin: 2rem 0;">
+            <button id="prev-page" class="button frosted_background" disabled>← Previous</button>
+            <span id="page-info" style="margin: 0 1rem;">Page 1 of 1</span>
+            <button id="next-page" class="button frosted_background" disabled>Next →</button>
+        </div>
+    </div>
 </div>
 
-<script type="module">
-import { db } from '/assets/firebase.js';
-import { 
-    collection, 
-    getDocs, 
-    query, 
-    where,
-    limit
-} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+<script type="module" src="/assets/js/all-contents.js"></script>
 
-// Load featured content for search page
-async function loadSearchFeaturedContent() {
-    const contentElement = document.getElementById('search-featured-content');
-    
-    try {
-        // Query for featured posts (limit to 6 for search page)
-        const featuredQuery = query(
-            collection(db, "posts"),
-            where("featured", "==", true),
-            limit(6)
-        );
-        
-        const querySnapshot = await getDocs(featuredQuery);
-        const featuredPosts = [];
-        
-        querySnapshot.forEach((doc) => {
-            featuredPosts.push({
-                id: doc.id,
-                ...doc.data()
-            });
-        });
-        
-        if (featuredPosts.length === 0) {
-            contentElement.innerHTML = `
-                <div style="text-align: center; padding: 2rem; opacity: 0.7;">
-                    <p>📝 No featured content available.</p>
-                </div>
-            `;
-            return;
-        }
-        
-        // Shuffle the posts
-        const shuffled = shuffleArray(featuredPosts);
-        
-        const featuredHTML = shuffled.map(post => `
-            <div class="frosted_background inblog_featured_blog">
-                <div class="featured_image">
-                    <img src="${post.featured_image || '/assets/images/image.webp'}" 
-                         alt="${post.title}" 
-                         class="blog_snippet__image">
-                </div>
-                <div class="snippet__content">
-                    <h3 class="blog_snippet_title">
-                        <a href="${post.url}">${post.title}</a>
-                    </h3>
-                    <p class="content_type">
-                        Type: <b class="type">${post.type || 'blog'}</b>
-                    </p>
-                    <p class="text_clamp blog_snippet_body">${post.description || ''}</p>
-                </div>
-            </div>
-        `).join('');
-        
-        contentElement.innerHTML = featuredHTML;
-        
-    } catch (error) {
-        console.error('Error loading featured content:', error);
-        contentElement.innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: #dc3545;">
-                <p>❌ Error loading featured content.</p>
-            </div>
-        `;
-    }
-}
-
-// Utility function
-function shuffleArray(array) {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(loadSearchFeaturedContent, 1000);
-});
-</script>
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        new PagefindUI({ element: "#search", showSubResults: true });
-    });
-</script> 
 
     </main>
     <div class="navigation_container_bottom frosted_background frosted_texture">

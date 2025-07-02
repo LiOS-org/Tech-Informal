@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /mod-tools/
+Disallow: /admin/
 
 Sitemap: https://tech-informal.web.app/sitemap.xml
