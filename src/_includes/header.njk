@@ -3,7 +3,7 @@
       <!-- Hamburger Icon -->
       <a id="hamburger" aria-label="Open Menu" class="hamburger buttons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16" /><path d="M4 18h16" /><path d="M4 6h16" /></svg></a>
       <div class="buttons header_title"><a href="/">Tech Informal</a></div>
-      <div class="buttons "><a href="/search"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="m21 21-4.34-4.34" />  <circle cx="11" cy="11" r="8" /> </svg></a></div>
+      <div class="buttons "><a href="#search"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="m21 21-4.34-4.34" />  <circle cx="11" cy="11" r="8" /> </svg></a></div>
   </div>
 <!-- Sidebar -->
 <aside id="sidebar" class="sidebar frosted_background frosted_texture">
@@ -16,7 +16,6 @@
   <a href="#login" id="sidebar-login" class="frosted_background sidebar_button" style="display: none;">Login
   </a>
   <a href="#" id="sidebar-logout" class="frosted_background sidebar_button" style="display: none;">Logout
-    
   </a>
 </aside>
 <!-- Windows -->
@@ -42,6 +41,21 @@
         </div>
       </div>
   </div>
+  <!-- Search -->
+  <div id="search" class="frosted_background frosted_texture window">
+    <div class="title_bar ">
+      <div class="close_button"><a href="#">X</a></div>
+    </div>
+    <div class="main_content">
+      <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+      <script src="/pagefind/pagefind-ui.js"></script>
+      <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search", showSubResults: true });
+       });
+      </script> 
+      <div style="margin-top: unset;" id="search"></div>
+    </div>
   <div id="Settings" class="frosted_background frosted_texture window">
     <div class="title_bar ">
       <div class="close_button"><a href="#">X</a></div>

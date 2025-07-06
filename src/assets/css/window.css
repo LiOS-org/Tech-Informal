@@ -1,17 +1,19 @@
 .window{
     position: fixed;
-    width: 80%;
-    max-width: 80%;
-    height: 70%;
-    left: 10%;
-    right: 10%;
-    top: 15%;
-    bottom: 15%;
+    display: flex;
+    width: 95%;
+    max-width: 95%;
+    height: 80%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     background: var(--frosted_secondary);
     z-index: 500;
     border-radius: 5px;
     flex-direction: column;
     background: var(--frosted_secondary);
+    overflow: scroll;
 }
 .title_bar{
     display: flex;
@@ -115,6 +117,13 @@
     display: none;
 }
 #Settings:target{
+    display: flex;
+}
+/* Search */
+#search{
+    display: none;
+}
+#search:target{
     display: flex;
 }
 /* Notifications */
