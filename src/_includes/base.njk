@@ -40,11 +40,13 @@
     });
   }
 </script>
-    {% include "header.njk" %}
-    <main>
-    {{ content | safe }}
-    </main>
+      {% include "header.njk" %}
+    <div class="frosted_background main_container frosted_texture">
+      <main>
+      {{ content | safe }}
+      </main>
+        <script src="/assets/js/hamburger_menu.js"></script>
+    </div>
     {% include "bottom_navigation.njk" %}
-  <script src="/assets/js/hamburger_menu.js"></script>
 </body>
 </html>

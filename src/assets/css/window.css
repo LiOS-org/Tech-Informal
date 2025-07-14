@@ -8,11 +8,10 @@
     margin-right: 2.5%;
     margin-top: 5%;
     margin-bottom: 5%;
-    background: var(--frosted_secondary);
+    background: var(--frosted_black);
     z-index: 500;
     border-radius: 5px;
     flex-direction: column;
-    background: var(--frosted_secondary);
     overflow: scroll;
 }
 .title_bar{

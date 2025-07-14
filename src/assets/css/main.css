@@ -31,13 +31,20 @@ a:link{
     transform: translate(-5%, -5%) rotate(360deg);
   }
 }
+.main_container{
+  width: 99%;
+  height: 99%;
+  margin: 0.5% 0.5% 0.5% 0.5%;
+  border-radius: 5px;
+  background: var(--frosted_secondary);
+}
 #featured-articles{
 background: none;
 }
 /* For SEO */
 .for_seo{
     border-radius: 5px;
-    background: var(--frosted_secondary);
+    background: var(--frosted_primary);
     text-align: center;
     color: var(--white);
     display: block;
@@ -59,6 +66,7 @@ background: none;
   cursor: pointer;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
+  border: groove 2px var(--primary);
 }
 .button:hover{
   background: var(--frosted_primary);

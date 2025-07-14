@@ -40,7 +40,7 @@
     });
   }
 </script>
-    
+      
   <div class="header_embedded_navigation frosted_background frosted_texture">
       <!-- Hamburger Icon -->
       <a id="hamburger" aria-label="Open Menu" class="hamburger buttons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16" /><path d="M4 18h16" /><path d="M4 6h16" /></svg></a>
@@ -141,8 +141,9 @@
     </div>
 </aside>
 <div id="overlay" class="overlay"></div>
-    <main>
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+    <div class="frosted_background main_container frosted_texture">
+      <main>
+      <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-ui.js"></script>
 <div id="search"></div>
  <div class="inblog_featured_content_container frosted_background">
@@ -250,7 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 </script> 
 
-    </main>
+      </main>
+        <script src="/assets/js/hamburger_menu.js"></script>
+    </div>
     <div class="navigation_container_bottom frosted_background frosted_texture">
     <a href="/" class="navigation_buttons"><svg class="navigation_icon"  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
         <div class="navigation_icon_name">Home</div>
@@ -262,6 +265,5 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="navigation_icon_name">Blog</div>
     </a>
 </div>
-  <script src="/assets/js/hamburger_menu.js"></script>
 </body>
 </html>

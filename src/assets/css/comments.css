@@ -1,5 +1,5 @@
 #comment-section{
-    background: var(--frosted_secondary);
+    background: var(--frosted_black);
     width: 95%;
     margin-left: 2.5%;
     margin-right: 2.5%;
@@ -46,10 +46,12 @@
     width: 95%;
     margin-left: 2.5%;
     margin-right: 2.5%;
+    border: groove 2px var(--primary);
 }
 #logoutBtn{
     margin-right: 5%;
     margin-left: auto;
+    border: groove 2px var(--primary);
 }
 #commentInput::placeholder{
     color: var(--frosted_white);
