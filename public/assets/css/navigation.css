@@ -1,0 +1,8 @@
+video.lios-nav-title {
+    width: 45px;
+    height: 45px;
+    border-radius: 100vh;
+}
+.lios-header-nav{
+    background: var(--frosted_white);
+}

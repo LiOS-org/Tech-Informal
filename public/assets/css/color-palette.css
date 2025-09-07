@@ -1,0 +1,11 @@
+:root{
+    --primary:#c92351;
+    --secondary:#717787;
+    --white:#e1e2eb;
+    --black:#000000;
+    /* frosted colors */
+    --frosted_primary:var(--c92351);
+    --frosted_secondary:var(--717787);
+    --frosted_white:var(--e1e2eb);
+    --frosted_black:var(--000000);
+}

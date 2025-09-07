@@ -1,0 +1,70 @@
+// ✅ Updated rules for proper comment deletion - simplified version
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Comments collection
+    match /comments/{commentId} {
+      // Anyone can read comments
+      allow read: if true;
+      
+      // Only authenticated users can create comments
+      allow create: if request.auth != null;
+      
+      // Users can update their own comments, or mods/owners can pin/unpin any comment
+      allow update: if request.auth != null && (
+        // Users can update their own comments (except pinned field)
+        (request.auth.uid == resource.data.author.uid && 
+         !('pinned' in request.resource.data.keys())) ||
+        // Mods and owners can pin/unpin any comment
+        (exists(/databases/$(database)/documents/roles/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role in ["mod", "owner"])
+      );
+      
+      // Users can delete their own comments, or check role for mods/owners
+      // Mods and owners can delete any comment (including cascade deletion)
+      allow delete: if request.auth != null && (
+        request.auth.uid == resource.data.author.uid ||
+        exists(/databases/$(database)/documents/roles/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role in ["mod", "owner"]
+      );
+    }
+    
+    // Reactions collection (likes/dislikes)
+    match /reactions/{reactionId} {
+      // Anyone can read reactions
+      allow read: if true;
+      
+      // Only authenticated users can create reactions
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      
+      // Users can update/delete their own reactions
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
+    
+    // Roles collection
+    match /roles/{userId} {
+      // Anyone can read roles (needed for badges)
+      allow read: if true;
+      // Only authenticated users can write (you may want to restrict this further)
+      allow write: if request.auth != null;
+    }
+    
+    // Posts collection (for mod tools)
+    match /posts/{postId} {
+      // Anyone can read posts
+      allow read: if true;
+      
+      // Only mods and owners can create/update/delete posts
+      allow create, update, delete: if request.auth != null &&
+        exists(/databases/$(database)/documents/roles/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role in ["mod", "owner"];
+    }
+    
+    // Fallback for other collections
+    match /{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
