@@ -33,13 +33,13 @@ signInWithGoogle.addEventListener("click", () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const user = result.user;
       console.log("User signed in:");
+      window.location.reload();
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(`Error signing in: ${errorCode} - ${errorMessage}`);
     });
-  window.location.reload();
 });
 
 // On auth state changed
@@ -61,7 +61,6 @@ const waitForUser =() => {
         signInButton.style.display = "none";
         accountButton.style.display = "inline-flex";
         displayName = user.displayName;
-        email = user.email;
         photoURL = user.photoURL;
         emailVerified = user.emailVerified;
         userId = user.uid;
@@ -69,7 +68,6 @@ const waitForUser =() => {
           await setDoc(doc(db, "users", uid), {
             uid: uid,
             Name: displayName,
-            Email: email,
             PhotoURL: photoURL,
           }, { merge: true });
           console.log("User data written");
@@ -87,7 +85,7 @@ const waitForUser =() => {
   }
   )
 };
-export default waitForUser;
+export { waitForUser };
 // Read User from Firestore
 let userData;
 const readUserData = () => {
@@ -99,25 +97,4 @@ const readUserData = () => {
   })
 }
 readUserData();
-// Display User Info
-async  function displayUser() {
-  await waitForUser();
-  await readUserData();
-
-  profilePicture.src = userData.PhotoURL;
-    profileName.innerHTML = `<span>${userData.Name}</span>`;
-}
-displayUser();
-// Sign Out
-document.querySelector("#signOut").addEventListener("click", () => {
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      console.log("User signed out");
-      window.location.reload();
-    })
-    .catch((error) => {
-      // An error happened.
-      console.log(`Error signing out: ${error.code} - ${error.message}`);
-    });
-});
+export { readUserData };

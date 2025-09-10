@@ -2,3 +2,7 @@ header{
     --lios-button-background:var(--primary);
     --lios-button-on-hover-background:var(--secondary);
 }
+.profile-info{
+    --lios-button-background:var(--primary);
+    --lios-button-on-hover-background:var(--secondary);    
+}

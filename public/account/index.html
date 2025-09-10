@@ -19,17 +19,37 @@
       </div>
     </div>
   </header>
-  <div class=" profile-info">
-    <div class="profile-picture-container"><img class="profile-picture" alt="Profile Picture" src=""></div>
-    <div class="profile-details">
-      <h2 class="profile-name"></h2>
+  <div class="main-content">
+    <div class=" profile-info">
+      <div class="profile-picture-container"><img class="profile-picture" alt="Profile Picture" src=""></div>
+      <div class="profile-details">
+        <h2 class="profile-name"></h2>
+        </div>
+        <!-- Email -->
+        <div class="lios-card-titlle"><Span>Email</Span></div>
+        <div class="lios-window-value-row user-email-container">
+          <span class="user-email key"></span><a href="#" class="value lios-button user-email-edit-button"><span>Edit Email</span></a>
+        </div>
+        <form class="edit-user-email lios-window-value-row">
+          <input type="text" class="edit-user-email-input key">
+          <input type="submit" value="Submit" class="user-email-input-submit value lios-button">
+        </form>
+        <!-- Bio -->
+        <div class="lios-card-titlle"><Span>Bio</Span></div>
+        <div class="lios-window-value-row user-bio-container">
+          <span class="user-bio key"></span><a href="#" class="value lios-button user-bio-edit-button"><span>Edit Bio</span></a>
+        </div>
+        <form class="edit-user-bio lios-window-value-row">
+          <input type="text" maxlength="500" class="edit-user-bio-input key">
+          <input type="submit" value="Submit" class="user-email-input-submit value lios-button">
+        </form>
+        <div class="lios-button" id="signOut"><span>Sign Out</span></div>
       </div>
-    </div>
-    <div class="lios-card" id="signOut">Sign Out</div>
   </div>
 
   <script type="module" src="../firebase.js"></script>
   <script type="module" src="../assets/JS/authentication.js"></script>
+  <script type="module" src="../assets/JS/accounts.js"></script>
   <script src="../assets/JS/main.js"></script>
 </body>
 </html>
