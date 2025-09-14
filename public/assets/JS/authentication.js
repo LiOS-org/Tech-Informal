@@ -65,15 +65,21 @@ const waitForUser =() => {
         photoURL = user.photoURL;
         emailVerified = user.emailVerified;
         userId = user.uid;
-        isLoggedIn =  true;
+        isLoggedIn = true;
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef);
         try {
-          await setDoc(doc(db, "users", uid), {
-            uid: uid,
-            Name: displayName,
-            PhotoURL: photoURL,
-          }, { merge: true });
-          console.log("User data written");
-          resolve(user)
+            if (!userSnap.exists()) {
+              await setDoc(userRef, {
+                uid: uid,
+                Name: displayName,
+                PhotoURL: photoURL,
+              });
+              console.log("User data written");
+            } else {
+              console.log("User already exists, skipping write");
+            }
+          resolve(user);
         } catch (e) {
           console.error("Error adding document: ", e);
         }

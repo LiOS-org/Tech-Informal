@@ -2,3 +2,7 @@
   background: repeating-linear-gradient(var(--secondary), var(--black) 100px);
   background-size: 100%;
 }
+.main-container{
+  background: var(--frosted_white);
+  border-radius: 5px;
+}
