@@ -1,100 +1,105 @@
 import { waitForUser } from "./authentication.js";
-import { readUserData } from "./authentication.js";
+import { readUserData, userData, userId, isLoggedIn,googleProvider,displayName } from "./authentication.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import {
+  getAuth,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import app from "../../firebase.js";
 
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+
+// Check If user is logged in 
+
+// async function userLoginStatus() {
+//   await waitForUser();
+//   if (isLoggedIn === true) {
+//     console.log(`Welcome Back ${displayName}`);
+//   }
+//   else {
+//     signInWithPopup(auth, googleProvider)
+//       .then((result) => {
+//         const credential = GoogleAuthProvider.credentialFromResult(result);
+//         const user = result.user;
+//         console.log("User signed in:");
+//         window.location.reload();
+//       })
+//       .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         console.log(`Error signing in: ${errorCode} - ${errorMessage}`);
+//       });
+//   }
+// }
+// userLoginStatus();
 // Display User Info
 const profilePicture = document.querySelector(".profile-picture");
 const profileName = document.querySelector(".profile-name");
 const userEmail = document.querySelector(".user-email");
-let displayName;
 let email;
 let photoURL;
 let emailVerified;
-let userId;
-let userData;
-let userEmailEditInputValue;
-let userBioEditInputValue;
+let updatedEmail;
+let updatedBio;
 async  function displayUser() {
   await waitForUser();
   await readUserData();
   const userEmail = document.querySelector(".user-email");
-  const editUserEmail = document.querySelector(".edit-user-email");
-  const userEmailEditButton = document.querySelector(".user-email-edit-button");
-  const editUserEmailInput = document.querySelector(".edit-user-email-input");
-  const userEmailEditSubmit = document.querySelector(".user-email-edit-submit");
-  const userEmailContainer = document.querySelector(".user-email-container");
-
-  // Email
-  userEmail.textContent = userData.Email;
+  const profileDetails = document.querySelector(".profile-details");
+  const editProflieDetails = document.querySelector(".edit-profile-details");
+  const editButton = document.querySelector("#editProfile");
+  const cancelEdit = document.querySelector("#cancelEdit");
+  // Change Mode
+  editButton.addEventListener("click", () => {
+    profileDetails.style.display = "none";
+    editProflieDetails.style.display = "unset";
+  })
+  cancelEdit.addEventListener("click", () => {
+    editProflieDetails.style.display = "none";
+    profileDetails.style.display = "unset";
+  })
+  // Display Email
+  userEmail.textContent = userData?.Email || "";
   console.log(userEmail.textContent);
-
-  editUserEmailInput.addEventListener("input", () => {
-    userEmailEditInputValue = editUserEmailInput.value;
-  });
-
-  editUserEmail.addEventListener("submit", async () => {
-    userEmailContainer.style.display = "flex";
-    editUserEmail.style.display = "none";
-    userEmailEditButton.style.display = "flex"; 
-    try {
-    const docRef = await setDoc(doc(db, "users",userId), {
-      Email: userEmailEditInputValue
-    }, { merge: true });
-    window.location.reload();
-  } catch (e) {
-    console.log(e);
-  };
-  })
-
-  userEmailEditButton.addEventListener("click",async () => {
-    userEmailContainer.style.display = "none";
-    editUserEmail.style.display = "flex";
-    userEmailEditButton.style.display = "none";
-    editUserEmailInput.value = userData.Email;
-    console.log(editUserEmailInput.value);
-  })
-
-
-  // Bio
+  // Display Bio
   const userBio = document.querySelector(".user-bio");
-  const editUserBio = document.querySelector(".edit-user-bio");
-  const userBioEditButton = document.querySelector(".user-bio-edit-button");
-  const editUserBioInput = document.querySelector(".edit-user-bio-input");
-  const userBioEditSubmit = document.querySelector(".user-bio-edit-submit");
-  const userBioContainer = document.querySelector(".user-bio-container");
+  // Edit Email and Bio
+  const userEmailInput = document.querySelector(".edit-user-email-input")
+  const userBioInput = document.querySelector(".edit-user-bio-input");
 
+  userEmailInput.value = userData.Email;
+  userBioInput.value = userData.Bio;
+  userEmailInput.addEventListener("input", (value) => {
+    updatedEmail = value.target.value;
+  })
+  userBioInput.addEventListener("input", (value) => {
+    updatedBio = value.target.value;
+  })
+  // Save Edits
+  const saveEdits = document.querySelector("#saveEdit");
+  saveEdits.addEventListener("click", async () => {
+    await setDoc(
+      doc(db, "users", userId), {
+      Email: updatedEmail,
+      Bio: updatedBio,
+    }, { merge: true }
+    );
+    window.location.reload();
+  });
   userBio.textContent = userData.Bio;
   console.log(userBio.textContent);
-
-  editUserBioInput.addEventListener("input", () => {
-    userBioEditInputValue = editUserBioInput.value;
-  });
-
-  editUserBio.addEventListener("submit", async () => {
-    userBioContainer.style.display = "flex";
-    editUserBio.style.display = "none";
-    userBioEditButton.style.display = "flex"; 
-    try {
-    const docRef = await setDoc(doc(db, "users",userId), {
-      Bio: userBioEditInputValue
-    },{ merge: true});
-    window.location.reload();
-  } catch (e) {
-    console.log(e);
-  };
-  })
-
-  userBioEditButton.addEventListener("click",async () => {
-    userBioContainer.style.display = "none";
-    editUserBio.style.display = "flex";
-    userBioEditButton.style.display = "none";
-    editUserBioInput.value = userData.Bio;
-    console.log(editUserBioInput.value);
-  })
-
-
   // Profile Picture and Name
-  profilePicture.src = userData.PhotoURL;
-  profileName.innerHTML = `<span>${userData.Name}</span>`;
+  profilePicture.src = userData?.PhotoURL || profilePicture.src;
+  profileName.innerHTML = `<span>${userData?.Name || ""}</span>`;
   
 }
 displayUser();
@@ -111,3 +116,21 @@ document.querySelector("#signOut").addEventListener("click", () => {
       console.log(`Error signing out: ${error.code} - ${error.message}`);
     });
 });
+
+// Get user ability to create channels
+let canCreateChannels;
+const createChannel = document.querySelector("#createChannel");
+const hasAbilityToCreateChannels = (async () => {
+  await waitForUser();
+  await readUserData();
+
+  canCreateChannels = userData.canCreateChannels;
+  console.log(canCreateChannels);
+  if (canCreateChannels === true) {
+    createChannel.style.display = "unset";
+  }
+  else {
+    document.querySelector("#create-channel").style.display = "none";
+  }
+});
+hasAbilityToCreateChannels();

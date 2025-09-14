@@ -41,7 +41,7 @@ signInWithGoogle.addEventListener("click", () => {
       console.log(`Error signing in: ${errorCode} - ${errorMessage}`);
     });
 });
-
+export { googleProvider };
 // On auth state changed
 const profilePicture = document.querySelector(".profile-picture");
 const profileName = document.querySelector(".profile-name");
@@ -51,6 +51,7 @@ let email;
 let photoURL;
 let emailVerified;
 let userId;
+let isLoggedIn;
 
 const waitForUser =() => {
   return new Promise((resolve) => {
@@ -64,6 +65,7 @@ const waitForUser =() => {
         photoURL = user.photoURL;
         emailVerified = user.emailVerified;
         userId = user.uid;
+        isLoggedIn =  true;
         try {
           await setDoc(doc(db, "users", uid), {
             uid: uid,
@@ -80,12 +82,14 @@ const waitForUser =() => {
         signInButton.style.display = "inline-flex";
         accountButton.style.display = "none";
         resolve(null);
+        isLoggedIn = false;
+
       }
     })
   }
   )
 };
-export { waitForUser };
+export { waitForUser,displayName };
 // Read User from Firestore
 let userData;
 const readUserData = () => {
@@ -97,4 +101,6 @@ const readUserData = () => {
   })
 }
 readUserData();
-export { readUserData };
+export { readUserData, userData };
+export { userId };
+export { isLoggedIn };

@@ -6,3 +6,9 @@ header{
     --lios-button-background:var(--primary);
     --lios-button-on-hover-background:var(--secondary);    
 }
+.lios-window-container{
+    background: var(--frosted_white);
+}
+.lios-window-close{
+    background: red;
+}
