@@ -61,7 +61,15 @@
     <div class="lios-window">
       <div class="lios-window-contents">
         <div class="profile-picture-container"><img src="" alt="Channel Image" class="channel-image"></div>
-        <input class="frosted_background" type="text" name="Channel Name" id="channelName" placeholder="Channel Name">
+        <div class="lios-window-card frosted_background">
+          <div class="lios-window-container-title"><span>Channel Name</span></div>
+          <input type="text" name="Channel Name" id="channelName" placeholder="Channel Name" maxlength="25">
+          <div class="lios-window-container-title"><span>Channel Description</span></div>
+          <input type="text" name="Channel Description" id="channelDescription" placeholder="Channel Description" maxlength="250">
+        </div>
+        <div class="lios-button-group">
+          <div class="lios-button" id="createChannelButton"><span>Create Channel</span></div>
+        </div>
       </div>
     </div>
    </div>

@@ -5,6 +5,10 @@ import {
   doc,
   setDoc,
   getDoc,
+  addDoc,
+  arrayUnion,
+  updateDoc,
+  collection,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import {
   getAuth,
@@ -68,7 +72,7 @@ async  function displayUser() {
     profileDetails.style.display = "unset";
   })
   // Display Email
-  userEmail.textContent = userData?.Email || "";
+  userEmail.textContent = userData.Email || "";
   console.log(userEmail.textContent);
   // Display Bio
   const userBio = document.querySelector(".user-bio");
@@ -89,8 +93,8 @@ async  function displayUser() {
   saveEdits.addEventListener("click", async () => {
     await setDoc(
       doc(db, "users", userId), {
-      Email: updatedEmail,
-      Bio: updatedBio,
+      Email: updatedEmail || userData.Email,
+      Bio: updatedBio || userData.Bio,
     }, { merge: true }
     );
     window.location.reload();
@@ -120,7 +124,7 @@ document.querySelector("#signOut").addEventListener("click", () => {
 // Get user ability to create channels
 let canCreateChannels;
 const createChannel = document.querySelector("#createChannel");
-const hasAbilityToCreateChannels = (async () => {
+async function  hasAbilityToCreateChannels() {
   await waitForUser();
   await readUserData();
 
@@ -132,5 +136,43 @@ const hasAbilityToCreateChannels = (async () => {
   else {
     document.querySelector("#create-channel").style.display = "none";
   }
-});
+};
 hasAbilityToCreateChannels();
+// Finally create channel
+const createChannelButton = document.querySelector("#createChannelButton");
+let docRef;
+async function  createChannelFunction(){
+  await hasAbilityToCreateChannels();
+  const createDate = new Date();
+  const newChannelName = document.querySelector("#channelName").value.trim();
+  const newChannelDesc = document.querySelector("#channelDescription").value.trim();
+  try {
+    docRef = await addDoc(collection(db, "channels"), {
+      uid: "",
+      creatorId: userData.uid,
+      creatorName: userData.Name,
+      creatorEmail: userData.Email,
+      createdOn: createDate,
+      channelName: newChannelName,
+      channelDescription: newChannelDesc
+    });
+  } catch (e) {
+    console.log("Error Creating the Channel: ", e)
+  }
+  // update UID
+  if (docRef) {
+    await setDoc(doc(db, "channels", docRef.id), { uid: docRef.id }, { merge: true });
+    await setDoc(doc(db, "channelIndex", docRef.id), {
+      uid: docRef.id,
+      name: newChannelName,
+      description: newChannelDesc,
+    })
+    await updateDoc(doc(db, "users", userData.uid),{
+      ownedChannels: arrayUnion(docRef.id),
+    })
+  }
+};
+createChannelButton.addEventListener("click", async() => {
+  await createChannelFunction();
+  window.location.replace(`../channel?id=${docRef.id}`);
+})

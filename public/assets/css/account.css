@@ -66,15 +66,19 @@
   display: none;
 }
 /* Create Channel */
-#channelName{
+#channelName,#channelDescription{
   background: var(--frosted_white);
   display: flex;
   border: none;
   outline: none;
   width: 80%;
-  font-size: 28px;
+  font-size: 22px;
   border-radius: 5px;
   margin-left: 10px;
   margin-right: 10px;
+  justify-self: center;
+}
+#create-channel .lios-window-contents .lios-button-group{
+  display: flex;
   justify-self: center;
 }

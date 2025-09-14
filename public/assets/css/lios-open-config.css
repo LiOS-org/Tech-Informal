@@ -1,8 +1,4 @@
-header{
-    --lios-button-background:var(--primary);
-    --lios-button-on-hover-background:var(--secondary);
-}
-.profile-info{
+:root{
     --lios-button-background:var(--primary);
     --lios-button-on-hover-background:var(--secondary);    
 }
@@ -10,5 +6,8 @@ header{
     background: var(--frosted_white);
 }
 .lios-window-close{
-    background: red;
+    background: var(--primary);
+}
+.lios-window-card{
+    background: var(--frosted_white);
 }
