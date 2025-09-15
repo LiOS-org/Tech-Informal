@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Informal</title>
+    <link rel="shortcut icon" href="../assets/favicon/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../LiOS-Open/public/LiOS_Open.css">
+    <link rel="stylesheet" href="../assets/css/tech-informal.css">
+    <script src="../LiOS-Open/public/modules/JS/windows.js"></script>
+</head>
+<body>
+  <header class="lios-header-nav frosted_background">
+    <video src="../assets/favicon/favicon.mp4" muted autoplay loop class="lios-nav-title"></video>
+    <div class="lios-nav-contents">
+      <div class="lios-button-group">
+        <a href="/" class="lios-button"><span>Home</span></a>
+        <a href="../account" class="lios-button account-button"><span>Account</span></a>
+        <a href="#" class="lios-button sign-in-button"><span>Sign In</span></a>
+      </div>
+    </div>
+  </header>
+  <div class="main-container users-page">
+    <div class="lios-card frosted_background">
+        <div class="profile-picture-container"><img src="" alt="Profile Picture" class="user-profile-picture"></div>
+        <div class="lios-card-title userName"></div>
+        <div class="lios-button-group viewAccount"></div>
+        <hr>
+      <div class="profile-details">
+          <!-- Display User Profile -->
+         <div class="lios-card display-user-profile">
+          <div class="user-email-container"><span>Email: </span><span class="user-email"></span></div>
+          <br>
+          <div class="user-bio-container"><span>Bio: </span> <span class="user-bio"></span></div>
+          <br>
+         </div>
+      </div>
+      <div class="display-owned-channels lios-card-container">
+        
+      </div>
+    </div>
+  </div>
+  <script type="module" src="../firebase.js"></script>
+  <script type="module" src="../assets/JS/authentication.js"></script>
+  <script type="module" src="../assets/JS/user.js"></script>
+  <script src="../assets/JS/main.js"></script>
+</body>
+</html>

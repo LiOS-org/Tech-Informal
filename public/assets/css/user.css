@@ -1,0 +1,34 @@
+.main-container.users-page .lios-card:first-child{
+  width: 90%;
+  justify-self: center;
+}
+.viewAccount{
+  display: flex;
+  justify-self: center;
+}
+.channel-card{
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  max-height: 400px;
+}
+.main-container .display-owned-channels{
+  margin-top: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.channel-card .profile-picture-container img{
+  width: 100%;
+  height: 100%;
+  border-radius: 100vh;
+  object-fit: cover;
+}
+.channel-card hr{
+  width: 100%;
+}
+.channel-card .profile-picture-container{
+  align-self: center;
+}
+.channel-card .lios-button-group{
+  align-self: center;
+}

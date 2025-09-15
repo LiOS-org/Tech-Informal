@@ -146,6 +146,7 @@ async function  createChannelFunction(){
   const createDate = new Date();
   const newChannelName = document.querySelector("#channelName").value.trim();
   const newChannelDesc = document.querySelector("#channelDescription").value.trim();
+  const newChannelLogoUrl = document.querySelector("#profilePictureUrl").value.trim();
   try {
     docRef = await addDoc(collection(db, "channels"), {
       uid: "",
@@ -154,7 +155,8 @@ async function  createChannelFunction(){
       creatorEmail: userData.Email,
       createdOn: createDate,
       channelName: newChannelName,
-      channelDescription: newChannelDesc
+      channelDescription: newChannelDesc,
+      channelImage: newChannelLogoUrl,
     });
   } catch (e) {
     console.log("Error Creating the Channel: ", e)
@@ -176,3 +178,30 @@ createChannelButton.addEventListener("click", async() => {
   await createChannelFunction();
   window.location.replace(`../channel?id=${docRef.id}`);
 })
+// Display User Channels
+let channelData;
+let docSnap;
+async function displayChannels() {
+  await readUserData();
+    const displayOwnedChannles = document.querySelector(".display-owned-channels");
+    const ownedChannels = userData.ownedChannels;
+    ownedChannels.forEach(async (channels) => {
+        docSnap = await getDoc(doc(db, "channels", channels));
+        if (docSnap.exists()) {
+            channelData = docSnap.data();
+            displayOwnedChannles.innerHTML =
+                `<div class = "channel-card lios-card frosted_background">
+                    <div class = "profile-picture-container"><img src = "${channelData.channelImage}" alt = "Channel Logo"></img></div>
+                    <div class = "lios-card-title">${channelData.channelName}</div>
+                    <hr>
+                    <p>${channelData.channelDescription}</p>
+                    <div><span>Created On: </span><span>${new Intl.DateTimeFormat("en-IN", { dateStyle: "medium" }).format(channelData.createdOn.toDate())}</span></div>
+                    <br>
+
+                    <br>
+                    <div class = "lios-button-group"><a href = "../channel?id=${channelData.uid}" class = "lios-button"><span>View Channel</span></a></div>
+                </div>`;
+        }
+    })
+}
+displayChannels();
