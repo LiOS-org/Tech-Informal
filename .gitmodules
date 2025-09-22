@@ -1,3 +1,6 @@
 [submodule "public/LiOS-Open"]
 	path = public/LiOS-Open
 	url = https://github.com/LiOS-org/LiOS-Open.git
+[submodule "public/LiOS-InkWell"]
+	path = public/LiOS-InkWell
+	url = https://github.com/LiOS-org/LiOS-InkWell.git
