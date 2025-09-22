@@ -42,4 +42,8 @@ channelDescription.textContent = channelDesc
 
 if (creatorId === userId) {
     newPost.innerHTML = `<div class = "lios-button addPost"><span>Create new post</span></div>`
+    const addPost = document.querySelector(".addPost");
+    addPost.addEventListener("click",() => {
+        window.location.href = `../new?onChannel=${channelData.uid}`
+    })
 }

@@ -1,0 +1,78 @@
+.title-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.new-page .lios-card:first-child{
+    width: 90%;
+    justify-self: center;
+}
+.title-container .lios-action-button{
+    width: 20%;
+}
+.new-page .blogTitle{
+    width: 80%;
+    font-size: 22px;
+    background: none;
+    border: none;
+    border-bottom: 4px groove var(--secondary);
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    padding: 12px;
+}
+.new-page .blogTitle:focus{
+    border-bottom: 4px groove var(--primary);
+    transition: all 0.2s ease-in-out;
+    color: var(--black);
+}
+.new-page .blogTitle::placeholder{
+    color: var(--frosted_black);
+}
+.new-page .postBody {
+    width: 80%;
+    height: 500px;
+    background: var(--frosted_white);
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 18px;
+    padding: 12px;
+    line-height: 1.6;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+.new-page .postBody::-webkit-scrollbar-track{
+    background: var(--frosted_white);
+}
+.new-page .postBody::-webkit-scrollbar-thumb{
+    background: var(--primary);
+}
+/* ToolBar */
+.toolbar{
+    width: 80%;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background: var(--frosted_white);
+    flex-direction: row;
+    display: flex;
+    gap: 5px;
+}
+.tool{
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+    padding: 2px;
+    align-self: center;
+    transition: all 0.2s ease-in-out;
+    border-radius: inherit;
+}
+.tool svg{
+    align-self: center;
+}
+.tool:hover{
+    background: var(--frosted_white);
+    transition: all 0.2s ease-in-out;
+}

@@ -39,9 +39,9 @@ async function displayChannels() {
         docSnap = await getDoc(doc(db, "channels", channels));
         if (docSnap.exists()) {
             channelData = docSnap.data();
-            displayOwnedChannles.innerHTML +=
+            displayOwnedChannles.innerHTML += // html
                 `<div class = "channel-card lios-card frosted_background">
-                    <div class = "profile-picture-container"><img src = "${channelData.channelImage}" alt = "Channel Logo"></img></div>
+                    <div class = "profile-picture-container"><img src = "${channelData.channelImage}" alt = "Channel Logo"></div>
                     <div class = "lios-card-title">${channelData.channelName}</div>
                     <hr>
                     <p>${channelData.channelDescription}</p>
@@ -56,7 +56,8 @@ async function displayChannels() {
 }
 displayChannels();
 if (userUid === userId) {
-    viewAccount.innerHTML = `<div class = "lios-button visitAccount"><span>View Accounts Page</span></div>`
+    viewAccount.innerHTML =//html
+        ` <div class = "lios-button visitAccount"><span>View Accounts Page</span></div>`
     document.querySelector(".visitAccount").addEventListener("click",()=> {
         window.location.href =`../account`;
     })
