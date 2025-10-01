@@ -17,17 +17,10 @@ const db = getFirestore(app);
 let link;
 let postTitle;
 let postContents;
+let postTags;
 let publishPost;
+let uniqueTags;
 if (userData.canCreateChannels === true) {  
-    publishPost = document.querySelector(".publishPost");
-
-    publishPost.addEventListener("click", () => {
-        postTitle = document.querySelector(".blogTitle").value;
-        postContents = document.querySelector(".postBody").innerHTML;
-        console.log(`Title: ${postTitle}`);
-        console.log(`Post Contents: ${postContents}`);
-    })
-
     // Event listeners for editor
     let savedRange = null;
     const selection = window.getSelection();
@@ -141,6 +134,39 @@ if (userData.canCreateChannels === true) {
     }
     divider(inkwellInput);
     });
+    // Post Meta
+    const postTags = document.querySelector(".postTags");
+    const displayNewTags = document.querySelector(".display-new-tags");
+    let tags;
+    postTags.addEventListener("keyup", () => {
+    tags = postTags.textContent
+        .split(",")                // split by comma
+        .map(tag => tag.trim())    // remove extra spaces
+        .filter(tag => tag.length > 0); // remove empty tags
+    });
+    function createTags() {
+        displayNewTags.innerHTML = "";
+        uniqueTags = [...new Set(tags.map(t => t.toLowerCase()))];
+        uniqueTags.forEach(tag => {
+            const newTag = document.createElement("div");
+            newTag.className = "post-tag";
+            newTag.textContent = tag;
+            displayNewTags.appendChild(newTag);
+        });
+    };
+    document.querySelector(".confirm-new-tags").addEventListener("click", createTags);
+
+    // Post publish flow
+    publishPost = document.querySelector(".publishPost");
+
+    publishPost.addEventListener("click", () => {
+        postTitle = document.querySelector(".blogTitle").value;
+        postContents = document.querySelector(".postBody").innerHTML;
+        console.log(`Title: ${postTitle}`);
+        console.log(`Post Contents: ${postContents}`);
+        console.log("Post Tags: ", uniqueTags);
+    })
+
 }
 else {
     window.location.href = "/";

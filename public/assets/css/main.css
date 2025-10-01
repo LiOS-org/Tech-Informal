@@ -5,3 +5,11 @@
 .main-container{
   border-radius: 5px;
 }
+.post-tag{
+  display: inline-flex;
+  font-size: 14px;
+  text-align: center;
+  background: var(--primary);
+  border-radius: 100vh;
+  padding: 5px;
+}

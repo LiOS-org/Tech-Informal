@@ -70,3 +70,5 @@ node_modules/
 .dataconnect
 # Warp
 WARP.md
+# VS Code
+.vscode
