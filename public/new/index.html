@@ -10,16 +10,7 @@
     <script src="../LiOS-Open/public/modules/JS/windows.js"></script>
 </head>
 <body>
-  <header class="lios-header-nav frosted_background">
-    <video src="../assets/favicon/favicon.mp4" muted autoplay loop class="lios-nav-title"></video>
-    <div class="lios-nav-contents">
-      <div class="lios-button-group">
-        <a href="/" class="lios-button"><span>Home</span></a>
-        <a href="account" class="lios-button account-button"><span>Account</span></a>
-        <a href="#" class="lios-button sign-in-button"><span>Sign In</span></a>
-      </div>
-    </div>
-  </header>
+  <header class="lios-header-nav frosted_background"></header> <!--Populated by main.js-->
   <div class="main-container new-page">
     <div class="lios-card frosted_background">
         <div class="create-blog">
@@ -39,20 +30,30 @@
             <div class="body-container">
                 <div type="text" class="postBody frosted_background" contenteditable="true"></div>
                 <div class="postMeta frosted_background">
-                  <div class="lios-window-container-title"><span>Tags</span></div>
+                  <div class="lios-window-container-title"><span>Tags</span></div><br>
                   <div class="lios-card postTags" contenteditable="true"></div>
                   <div class="liso-button-group">
                     <div class="lios-button confirm-new-tags"><span>Confirm</span></div>
                   </div>
                   <div class="display-new-tags"><!--Populated by new.js--></div>
+                  <div class="lios-window-container-title"><span>Description</span></div><br>
+                  <div class="lios-card postDesc" contenteditable="true"></div><br>
+                  <div class="lios-window-container-title">Thumbnail</div>
+                  <div class="lios-button-group">
+                    <div class="lios-button thumbnail-url"><span> Enter Thumnail Url</span></div>
+                    <div class="profile-picture-container"><img class="profile-picture thumbnail-image"></img></div>
+                  </div>
+                  <div class="lios-window-container-title"><span>Creating On</span></div><br>
+                  <div class="profile-picture-container"><img class="profile-picture creating-on-picture"></img></div>
+                  <div class="lios-window-container-title creating-on-name"></div>
                 </div>
             </div>
         </div>
     </div>
   </div>
+  <script type="module" src="../assets/JS/main.js"></script>
   <script type="module" src="../firebase.js"></script>
   <script type="module" src="../assets/JS/authentication.js"></script>
   <script type="module" src="../assets/JS/new.js"></script>
-  <script src="../assets/JS/main.js"></script>
 </body>
 </html>

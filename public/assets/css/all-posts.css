@@ -1,0 +1,34 @@
+.post-card {
+    width: 400px;
+    background: var(--frosted_white);
+}
+.tags-container .post-tag {
+    margin: 1px;
+}
+.post-card .lios-button-group{
+    width: 100%;
+}
+.post-card .lios-button-group .lios-action-button{
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+.post-card .display-post-meta{
+    display: flex;
+    justify-content: space-between;
+}
+.post-thumbnail-container{
+    --padding: 12px;
+    padding: var(--padding);
+    width: calc(100% - (var(--padding) * 2));
+}
+.post-thumbnail{
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+.display-post-meta a{
+    text-decoration: none;
+    color: inherit;
+}

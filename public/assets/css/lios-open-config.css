@@ -13,3 +13,6 @@
 .lios-window-card{
     background: var(--frosted_white);
 }
+.post-card .lios-button-group .lios-action-button{
+    --lios-action-button-box-shadow: var(--gochujang-red);
+}

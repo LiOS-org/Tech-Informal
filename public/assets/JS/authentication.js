@@ -18,6 +18,8 @@ import {
   collection,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import app from "../../firebase.js";
+import { populateFragments } from './fragments.js';
+await populateFragments();
 const auth = getAuth(app);
 const db = getFirestore(app);
 const accountButton = document.querySelector(".account-button");

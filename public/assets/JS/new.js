@@ -1,6 +1,6 @@
 import  app  from "../../firebase.js";
 import { waitForUser, userId, userData, readUserData } from "./authentication.js";
-import { getFirestore, doc, getDoc, } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc,addDoc,collection,setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { boldText } from "../../LiOS-InkWell/modules/js/boldText.js";
 import { italicText } from "../../LiOS-InkWell/modules/js/italicText.js";
 import { underlineText } from "../../LiOS-InkWell/modules/js/underlineText.js";
@@ -20,7 +20,19 @@ let postContents;
 let postTags;
 let publishPost;
 let uniqueTags;
+let postDesc;
+let channelData;
+let newPost;
+let thumbnailUrl;
+const currentTime = new Date();
 if (userData.canCreateChannels === true) {  
+    // Getting channel details if creating on channel
+    const docSnap = await getDoc(doc(db, "channels", createOn));
+    if (docSnap.exists()) {
+        channelData = docSnap.data();
+        document.querySelector(".creating-on-name").textContent = channelData.channelName;
+        document.querySelector(".creating-on-picture").src = channelData.channelImage;
+    };
     // Event listeners for editor
     let savedRange = null;
     const selection = window.getSelection();
@@ -154,18 +166,87 @@ if (userData.canCreateChannels === true) {
             displayNewTags.appendChild(newTag);
         });
     };
+    document.querySelector(".thumbnail-url").addEventListener("click", () => {
+        thumbnailUrl = prompt("Enter Thumbnail URL:");
+        document.querySelector(".thumbnail-image").src = thumbnailUrl;
+    })
     document.querySelector(".confirm-new-tags").addEventListener("click", createTags);
-
     // Post publish flow
     publishPost = document.querySelector(".publishPost");
 
-    publishPost.addEventListener("click", () => {
+    publishPost.addEventListener("click", async() => {
         postTitle = document.querySelector(".blogTitle").value;
         postContents = document.querySelector(".postBody").innerHTML;
+        postDesc = document.querySelector(".postDesc").textContent;
         console.log(`Title: ${postTitle}`);
         console.log(`Post Contents: ${postContents}`);
         console.log("Post Tags: ", uniqueTags);
-    })
+        console.log("Post Description: ", postDesc);
+        const createPost = async () => {
+            newPost = await addDoc(collection(db, "posts"), {
+                uid: "",
+                Title: postTitle,
+                Contents: postContents,
+                Tags: uniqueTags,
+                Description: postDesc,
+                AuthorId: userData.uid,
+                AuthorName: userData.Name,
+                AuthorEmail: userData.Email,
+                CreatedOn: currentTime,
+                ChannelId: createOn,
+                ChannelName: channelData.channelName,
+                thumbnail: thumbnailUrl,
+            });
+            // update UID
+            await setDoc(doc(db, "posts", newPost.id), { uid: newPost.id }, { merge: true });
+            // update the posts index
+            await addDoc(collection(db, "postsIndex"), {
+                uid: newPost.id,
+                Title: postTitle,
+                Description: postDesc,
+                AuthorId: userData.uid,
+                ChannelName: channelData.channelName,
+                ChannelId: createOn,
+                CreatedOn: currentTime,
+                Tags: uniqueTags,
+                thumbnail: thumbnailUrl,
+            });
+            // Update the tags index
+            uniqueTags.forEach(async (tag) => {
+                const tagRef = doc(collection(db, "tags", tag, "posts"), newPost.id);
+                await setDoc(tagRef, {
+                    postId: newPost.id,
+                    title: postTitle,
+                    description: postDesc,
+                    authorId: userData.uid,
+                    authorName: userData.Name,
+                    channelId: createOn,
+                    channelName: channelData.channelName,
+                    createdOn: currentTime,
+                    thumbnail: thumbnailUrl,
+                });
+            });
+            // update posts in channel
+            await setDoc(doc(collection(db, "channels", createOn, "posts"), newPost.id), {
+                postId: newPost.id,
+                title: postTitle,
+                description: postDesc,
+                authorId: userData.uid,
+                authorName: userData.Name,
+                channelId: createOn,
+                channelName: channelData.channelName,
+                createdOn: currentTime,
+                thumbnail: thumbnailUrl,
+            });
+        };
+        try  {
+            await  createPost();
+            alert("Post published successfully!");
+            window.location.replace(`../view?id=${newPost.id}`);
+        } catch (e) {
+            alert("Error publishing post: " + e.message);
+        }
+    });
 
 }
 else {
