@@ -1,53 +1,71 @@
 .post-container {
-    background: var(--frosted_white);
-    border-radius: 5px;
-    padding: 12px;
-    font-size: 18px;
-    line-height: 1.8;
-max-width: 1000px;
+  background: var(--frosted_white);
+  border-radius: 5px;
+  padding: 12px;
+  font-size: 18px;
+  line-height: 1.8;
 }
-.post-body img{
-    max-width: 90%;
-    justify-self: center;
-    display: flex;
-    align-items: center;
-    max-height: 500px;
+.post-body img {
+  max-width: 90%;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  max-height: 500px;
 }
-.channel-info{
-    height: max-content;
-    width: max-content;
-    display: flex;
-    margin-top: 15px;
+.channel-info {
+  height: max-content;
+  width: max-content;
+  display: flex;
+  margin-top: 15px;
 }
-.channel-info span{
-    display: inline-flex;
-    align-self: center;
+.channel-info span {
+  display: inline-flex;
+  align-self: center;
 }
-.channel-info span:first-child{
-    height: 50px;
-    width: 50px;
-    border-radius: 100vh;
-    background: var(--primary);
+.channel-info span:first-child {
+  height: 50px;
+  width: 50px;
+  border-radius: 100vh;
+  background: var(--primary);
 }
-.channel-logo{
-    height: inherit;
-    width: inherit;
-    border-radius: 100vh;
-    object-fit: cover;
-    cursor: pointer;
+.channel-logo {
+  height: inherit;
+  width: inherit;
+  border-radius: 100vh;
+  object-fit: cover;
+  cursor: pointer;
 }
-.channel-name{
-    font-size: 20px;
-    font-weight: 600;
-    margin-left: 10px;
-    color: var(--black);
-    text-decoration: none;
+.channel-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 10px;
+  color: var(--black);
+  text-decoration: none;
 }
-.post-comment{
-    background: var(--frosted_white);
+.post-comment {
+  background: var(--frosted_white);
+  --padding: 12px;
+  padding: var(--padding);
+  border-radius: 5px;
+  margin-top: 20px;
+}
+/* For screens less than 1400px */
+@media (max-width: 1400px) {
+  .post-container {
+    max-width: 100%;
+  }
+  .post-comment {
+    width: calc(100% - 2 * var(--padding));
+  }
+}
+/* For screens more than 1400px */
+@media (min-width: 1401px) {
+  .post-container {
+    width: 80%;
     max-width: 1000px;
-    width: 1000px;
-    padding: 12px;
-    border-radius: 5px;
-    margin-top: 20px;
+  }
+  .post-comment {
+    width: 80%;
+    max-width: 1000px;
+  }
 }
