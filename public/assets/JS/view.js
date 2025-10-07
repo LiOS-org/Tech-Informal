@@ -50,3 +50,10 @@ channelName.href = `../channel?id=${channelId}`;
 channelLogo.addEventListener("click", () => {
     window.location.href = `../channel?id=${channelId}`;
 })
+
+// Tag as canonical 
+
+const link = document.createElement('link');
+link.rel = 'canonical';
+link.href = window.location.href;
+document.head.appendChild(link);

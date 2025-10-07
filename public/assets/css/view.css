@@ -4,6 +4,7 @@
     padding: 12px;
     font-size: 18px;
     line-height: 1.8;
+max-width: 1000px;
 }
 .post-body img{
     max-width: 90%;
@@ -11,9 +12,6 @@
     display: flex;
     align-items: center;
     max-height: 500px;
-}
-.post-container{
-    max-width: 1000px;
 }
 .channel-info{
     height: max-content;
@@ -44,4 +42,12 @@
     margin-left: 10px;
     color: var(--black);
     text-decoration: none;
+}
+.post-comment{
+    background: var(--frosted_white);
+    max-width: 1000px;
+    width: 1000px;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 20px;
 }

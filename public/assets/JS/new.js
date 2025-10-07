@@ -237,6 +237,7 @@ if (userData.canCreateChannels === true) {
                 channelName: channelData.channelName,
                 createdOn: currentTime,
                 thumbnail: thumbnailUrl,
+                Tags: uniqueTags,
             });
         };
         try  {

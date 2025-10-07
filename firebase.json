@@ -7,13 +7,11 @@
   },
   "hosting": {
     "public": "public",
+    "site": "tech-informal",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ]
-  },
-  "storage": {
-    "rules": "storage.rules"
   }
 }

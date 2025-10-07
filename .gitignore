@@ -72,3 +72,5 @@ node_modules/
 WARP.md
 # VS Code
 .vscode
+#  SEO files
+google*.html

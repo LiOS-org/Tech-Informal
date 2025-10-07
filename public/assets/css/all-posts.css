@@ -1,4 +1,5 @@
 .post-card {
+    max-width: 400px;
     width: 400px;
     background: var(--frosted_white);
 }
