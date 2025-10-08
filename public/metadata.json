@@ -1,0 +1,26 @@
+{
+    "projectName": "Tech Informal",
+    "projectDescription" : "Tech Informal is an open source channel oriented blogging platform where users can read tech related blogs and articles",
+    "contributors":[
+        {
+            "name": "Md Saifullah",
+            "role": "Creator, Developer",
+            "github": "https://github.com/md-saifullah-1524"
+        }
+    ],
+    "channel" : "alpha",
+    "version" : "1.0.0-alpha-1",
+    "github" : "https://github.com/LiOS-org/Tech-Informal",
+    "licenses": [
+        {
+            "for" : "Source Code",
+            "license" : "Apache-2.0",
+            "copy" : "https://github.com/LiOS-org/Tech-Informal/blob/master/LICENSE"
+        },
+        {
+            "for" : "LiOS-Inkwell",
+            "license" : "Apache-2.0",
+            "copy" : "https://github.com/LiOS-org/LiOS-InkWell/blob/main/LICENSE"
+        }
+    ]
+}

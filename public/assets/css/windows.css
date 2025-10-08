@@ -1,0 +1,28 @@
+.lios-window .favicon{
+    display: flex;
+    width: 20%;
+    border-radius: 100vh;
+    justify-self: center;
+}
+.lios-window-container{
+    background: var(--frosted_white);
+    color: var(--black);
+}
+.lios-window-contents h2{
+    text-align: center;
+
+}
+.lios-window-contents p{
+    text-align: center;
+    padding: 0 10px 10px 10px;
+    font-size: 18px;
+}
+.lios-window-value-row {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease-in-out;
+}
+.lios-window-value-row:hover {
+    background: var(--frosted_secondary);
+    transition: all 0.3s ease-in-out;
+}

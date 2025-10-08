@@ -7,6 +7,7 @@
   <link rel="shortcut icon" href="assets/favicon/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="LiOS-Open/public/LiOS_Open.css">
   <link rel="stylesheet" href="assets/css/tech-informal.css">
+  <script src="LiOS-Open/public/modules/JS/windows.js"></script>
 </head>
 <body>
   <header class="lios-header-nav frosted_background">
@@ -16,6 +17,8 @@
         <a href="/" class="lios-button"><span>Home</span></a>
         <a href="account" class="lios-button account-button"><span>Account</span></a>
         <a href="#" class="lios-button sign-in-button"><span>Sign In</span></a>
+        <a href="#About" class="lios-button"><span>About</span></a>
+        <a href="https://github.com/LiOS-org/Tech-Informal" class="lios-button"><span>Github</span></a>
       </div>
     </div>
   </header>
@@ -24,6 +27,39 @@
        <div class="lios-card-container posts-container">
         <!-- Populated by homepage.js -->
    </div>
+
+   <!-- Windows Start Here -->
+    <div class="window-container">
+      <div id="About" class="lios-window-container frosted_background">
+        <div class="lios-window-titlebar"><span class="lios-window-title">About</span><span class="lios-window-close" data-lios-window-close>X</span></div>
+        <hr>
+        <div class="lios-window">
+          <div class="lios-window-contents">
+            <video src="assets/favicon/favicon.mp4"  autoplay loop muted class="favicon"></video>
+            <h2 class="project-title"></h2><!-- Updated By windows.js-->
+            <p class="project-description"></p> <!-- Updated By windows.js-->
+            <div class="lios-window-card">
+              <div class="lios-window-container-title"><span>General Information</span></div>
+              <!-- Updated By windows.js -->
+              <div class="lios-window-value-row">
+                <span class="key ">Version</span><span class="value project-version"></span>
+              </div>
+              <div class="lios-window-value-row">
+                <span class="key">Channel</span><span class="value project-channel"></span>
+              </div>
+              <div class="lios-window-value-row">
+                <span class="key">LiOS Open Version</span> <span class="value">unreleased, rolling</span>
+              </div>
+            </div>
+            <div class="lios-window-card">
+              <div class="lios-window-container-title"><span>Licenses</span></div>
+              <!-- Updated By windows.js -->
+               <div class="license-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <script type="module" src="firebase.js"></script>
   <script type="module" src="assets/JS/authentication.js"></script>

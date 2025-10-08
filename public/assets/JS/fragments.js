@@ -1,6 +1,7 @@
 export async function populateFragments() {
   const partialsMap = {
-    ".lios-header-nav": "../includes/header-nav.html"
+    ".lios-header-nav": "../includes/header-nav.html",
+    ".window-container": "../includes/windows.html"
   };
 
   for (const [selector, file] of Object.entries(partialsMap)) {

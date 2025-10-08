@@ -19,7 +19,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import app from "../../firebase.js";
 import { populateFragments } from './fragments.js';
+import {updateAboutWindow} from "../JS/windows.js"
+
 await populateFragments();
+await updateAboutWindow();
+
+
 const auth = getAuth(app);
 const db = getFirestore(app);
 const accountButton = document.querySelector(".account-button");
