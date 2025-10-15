@@ -6,3 +6,31 @@ video.lios-nav-title {
 .lios-header-nav{
     background: var(--frosted_white);
 }
+/* Bottom Navigation */
+
+.navigation_container_bottom {
+    background: var(--frosted_white);
+    width: max-content;
+    justify-self: center;
+    justify-items: center;
+    position: fixed;
+    bottom: 2.5%;
+    display: flex;
+    flex-direction: row;
+}
+.navigation-icon svg{
+    width: 35px;
+    height: 35px;
+}
+.navigation_buttons{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    transition: all 0.2s ease-in-out;
+}
+.navigation_buttons:hover{
+    color: var(--primary);
+    background: var(--frosted_white);
+    transition: all 0.2s ease-in-out;
+}
