@@ -44,7 +44,9 @@ const db = getFirestore(app);
 //       });
 //   }
 // }
-// userLoginStatus();
+
+//   userLoginStatus();
+
 // Display User Info
 const profilePicture = document.querySelector(".profile-picture");
 const profileName = document.querySelector(".profile-name");

@@ -1,6 +1,7 @@
 import app from "../../firebase.js";
-import { waitForUser } from "./authentication.js";
+import { waitForUser,userData } from "./authentication.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { initializeCommentsBox,renderComments } from "./comments.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
@@ -13,6 +14,7 @@ const postContainer = document.querySelector(".post-container");
 // Fetch post details
 const postInfo = await getDoc(doc(db, "posts", postId));
 const postData = postInfo.data();
+export { postData };
 
 // Display Posts
 
@@ -57,3 +59,8 @@ const link = document.createElement('link');
 link.rel = 'canonical';
 link.href = window.location.href;
 document.head.appendChild(link);
+
+// Comments
+console.log(userData);
+initializeCommentsBox();
+renderComments();

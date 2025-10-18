@@ -3,6 +3,7 @@
     --lios-button-on-hover-background:var(--secondary);    
     --lios-action-button-background: var(--primary);
     --lios-action-button-box-shadow: var(--secondary);
+    --lios-action-button-box-shadow: var(--gochujang-red);
 }
 .lios-window-container{
     background: var(--frosted_white);
@@ -12,7 +13,4 @@
 }
 .lios-window-card{
     background: var(--frosted_white);
-}
-.post-card .lios-button-group .lios-action-button{
-    --lios-action-button-box-shadow: var(--gochujang-red);
 }

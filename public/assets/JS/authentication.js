@@ -33,20 +33,23 @@ const signInButton = document.querySelector(".sign-in-button");
 
 // Google Sign in
 const googleProvider = new GoogleAuthProvider();
-const signInWithGoogle = document.querySelector(".sign-in-button");
-signInWithGoogle.addEventListener("click", () => {
-  signInWithPopup(auth, googleProvider)
-    .then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const user = result.user;
-      console.log("User signed in:");
-      window.location.reload();
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(`Error signing in: ${errorCode} - ${errorMessage}`);
-    });
+// Use event delegation to handle both existing and dynamically created sign-in buttons
+document.addEventListener("click", (event) => {
+  if (event.target.closest(".sign-in-button")) {
+    event.preventDefault();
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const user = result.user;
+        console.log("User signed in:");
+        window.location.reload();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(`Error signing in: ${errorCode} - ${errorMessage}`);
+      });
+  }
 });
 export { googleProvider };
 // On auth state changed

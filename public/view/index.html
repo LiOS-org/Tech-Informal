@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="viewPost">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,14 +28,16 @@
         <p class="post-description"></p>
         <div class="post-body"></div>
      </article>
-     <div class="frosted-background post-comment">
+     <div id="Comments" class="frosted-background post-comment">
       <div class="lios-window-container-title"><span>Comments</span></div>
+      
      </div>
   </div>
-
+  <nav class="navigation_container_bottom frosted_background frosted_texture_medium"></nav>
   <div class="window-container"></div>
   <script type="module" src="../firebase.js"></script>
   <script type="module" src="../assets/JS/authentication.js"></script>
   <script type="module" src="../assets/JS/view.js"></script>
+  <script type="module" src="../assets/JS/navigation.js"></script>
 </body>
 </html>

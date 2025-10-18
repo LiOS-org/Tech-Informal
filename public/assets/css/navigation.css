@@ -13,7 +13,7 @@ video.lios-nav-title {
     width: max-content;
     justify-self: center;
     justify-items: center;
-    position: fixed;
+    position: sticky;
     bottom: 2.5%;
     display: flex;
     flex-direction: row;

@@ -1,6 +1,7 @@
 :root {
   background: repeating-linear-gradient(var(--secondary), var(--black) 100px);
   background-size: 100%;
+  scroll-behavior: smooth;
 }
 .main-container{
   border-radius: 5px;

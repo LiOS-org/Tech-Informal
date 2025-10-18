@@ -1,0 +1,66 @@
+.new-comment-box{
+    --padding: 16px;
+    padding: var(--padding);
+    width: calc(95% - 2 * var(--padding));
+}
+.comments-user-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+.comments-user-info .profile-picture-container{
+    display: flex;
+    height: 40px;
+    width: 40px;
+}
+.comments-user-info .profile-picture{
+    width: 40px;
+    height: 40px;
+}
+.comments-user-info .user-name{
+    display: flex;
+    font-size: 18px;
+}
+.new-comment-input{
+    width: 95%;
+    justify-self: start;
+    background: var(--frosted_white);
+    outline: none;
+    border: none;
+    margin: 10px;
+    min-height: 30px;
+    resize: none;
+    border-radius: inherit;
+    font-size: 18px;
+    padding: 10px;
+}
+.comment-box .profile-picture, .comment-box .profile-picture-container{
+    width: 40px;
+    height: 40px;
+}
+.comment-box .user-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.comment-box{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    flex-direction: column;
+}
+.comment-box .user-profile-name{
+    font-size: 18px;
+}
+.comment-box .comment-date{
+    font-size: 16px;
+}
+.comment-details{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
