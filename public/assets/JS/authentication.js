@@ -84,6 +84,7 @@ const waitForUser =() => {
                 uid: uid,
                 Name: displayName,
                 PhotoURL: photoURL,
+                role : "user"
               });
               console.log("User data written");
             } else {

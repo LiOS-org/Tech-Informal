@@ -4,6 +4,7 @@
     --lios-action-button-background: var(--primary);
     --lios-action-button-box-shadow: var(--secondary);
     --lios-action-button-box-shadow: var(--gochujang-red);
+    --ql-container-height: 500px;
 }
 .lios-window-container{
     background: var(--frosted_white);

@@ -1,5 +1,10 @@
 # Changelogs
 
+## Unreleased
+
+- Fixed `License Section` for `Lucide Icons` in metada.json
+- Dropped `LiOS-InkWell` indefinately in favour of `Quill`, remenants of InkWell will remain and will use `LiOS-InkWell` once it reaches it stable state behind the scenes.
+
 ## 1.0.0-alpha-3
 
 - Added `changeLog.md` to keep track of every changes from now on.

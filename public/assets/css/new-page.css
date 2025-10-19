@@ -46,9 +46,8 @@
 .new-page .blogTitle::placeholder{
     color: var(--frosted_black);
 }
-.new-page .postBody {
+.new-page .post-body-container {
     width: 65%;
-    height: 500px;
     background: var(--frosted_white);
     border: none;
     outline: none;
@@ -61,7 +60,7 @@
 }
 .new-page .postMeta{
     width: 25%;
-    height: 500px;
+    height: 550px;
     background: var(--frosted_white);
     border-radius: 5px;
     padding: 12px;
@@ -85,8 +84,12 @@
 .new-page .postBody::-webkit-scrollbar-thumb{
     background: var(--primary);
 }
+.postBody{
+    border-radius: 15px;
+    overflow: visible;
+}
 /* ToolBar */
-.toolbar{
+/* .toolbar{
     width: calc(100% - 24);
     padding-left: 12px;
     padding-right: 12px;
@@ -113,4 +116,4 @@
 .tool:hover{
     background: var(--frosted_white);
     transition: all 0.2s ease-in-out;
-}
+} */
