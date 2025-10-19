@@ -21,6 +21,11 @@
             "for" : "LiOS-Inkwell",
             "license" : "Apache-2.0",
             "copy" : "https://github.com/LiOS-org/LiOS-InkWell/blob/main/LICENSE"
+        },
+        {
+            "for" : "Lucide Icons",
+            "License" : "ISC License",
+            "copy" : "https://github.com/lucide-icons/lucide/blob/main/LICENSE"
         }
     ]
 }

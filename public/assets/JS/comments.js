@@ -1,11 +1,11 @@
 import  app  from "../../firebase.js";
 import { isLoggedIn, userData } from "./authentication.js";
-import { getFirestore, doc, getDoc,addDoc,collection,setDoc,getDocs } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc,addDoc,collection,deleteDoc,getDocs } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { postData } from "./view.js";
 
 const db = getFirestore(app);
 
-const commentsBox = document.querySelector("#Comments");
+const commentsBox = document.querySelector(".post-comment");
 
 export function initializeCommentsBox(){
     if (isLoggedIn === true) {
@@ -35,7 +35,7 @@ export function initializeCommentsBox(){
             let newCommentInputData = newCommentInput.value;
             const currentDate=  new Date();
             console.log(newCommentInputData);
-            await addDoc(collection(db, "posts", postData.uid, "comments"), {
+            const commentRef = await addDoc(collection(db, "posts", postData.uid, "comments"), {
                 comment: newCommentInputData,
                 userName: userData.Name,
                 userId: userData.uid,
@@ -48,7 +48,7 @@ export function initializeCommentsBox(){
             const date = currentDate.toLocaleDateString();
             commentBox.innerHTML =//html
             `
-            <div class="comment-details">
+            <div id = "${commentRef.id}" class="comment-details">
                 <div class="user-info">
                     <span class="user-profile-picture">
                         <div class="profile-picture-container">
@@ -63,8 +63,36 @@ export function initializeCommentsBox(){
             </div>
             <br>
             <p>${newCommentInputData}</p>
+            <div class = "comment-buttons">
+                <div class = "reply-button"></div>
+                <div class = "special-buttons"></div>
+            </div>
+
             `;
             commentsBox.appendChild(commentBox);
+            
+            window.location.href = `#${commentRef.id}`;
+
+            const specialButtons = commentBox.querySelector(".special-buttons");
+
+            const deleteButton = document.createElement("span");
+            deleteButton.classList.add("lios-action-button", "delete-button");
+
+
+            deleteButton.innerHTML = //html 
+                `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                `;
+            deleteButton.addEventListener("click", async () => {
+                try {
+                    await deleteDoc(doc(db, "posts", postData.uid, "comments", commentRef.id));
+                    commentBox.style.display = "none";
+                } catch (error) {
+                    console.error("Failed to delete comment:", error);
+                }
+            });
+            
+            specialButtons.appendChild(deleteButton);
 
             newCommentInput.value = "";
         });
@@ -90,11 +118,11 @@ export async function renderComments() {
     commentsData.forEach(comment => {
         const commentBox = document.createElement("div");
         commentBox.classList.add("comment-box", "frosted_background", "lios-card");
-        console.log(comment);
+        // console.log(comment);
         const date = comment.date.toDate().toLocaleDateString();
         commentBox.innerHTML = //html
             `
-            <div class = "comment-details">
+            <div id = "${comment.id}" class = "comment-details">
                 <div class = "user-info">
                     <span class = "user-profile-picture">
                         <div class = "profile-picture-container">
@@ -109,7 +137,34 @@ export async function renderComments() {
             </div>
             <br>
             <p>${comment.comment}</p>
+            <div class = "comment-buttons">
+                <div class = "reply-button"></div>
+                <div class = "special-buttons"></div>
+            </div>
             `;
         commentsBox.appendChild(commentBox);
+
+        if (comment.userId === userData.uid || userData.role === "owner") {
+            const specialButtons = commentBox.querySelector(".special-buttons");
+
+            const deleteButton = document.createElement("span");
+            deleteButton.classList.add("lios-action-button", "delete-button");
+
+
+            deleteButton.innerHTML = //html 
+                `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                `;
+            deleteButton.addEventListener("click", async () => {
+                try {
+                    await deleteDoc(doc(db, "posts", postData.uid, "comments", comment.id));
+                    commentBox.style.display = "none";
+                } catch (error) {
+                    console.error("Failed to delete comment:", error);
+                }
+            });
+            
+            specialButtons.appendChild(deleteButton);
+        };
     });
 }

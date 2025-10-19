@@ -30,6 +30,7 @@ export async function updateAboutWindow() {
     document.querySelector(".project-title").textContent = metadata.projectName;
     document.querySelector(".project-description").textContent = metadata.projectDescription;
     document.querySelector(".project-version").textContent = metadata.version;
+    document.querySelector(".project-channel").textContent = metadata.channel;
 
     const licenses = metadata.licenses;
     const licenseContainer = document.querySelector(".license-container");

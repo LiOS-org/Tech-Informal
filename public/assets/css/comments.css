@@ -64,3 +64,11 @@
     align-items: center;
     justify-content: space-between;
 }
+.comment-buttons{
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+}
+.special-buttons .lios-action-button{
+    width: max-content;
+}
