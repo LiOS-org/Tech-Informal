@@ -1,0 +1,63 @@
+.sidebar{
+    background: var(--frosted_white);
+    border-radius: 15px;
+    height: 80%;
+    width: 300px;
+    --padding: 12px;
+    padding: var(--padding);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    transition: all 0.4s ease-in-out;
+    transform: translateX(-105%);
+    z-index: 10;
+    top: 10%;
+}
+.sidebar hr{
+    width: 100%;
+}
+.sidebar .profile-picture-container{
+    align-self: center;
+}
+.sidebar-close-button{
+    display: flex;
+    align-self: flex-end;
+    border-radius: 15px;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px;
+    gap: 5px;
+}
+.sidebar-close-button svg{
+    transition: all 0.2s ease-in-out;
+}
+.sidebar-close-button:hover{
+    background: var(--frosted_white);
+    transition: all 0.2s ease-in-out;;
+    color: var(--primary);
+    width: fit-content;
+}
+.sidebar-button{
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    margin-top: 5px;
+}
+.sidebar-button:hover{
+    color: var(--primary);
+    transition: all 0.4s ease-in-out;
+    background: var(--frosted_white);
+}
+.sidebar-button.active{
+    background: var(--primary);
+}
+.sidebar-button.active:hover{
+    color: var(--black);
+    transition: all 0.4s ease-in-out;
+    background: var(--primary);
+}

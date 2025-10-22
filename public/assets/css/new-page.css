@@ -14,24 +14,6 @@
     width: 90%;
     justify-self: center;
 }
-.title-container .lios-action-button{
-    width: 20%;
-}
-.new-page .blogTitle{
-    width: 80%;
-    font-size: 22px;
-    background: none;
-    border: none;
-    border-bottom: 4px groove var(--secondary);
-    outline: none;
-    transition: all 0.2s ease-in-out;
-    padding: 12px;
-}
-.new-page .blogTitle:focus{
-    border-bottom: 4px groove var(--primary);
-    transition: all 0.2s ease-in-out;
-    color: var(--black);
-}
 .postTags, .postDesc{
     border: none;
     outline: none;
@@ -57,14 +39,6 @@
     line-height: 1.6;
     border-radius: 5px;
     overflow-y: auto;
-}
-.new-page .postMeta{
-    width: 25%;
-    height: 550px;
-    background: var(--frosted_white);
-    border-radius: 5px;
-    padding: 12px;
-    flex-direction: column;
 }
 .postMeta .confirm-new-tags{
     margin-top: 5px;

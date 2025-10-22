@@ -74,3 +74,5 @@ WARP.md
 .vscode
 #  SEO files
 google*.html
+# System Files
+.DS_Store

@@ -121,3 +121,4 @@ readUserData();
 export { readUserData, userData };
 export { userId };
 export { isLoggedIn };
+export { db };

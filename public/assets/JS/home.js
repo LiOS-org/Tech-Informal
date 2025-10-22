@@ -2,7 +2,7 @@ import { waitForUser } from "./authentication.js";
 import { doc, getDocs, collection, getFirestore, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import app from "../../firebase.js";
 
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 await waitForUser();
 

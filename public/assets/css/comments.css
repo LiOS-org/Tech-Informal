@@ -2,6 +2,7 @@
     --padding: 16px;
     padding: var(--padding);
     width: calc(95% - 2 * var(--padding));
+    background: none;
 }
 .comments-user-info{
     display: flex;
@@ -51,6 +52,7 @@
     margin-bottom: 10px;
     width: 80%;
     flex-direction: column;
+    background: none;
 }
 .comment-box .user-profile-name{
     font-size: 18px;

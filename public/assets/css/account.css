@@ -11,6 +11,7 @@
   border-radius: 100vh;
   background: var(--primary);
   justify-self: center;
+  align-self: center; /* For flexbox centering in sidebar */
 }
 .profile-info .profile-picture {
   width: 100%;
