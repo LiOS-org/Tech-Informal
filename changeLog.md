@@ -1,5 +1,9 @@
 # Changelogs
 
+## Hotfix 24/10/25
+
+- Fixed a rendering,posting & editing existing posts issue caused by a tags related bug.
+
 ## 1.0.0-alpha-4
 
 - Fixed `License Section` for `Lucide Icons` in metadata.json

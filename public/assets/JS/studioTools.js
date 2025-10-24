@@ -1,6 +1,6 @@
 import { virtualDom } from "./studio.js";
 import { db } from "./authentication.js";
-import { getDoc, doc,setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { getDoc, doc,setDoc,collection } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 export async function studioEditor(mode,postUid,channelId) {
     const studioEditorPage = document.createElement("div");
@@ -146,8 +146,9 @@ export async function studioEditor(mode,postUid,channelId) {
         updatePostButton.addEventListener("click", async () => {
             const updatedTitle = postTitle.value;
             const updatedBody = postBody.innerHTML;
+            const updatedTagsString = postTags.textContent;
             const updatedDescription = virtualDom.querySelector(".postDesc").innerHTML;
-            const updatedTags = postTags.textContent;
+            const updatedTags = uniqueTags;
             const updatedThumbnail = document.querySelector(".thumbnail-image").src;
             console.log(updatedTitle);
             console.log(updatedBody);
@@ -169,24 +170,33 @@ export async function studioEditor(mode,postUid,channelId) {
                 Description: updatedDescription,
                 Tags: updatedTags,
                 Title: updatedTitle,
-                thumbnail:updatedThumbnail
+                thumbnail: updatedThumbnail
             }, { merge: true });
             // update Tags collection
             updatedTags.forEach(async (tag) => {
                 const tagRef = doc(collection(db, "tags", tag, "posts"), postUid);
                 await setDoc(tagRef, {
-                    postId: newPost.id,
-                    title: postTitle,
-                    description: postDesc,
-                    authorId: userData.uid,
-                    authorName: userData.Name,
-                    channelId: createOn,
-                    channelName: channelData.channelName,
-                    createdOn: currentTime,
-                    thumbnail: thumbnailUrl,
+                    postId: postUid,
+                    title: updatedTitle,
+                    description: updatedDescription,
+                    authorId: postData.AuthorId,
+                    authorName: postData.AuthorName,
+                    channelId: channelId,
+                    channelName: postData.ChannelName,
+                    createdOn: postData.CreatedOn,
+                    thumbnail: updatedThumbnail,
                 }, { merge: true });
             });
-        })
+            // update postsIndex
+            await setDoc(doc(db, "postsIndex", postUid), {
+                CreatedOn: postData.CreatedOn,
+                Description: updatedDescription,
+                Tags: updatedTags,
+                Title: updatedTitle,
+                thumbnail: updatedThumbnail,
+                uid: postUid
+            });
+        });
 
     } else if (mode == "new") {
         console.log("Creating new post");

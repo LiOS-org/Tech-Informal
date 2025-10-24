@@ -38,8 +38,9 @@ export async function showChannelPosts(channelUid) {
             </div>
         `;
         postBox.querySelector(".studio-edit-post-button").addEventListener("click", () => {
-            studioEditor("edit",post.postId,channelUid);
-        })
+            studioEditor("edit", post.postId, channelUid);
+        });
+        console.log(post.Tags);
         const tagsContainer = postBox.querySelector(".studio-post-tags-container");
         post.Tags.forEach(tag => {
             const tagElement = document.createElement("div");
