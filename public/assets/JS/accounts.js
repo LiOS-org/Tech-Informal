@@ -185,14 +185,16 @@ let channelData;
 let docSnap;
 async function displayChannels() {
   await readUserData();
-    const displayOwnedChannles = document.querySelector(".display-owned-channels");
-    const ownedChannels = userData.ownedChannels;
+  const displayOwnedChannles = document.querySelector(".display-owned-channels");
+  const ownedChannels = userData.ownedChannels;
+  
+  if (ownedChannels && ownedChannels.length > 0) {
     ownedChannels.forEach(async (channels) => {
-        docSnap = await getDoc(doc(db, "channels", channels));
-        if (docSnap.exists()) {
-            channelData = docSnap.data();
-            displayOwnedChannles.innerHTML =
-                `<div class = "channel-card lios-card frosted_background">
+      docSnap = await getDoc(doc(db, "channels", channels));
+      if (docSnap.exists()) {
+        channelData = docSnap.data();
+        displayOwnedChannles.innerHTML =
+          `<div class = "channel-card lios-card frosted_background">
                     <div class = "profile-picture-container"><img src = "${channelData.channelImage}" alt = "Channel Logo"></img></div>
                     <div class = "lios-card-title">${channelData.channelName}</div>
                     <hr>
@@ -203,7 +205,8 @@ async function displayChannels() {
                     <br>
                     <div class = "lios-button-group"><a href = "../channel?id=${channelData.uid}" class = "lios-button"><span>View Channel</span></a></div>
                 </div>`;
-        }
-    })
+      }
+    });
+  };
 }
 displayChannels();

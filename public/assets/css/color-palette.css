@@ -4,11 +4,13 @@
     --white:#e1e2eb;
     --black:#000000;
     --gochujang-red: #770000;
+    --grey:#553300;
     /* frosted colors */
     --frosted_primary:var(--c92351);
     --frosted_secondary:var(--717787);
     --frosted_white:var(--e1e2eb);
     --frosted_black:var(--000000);
+    --frosted_grey:var(--553300);
 }
 /*
 Tech Informal Eva theme

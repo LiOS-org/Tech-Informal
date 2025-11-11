@@ -5,6 +5,11 @@
     --lios-action-button-box-shadow: var(--secondary);
     --lios-action-button-box-shadow: var(--gochujang-red);
     --ql-container-height: 500px;
+    --lios-pop-up-background:var(--frosted_white);
+    --lios-loader-3-cube-color:var(--white);
+    --lios-loader-3-trail-color:var(--primary);
+    --lios-loader-3-track-color:var(--frosted_white);
+    --lios-loader-3-container-color:var(--black);
 }
 .lios-window-container{
     background: var(--frosted_white);
@@ -14,4 +19,9 @@
 }
 .lios-window-card{
     background: var(--frosted_white);
+}
+.studio-user-table{
+    --lios-table-header-background:var(--frosted_grey);
+    --lios-table-cell-hover-background:var(--frosted_white);
+    --lios-table-cell-background:var(--frosted_white);
 }

@@ -44,6 +44,9 @@
 .studio-post-actions{
     height: inherit;
     width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 .studio-post-tags-container{
     display: flex;
@@ -76,7 +79,11 @@
     transition: all 0.2s ease-in-out;
     color: var(--black);
 }
-/* .studio-update-post{
-    display: block;
-    width: 95%;
-} */
+.studio-editor-page .postBody{
+  font-size: 18px;
+  line-height: 1.8;
+  height: 800px;
+}
+.studio-comments-container .comment-box{
+    width: 100%;
+}

@@ -1,6 +1,7 @@
 import { virtualDom } from "./studio.js";
-import {studioEditor} from "./studioTools.js"
-import { db } from "./authentication.js";
+import { studioEditor } from "./studioTools.js"
+import { studioShowComments } from "./studioShowComments.js";
+import { db } from "../authentication.js";
 import {doc, getDocs, collection } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 export async function showChannelPosts(channelUid) {
@@ -20,7 +21,6 @@ export async function showChannelPosts(channelUid) {
 
     posts.forEach(postDoc => {
         const post = postDoc.data();
-        console.log(post);
         const postBox = document.createElement("div");
         postBox.classList.add("lios-card", "post-box", "frosted_background");
         postBox.innerHTML = //html
@@ -35,12 +35,15 @@ export async function showChannelPosts(channelUid) {
             </div>
             <div class = "studio-post-actions">
                 <div class="lios-action-button studio-edit-post-button"><span>Edit</span></div>
+                <div class="lios-action-button studio-show-comments-button"><span>Comments</span></div>
             </div>
         `;
         postBox.querySelector(".studio-edit-post-button").addEventListener("click", () => {
             studioEditor("edit", post.postId, channelUid);
         });
-        console.log(post.Tags);
+        postBox.querySelector(".studio-show-comments-button").addEventListener("click", () => {
+            studioShowComments(post.postId);
+        });
         const tagsContainer = postBox.querySelector(".studio-post-tags-container");
         post.Tags.forEach(tag => {
             const tagElement = document.createElement("div");

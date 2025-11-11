@@ -10,7 +10,7 @@ Tech informal offers many of standard as well as unique bloggin features:
 - Channel Following: Users can follow their favourite channels to get notified about new posts.(Upcoming Feature)
 - Post Creation: Users can create posts in their own channels([See limitations](#official-hosted-version-limitations)).
 - Comments: Even if it is the least used blog feature, tech informal offers comments on each post with `Rich Text Editor`.
-- Reactions: Users can react to posts with `Like` and `Dislike` reactions.(Upcoming Feature)
+- Reactions: Users can react to posts with `Like` and `Dislike` reactions.
 - Push Notifications: Users can enable push notifications to get notified about new posts in the channels they follow.(Upcoming Feature)
 - Search: Users can search for channels and posts using the search bar.(Upcoming Feature)
 

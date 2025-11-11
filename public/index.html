@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Informal</title>
+  <script type="module" src="assets/JS/loader.js"></script>
   <link rel="shortcut icon" href="assets/favicon/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="LiOS-Open/public/LiOS_Open.css">
   <link rel="stylesheet" href="assets/css/tech-informal.css">
   <script src="LiOS-Open/public/modules/JS/windows.js"></script>
 </head>
 <body>
+  <div class="lios-loader-3 frosted_background">
+    <div></div>
+    <div></div>
+  </div>
   <header class="lios-header-nav frosted_background">
     <video src="assets/favicon/favicon.mp4" muted autoplay loop class="lios-nav-title"></video>
     <div class="lios-nav-contents">
@@ -24,13 +29,18 @@
   </header>
   <div class="main-container home-page">
     <div class="lios-window-header">Latest Posts</div>
+          <div class="lios-loader-3 frosted_background posts-container-loader">
+            <div></div>
+            <div></div>
+          </div>
        <div class="lios-card-container posts-container">
+        </div>
         <!-- Populated by homepage.js -->
    </div>
   </div>
   <nav class="navigation_container_bottom frosted_background frosted_texture_medium"></nav>
    <!-- Windows Start Here -->
-    <div class="window-container">
+  <div class="window-container">
       <div id="About" class="lios-window-container frosted_background">
         <div class="lios-window-titlebar"><span class="lios-window-title">About</span><span class="lios-window-close" data-lios-window-close>X</span></div>
         <hr>
@@ -60,7 +70,8 @@
           </div>
         </div>
       </div>
-    </div>
+  </div>
+
   <script type="module" src="firebase.js"></script>
   <script type="module" src="assets/JS/authentication.js"></script>
   <script type="module" src="assets/JS/home.js"></script>

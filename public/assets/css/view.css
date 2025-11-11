@@ -1,4 +1,9 @@
+.view-post{
+    width: 100%;
+    height: 100%;
+}
 .post-container {
+  display: none;
   background: var(--frosted_white);
   border-radius: 5px;
   padding: 12px;
@@ -68,4 +73,10 @@
     width: 80%;
     max-width: 1000px;
   }
+}
+/* Reactions */
+
+.navigation_buttons.liked svg,.navigation_buttons.disliked svg{
+  fill:var(--primary);
+  color: var(--black);
 }

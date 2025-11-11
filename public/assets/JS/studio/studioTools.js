@@ -1,6 +1,8 @@
 import { virtualDom } from "./studio.js";
-import { db } from "./authentication.js";
-import { getDoc, doc,setDoc,collection } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { db } from "../authentication.js";
+import { getDoc, doc, setDoc, collection } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { liosPopup } from "../../../LiOS-Open/public/modules/JS/liosOpen.js";
+const pageBody = document.querySelector("body");
 
 export async function studioEditor(mode,postUid,channelId) {
     const studioEditorPage = document.createElement("div");
@@ -131,8 +133,22 @@ export async function studioEditor(mode,postUid,channelId) {
         document.querySelector(".confirm-new-tags").addEventListener("click", createTags);
         document.querySelector(".thumbnail-image").src = postData.thumbnail;
         document.querySelector(".thumbnail-url").addEventListener("click", () => {
-            thumbnailUrl = prompt("Enter Thumbnail URL:");
-            document.querySelector(".thumbnail-image").src = thumbnailUrl;
+            const thumbnailPopUp = document.createElement("div");
+            thumbnailPopUp.classList.add("lios-pop-up", "frosted_background", "studio-thumbnail-popup");
+            thumbnailPopUp.innerHTML = //html
+                `
+                <div class = "lios-card-title"><span>Enter thumbnail URL</span></div>
+                <input class = "studio-enter-thumbnail-url">
+                <div class = "lios-action-button studio-confirm-thumbnail-url"><span>Confirm Thumbnail URL</span></div>
+            `;
+            pageBody.appendChild(thumbnailPopUp);
+            liosPopup("open", ".studio-thumbnail-popup");
+            pageBody.querySelector(".studio-confirm-thumbnail-url").addEventListener("click", () => {
+                thumbnailUrl = pageBody.querySelector(".studio-enter-thumbnail-url").value;
+                document.querySelector(".thumbnail-image").src = thumbnailUrl;
+                liosPopup("close",".studio-thumbnail-popup")
+                pageBody.removeChild(thumbnailPopUp);
+            });
         });
         const postEditButton = document.createElement("div");
         postEditButton.classList.add("lios-action-button", "studio-update-post");
@@ -196,6 +212,8 @@ export async function studioEditor(mode,postUid,channelId) {
                 thumbnail: updatedThumbnail,
                 uid: postUid
             });
+            // Redirect the user to updated post
+            window.location.replace(`../view?${postUid}`);
         });
 
     } else if (mode == "new") {

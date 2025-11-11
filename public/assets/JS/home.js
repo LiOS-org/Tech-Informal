@@ -14,7 +14,7 @@ const allPosts = allPostsSnapshot.docs.map(doc => ({
 
 
 allPosts.forEach(async post => {
-    function displayPosts() {
+    async function displayPosts() {
         const postCard = document.createElement("div");
         postCard.className = "lios-card post-card frosted_background";
         console.log(post);
@@ -43,5 +43,10 @@ allPosts.forEach(async post => {
     
         document.querySelector(".posts-container").appendChild(postCard);
     };
-    displayPosts();
-})
+    async function loadDisplayPosts() {
+        await displayPosts();
+        const loader = document.querySelector(".posts-container-loader");
+        loader.style.display = "none";
+    };
+    await loadDisplayPosts();
+});

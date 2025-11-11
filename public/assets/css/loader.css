@@ -1,0 +1,37 @@
+body > .lios-loader-3{
+    position: fixed;
+    justify-self: center;
+    top: 50%;
+    z-index: 999999999;
+}
+.view-post > .lios-loader-3{
+    justify-self: center;
+    align-self: center;
+    z-index: 999999999;
+}
+.post-comment > .lios-loader-3{
+    justify-self: center;
+    align-self: center;
+    z-index: 999999999;
+}
+.lios-loader-3 div:last-child{
+    overflow: hidden;
+}
+.posts-container-loader{
+    justify-self: center;
+    align-self: center;
+    z-index: 999999999;
+}
+.lios-loader-3 div:last-child::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;       
+    height: 100%;      
+    background-image: url(../favicon/favicon.png);
+    background-size: cover;
+    background-position: center;
+    transform-origin: center;
+    transform: rotate(-45deg);
+}

@@ -1,7 +1,8 @@
-import { isLoggedIn, readUserData, userData,userId, waitForUser } from "./authentication.js";
+import { isLoggedIn, readUserData, userData,userId, waitForUser } from "../authentication.js";
 import { getFirestore, collection, query, where, orderBy, limit, getDocs,getDoc,doc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-import {showChannelPosts} from "./studioShowPosts.js"
-import app from "../../firebase.js";
+import { showChannelPosts } from "./studioShowPosts.js";
+import {userManagementPage} from "./userManagementPage.js"
+import app from "../../../firebase.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const currentPage = urlParams.get("currentPage");
@@ -20,7 +21,6 @@ let latestPostData
 async function getLatestPost(userId) {
     const latestPost = await getDocs(query(collection(db, "posts"), where("AuthorId", "==", userId), orderBy("CreatedOn", "desc"), limit(1)));
     latestPostData = latestPost.docs[0].data();
-    console.log(latestPostData);
 }
 await getLatestPost(userId);
 // Dashboard
@@ -59,7 +59,6 @@ userData.ownedChannels.forEach(channel => {
     const getChannelInfo = (async () => {
         const channelInfoFetch = await getDoc(doc(db, "channelIndex", channel));
         channelInfo = channelInfoFetch.data();
-        console.log(channelInfo);
         const displayChannel = document.createElement("div");
         displayChannel.innerHTML = //html
             `
@@ -98,6 +97,10 @@ if (!currentPage) {
 } else if (currentPage === "channels") {
     const displayDefaultDom = (() => {
         virtualDom.appendChild(channels);
+    })();
+} else if (currentPage == "user-management") {
+    const displayDefaultDom = (() => {
+        userManagementPage();
     })();
 } else {
     const displayDefaultDom = (() => {

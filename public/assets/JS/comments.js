@@ -27,8 +27,8 @@ export function initializeCommentsBox(){
         const newCommentInput = document.querySelector(".new-comment-input");
 
         newCommentInput.addEventListener("input", () => {
-            newCommentInput.style.height = "auto"; // reset height
-            newCommentInput.style.height = newCommentInput.scrollHeight + "px"; // set to content height
+            newCommentInput.style.height = "auto";
+            newCommentInput.style.height = newCommentInput.scrollHeight + "px"; 
         });
 
         commentSubmitButton.addEventListener("click", async () => {

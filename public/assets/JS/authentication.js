@@ -33,6 +33,8 @@ const signInButton = document.querySelector(".sign-in-button");
 
 // Google Sign in
 const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
+googleProvider.addScope('https://www.googleapis.com/auth/userinfo.profile');
 // Use event delegation to handle both existing and dynamically created sign-in buttons
 document.addEventListener("click", (event) => {
   if (event.target.closest(".sign-in-button")) {
@@ -41,7 +43,6 @@ document.addEventListener("click", (event) => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const user = result.user;
-        console.log("User signed in:");
         window.location.reload();
       })
       .catch((error) => {
@@ -73,8 +74,8 @@ const waitForUser =() => {
         accountButton.style.display = "inline-flex";
         displayName = user.displayName;
         photoURL = user.photoURL;
-        emailVerified = user.emailVerified;
         userId = user.uid;
+        email = user.email;
         isLoggedIn = true;
         const userRef = doc(db, "users", uid);
         const userSnap = await getDoc(userRef);
@@ -84,7 +85,8 @@ const waitForUser =() => {
                 uid: uid,
                 Name: displayName,
                 PhotoURL: photoURL,
-                role : "user"
+                role: "user",
+                Email: email
               });
               console.log("User data written");
             } else {

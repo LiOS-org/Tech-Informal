@@ -1,5 +1,18 @@
 # Changelogs
 
+## 1.0.0-alpha-5
+
+- Increased the height of ql-editor.
+- Updated `Authentication.js` tp know also get `user name` and `user email` automatically upon sign in.
+- Replaced `prompt` with `LiOS-PopUp` in `studio.js` for thumbnail URL;
+- Updated `navigation.js` to now add `navigation.label` as class to each button for easier targeting via CSS.
+- Updated `view.js` to import and use `contextualBottomNavigation` function as async.
+- Updated `comments.js` to remove unnecessary `preventDefault()` call in new comment input event listener.
+- Added comments moderation in Studio page under channels/{channel}/{post}/comments. Currently, channel owners and moderators can delete comments. Channel-level and platform-wide bans will be introduced in future updates.
+- Added `user management` page in `studio` page: For now only accessible to `"mods" and "owner"`.
+- Added `Loading Animation`.
+- Reactions: Users can now react to a post via either of `Like` or `Dislike` button using the `Contextual Bottom Navifation`.
+
 ## Hotfix 24/10/25
 
 - Fixed a rendering,posting & editing existing posts issue caused by a tags related bug.
@@ -10,7 +23,7 @@
 - Dropped `LiOS-InkWell` indefinately in favour of `Quill`, remenants of InkWell will remain and will use `LiOS-InkWell` once it reaches it stable state behind the scenes.
 - Fixed backgrounds in `Comments Section`.
 - Updated the `new-page` boilerplate.
-- Added Sidebar Navigation: Currently only available in `Studio` page, will help navigate between `dashbard` and `channels` page.
+- Added Sidebar Navigation: Currently only available in `Studio` page, will help navigate between `dashboard` and `channels` page.
 - Added Studio page: Currently user can see info about their `latest post` under dashboard or `edit existing posts` under channels section. Studio can be accessed via `Accounts Page`.
 - Updated `firestore.rules` to allow read and write on collection `channelIndex`.
 
