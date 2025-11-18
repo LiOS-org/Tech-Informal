@@ -1,7 +1,61 @@
+import { populateFragments } from "./fragments.js";
+import { loadSidebar } from "./sidebar.js";
 
 const bottomNavigation = document.querySelector(".navigation_container_bottom");
 export { bottomNavigation };
 const currentPage = document.documentElement.dataset.page;
+export { currentPage };
+
+export async function openSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    if (window.innerWidth <= 768) {
+        sidebar.style.inset = "unset";
+        sidebar.style.transform = "translateX(0%)";
+        sidebar.style.width = "calc(100% - 2*var(--padding))";
+        sidebar.style.height = "calc(100% - 2*var(--padding))";
+        sidebar.style.inset = "0";
+        sidebar.style.borderRadius = "0";
+    } else {
+        sidebar.style.transform = "translateX(0%)";
+    };
+};
+let closeSidebar;
+let updateSidearEventListner;
+closeSidebar = () => {
+    const sidebar = document.querySelector(".sidebar");
+    
+    sidebar.style.inset = "unset";
+    sidebar.style.transform = "translateX(-115%)";
+    sidebar.style.width = "300px";
+    sidebar.style.height = "80%";
+    sidebar.style.inset = "unset";
+    sidebar.style.left = "0";
+    sidebar.style.top = "10%";
+    sidebar.style.bottom = "10%";
+    sidebar.style.borderRadius = "15px";
+    updateSidearEventListner("remove");
+};
+const closeOnBodyClick = () => {
+    closeSidebar();
+};
+updateSidearEventListner = (action) => {
+    const docBody = document.body;
+
+    if (action === "add") {
+        docBody.addEventListener("click", closeOnBodyClick);
+    } else if (action === "remove") {
+        docBody.removeEventListener("click", closeOnBodyClick);
+    }
+};
+
+export { closeSidebar, updateSidearEventListner };
+await populateFragments();
+const openSidebarButton = document.querySelector(".nav-sidebar");
+openSidebarButton.addEventListener("click", async (e) => {
+    e.stopPropagation(); // IMPORTANT so the click doesn't immediately close sidebar
+    await openSidebar();
+    updateSidearEventListner("add");
+});
 
 let navigationMap;
 
@@ -71,22 +125,6 @@ navigationMap = {
             label: "Account",
             url: "../account",
             icon: "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-user-round-icon lucide-user-round\"><circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M20 21a8 8 0 0 0-16 0\"/></svg>"
-        },
-        {
-            label: "Sidebar",
-            action: () => {
-                const sidebar = document.querySelector(".sidebar");
-                if (window.innerWidth <= 768) {
-                    sidebar.style.transform = "translateX(0%)";
-                    sidebar.style.width = "calc(100% - 2*var(--padding))";
-                    sidebar.style.height = "calc(100% - 2*var(--padding))";
-                    sidebar.style.inset = "0";
-                    sidebar.style.borderRadius = "0";
-                } else {
-                    sidebar.style.transform = "translateX(0%)";
-                };
-            },
-            icon: "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-panel-right-close-icon lucide-panel-right-close\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M15 3v18\"/><path d=\"m8 9 3 3-3 3\"/></svg>"
         }
     ]
 };
@@ -124,10 +162,34 @@ export async function contextualBottomNavigation() {
         bottomNavigation.appendChild(button);
     });
 };
-
+contextualBottomNavigation();
 document.addEventListener("DOMContentLoaded", () => {
     contextualBottomNavigation();
 });
-
+// Construct Sidebar
+export async function constructSidebar() {
+    const sidebarPanel = document.createElement("nav");
+    sidebarPanel.classList.add("sidebar", "frosted_background");
+    sidebarPanel.innerHTML = //html
+        `
+    <div class="sidebar-close-button"><span>Close Sidebar</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-open-icon lucide-panel-right-open"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/><path d="m10 15-3-3 3-3"/></svg></div>
+    <div class="profile-picture-container">
+      <img alt="Profile Picture" class="profile-picture sidebar-profile-picture">
+    </div>
+    <div class="lios-card-title"><span class="sidebar-profile-name"></span></div>
+    <hr>
+    <div class="sidebar-button-container"></div>
+    `;
+    document.documentElement.appendChild(sidebarPanel);
+};
 // Exports 
 export { navigationMap };
+// Load Sidebar
+    loadSidebar();
+// Event listner for lios-nav-title
+const eventListnerForLiosNavTitle = (async () => {
+    await populateFragments();
+    document.querySelector(".lios-nav-title").addEventListener("click", () => {
+        window.location.replace("/");
+    });
+})();

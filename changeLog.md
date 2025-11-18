@@ -1,5 +1,14 @@
 # Changelogs
 
+## 1.0.0-alpha-6
+
+- Clicking on the `navigation favicon logo` will now redirect to `home` page.
+- Made `sidebar` universally available.
+- Tucked away `About` and `Github` buttons from `header-nav` to the `sidebar`.
+- Made `sidebar` independent of `studio`.
+- Now when `sidebar` is open, clicking outside will close it.
+- fixed sidebar buttons issue on `all-posts` page.
+
 ## 1.0.0-alpha-5
 
 - Increased the height of ql-editor.

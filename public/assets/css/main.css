@@ -16,3 +16,20 @@
   border-radius: 100vh;
   padding: 5px;
 }
+.lios-nav-title{
+  cursor: pointer;
+}
+.nav-sidebar{
+  display: flex;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+.nav-sidebar:hover{
+  color: var(--primary);
+  transition: all 0.4s ease-in-out;
+}
+.nav-sidebar svg{
+  height: 28px;
+  width: 28px;
+  padding: 5px;
+}

@@ -12,16 +12,16 @@ const allPosts = allPostsSnapshot.docs.map(doc => ({
     ...doc.data()
 }));
 
-
+let displayPosts;
 allPosts.forEach(async post => {
-    function displayPosts() {
+    displayPosts = () => {
         const postCard = document.createElement("div");
         postCard.className = "lios-card post-card frosted_background";
         console.log(post);
         const postDate = post.CreatedOn.toDate().toLocaleDateString();
         postCard.innerHTML =//html
             `
-            <div class = "post-thumnail-container">
+            <div class = "post-thumbnail-container">
                 <img class = "post-thumbnail" src = "${post.thumbnail}">
             </div>
             <h3>${post.Title}</h3>
@@ -39,9 +39,17 @@ allPosts.forEach(async post => {
             newTag.className = "post-tag";
             newTag.textContent = tag;
             postCard.querySelector(".tags-container").appendChild(newTag);
-        })
-    
+        });
         document.querySelector(".posts-container").appendChild(postCard);
     };
-    displayPosts();
-})
+});
+async function hideAllPostsLoader(){
+    const preLoader = document.querySelector(".all-posts-loader");
+    const mainContainer = document.querySelector(".main-container");
+
+    await displayPosts();
+    preLoader.style.display = "none";
+    mainContainer.style.display = "flex";
+
+};
+hideAllPostsLoader();

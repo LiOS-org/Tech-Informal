@@ -16,14 +16,13 @@
     <div></div>
   </div>
   <header class="lios-header-nav frosted_background">
+    <div class="nav-sidebar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg></div>
     <video src="assets/favicon/favicon.mp4" muted autoplay loop class="lios-nav-title"></video>
     <div class="lios-nav-contents">
       <div class="lios-button-group">
         <a href="/" class="lios-button"><span>Home</span></a>
         <a href="account" class="lios-button account-button"><span>Account</span></a>
         <a href="#" class="lios-button sign-in-button"><span>Sign In</span></a>
-        <a href="#About" class="lios-button"><span>About</span></a>
-        <a href="https://github.com/LiOS-org/Tech-Informal" class="lios-button"><span>Github</span></a>
       </div>
     </div>
   </header>
@@ -38,6 +37,8 @@
         <!-- Populated by homepage.js -->
    </div>
   </div>
+  <!-- Sidebar -->
+   <!-- Populated by constructSidebar() in navigation.js -->
   <nav class="navigation_container_bottom frosted_background frosted_texture_medium"></nav>
    <!-- Windows Start Here -->
   <div class="window-container">
@@ -71,7 +72,6 @@
         </div>
       </div>
   </div>
-
   <script type="module" src="firebase.js"></script>
   <script type="module" src="assets/JS/authentication.js"></script>
   <script type="module" src="assets/JS/home.js"></script>

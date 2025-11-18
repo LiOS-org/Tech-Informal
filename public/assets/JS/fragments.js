@@ -1,4 +1,10 @@
+const urlParams = new URLSearchParams(window.location.search);
+const currentViewPage = urlParams.get("currentPage");
+
 export async function populateFragments() {
+  if (currentViewPage == "home") {
+    return;
+  };
   const partialsMap = {
     ".lios-header-nav": "../includes/header-nav.html",
     ".window-container": "../includes/windows.html"
