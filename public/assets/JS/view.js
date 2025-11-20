@@ -9,19 +9,19 @@ const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 const db = getFirestore(app);
 
-await waitForUser();
 
 
 let postData;
+let getPostData;
+// Fetch post details
+
+getPostData = async () => {
+    const postInfo = await getDoc(doc(db, "posts", postId));
+    postData = postInfo.data();
+};
 async function displayPost() {
     const postContainer = document.querySelector(".post-container");
 
-// Fetch post details
-
-    const getPostData = async () => {
-        const postInfo = await getDoc(doc(db, "posts", postId));
-        postData = postInfo.data();
-    };
     await getPostData();
 
 // Display Posts
@@ -186,8 +186,11 @@ async function loadDisplayPost() {
     await displayPost();
     const loader = document.querySelector(".view-post .lios-loader-3");
     const postContainer = document.querySelector(".view-post .post-container");
+    const metaContainer = document.querySelector(".meta-container");
+
     loader.style.display = "none";
-    postContainer.style.display = "block";
+    metaContainer.style.display = "flex"
+    postContainer.style.display = "flex";
 
 };
 loadDisplayPost();
@@ -211,4 +214,4 @@ const userComments = (async () => {
     commentsLoader.style.display = "none";
 })();
 
-export { postData };
+export { postData, getPostData };

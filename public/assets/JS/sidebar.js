@@ -1,4 +1,4 @@
-import { readUserData, userData, waitForUser } from "./authentication.js";
+import { isLoggedIn, readUserData, userData, waitForUser } from "./authentication.js";
 import { populateFragments } from "./fragments.js";
 import { closeSidebar, constructSidebar, updateSidearEventListner } from "./navigation.js";
 // import { channels, dashboard } from "./studio/studio.js";
@@ -24,10 +24,13 @@ export async function loadSidebar() {
     await populateFragments();
     const profilePicture = document.querySelector(".sidebar-profile-picture");
     const profileName = document.querySelector(".sidebar-profile-name");
-
-
-    profilePicture.src = userData.PhotoURL;
-    profileName.textContent = userData.Name;
+    if (isLoggedIn == true) {  
+        profilePicture.src = userData.PhotoURL || "https://msnetwork-server.web.app/tech-informal/profile-pictures/user.png";
+        profileName.textContent = userData.Name || "Guest";
+    } else {
+        profilePicture.src = "https://msnetwork-server.web.app/tech-informal/profile-pictures/user.png";
+        profileName.textContent = "Guest";
+    };
     buttonsContainer = document.querySelector(".sidebar-button-container");
     if (currentPage == "studio") {
         sidebarMap = {

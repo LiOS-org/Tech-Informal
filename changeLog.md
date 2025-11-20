@@ -1,5 +1,10 @@
 # Changelogs
 
+## 1.0.0-alpha-7
+
+- Fixed a bug where the site was unable to dsplay post in `view` page if user is not logged in.
+- Detached `meta-container` from the main `article` section for better experiance in reader mode.
+
 ## Hotfix 20/11/25
 
 - Fixed background of `article section` in `view page`.

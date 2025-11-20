@@ -10,6 +10,7 @@
   padding: 12px;
   font-size: 18px;
   line-height: 1.8;
+  flex-direction: column;
 }
 .post-body img {
   max-width: 90%;
@@ -60,6 +61,9 @@
   .post-container {
     max-width: 100%;
   }
+  .meta-container{
+    max-width: calc(100% - 2 * var(--padding));
+  }
   .post-comment {
     width: calc(100% - 2 * var(--padding));
   }
@@ -68,6 +72,9 @@
 @media (min-width: 1401px) {
   .post-container {
     width: 80%;
+    max-width: 1000px;
+  }
+  .meta-container{
     max-width: 1000px;
   }
   .post-comment {
@@ -80,4 +87,14 @@
 .navigation_buttons.liked svg,.navigation_buttons.disliked svg{
   fill:var(--primary);
   color: var(--black);
+}
+.meta-container{
+  background: var(--frosted_white);
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  --padding:12px;
+  padding: var(--padding);
+  border-radius: 5px;
+  margin-bottom: 10px;
 }

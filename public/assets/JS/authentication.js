@@ -19,7 +19,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import app from "../../firebase.js";
 import { populateFragments } from './fragments.js';
-import {updateAboutWindow} from "../JS/windows.js"
+import { updateAboutWindow } from "../JS/windows.js";
 
 await populateFragments();
 await updateAboutWindow();
@@ -111,13 +111,15 @@ const waitForUser =() => {
 export { waitForUser,displayName };
 // Read User from Firestore
 let userData;
-const readUserData = () => {
-  return new Promise(async(resolve) => {
+const readUserData = async () => {
+  if(isLoggedIn==true){
     await waitForUser();
     const userDoc = await getDoc(doc(db, "users", userId));
     userData = userDoc.data();
     resolve(userData);
-  })
+  } else {
+    console.log("User is not signed in");
+  };
 }
 readUserData();
 export { readUserData, userData };
