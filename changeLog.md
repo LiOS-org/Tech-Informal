@@ -1,5 +1,9 @@
 # Changelogs
 
+## Hotfix 20/11/25
+
+- Fixed background of `article section` in `view page`.
+
 ## 1.0.0-alpha-6
 
 - Clicking on the `navigation favicon logo` will now redirect to `home` page.
