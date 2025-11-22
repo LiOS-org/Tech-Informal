@@ -112,11 +112,10 @@ export { waitForUser,displayName };
 // Read User from Firestore
 let userData;
 const readUserData = async () => {
+  await waitForUser();
   if(isLoggedIn==true){
-    await waitForUser();
     const userDoc = await getDoc(doc(db, "users", userId));
     userData = userDoc.data();
-    resolve(userData);
   } else {
     console.log("User is not signed in");
   };

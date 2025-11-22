@@ -22,11 +22,12 @@ document.querySelector(".sidebar-close-button").addEventListener("click", () => 
 });
 export async function loadSidebar() {
     await populateFragments();
+    await readUserData();
     const profilePicture = document.querySelector(".sidebar-profile-picture");
     const profileName = document.querySelector(".sidebar-profile-name");
     if (isLoggedIn == true) {  
-        profilePicture.src = userData.PhotoURL || "https://msnetwork-server.web.app/tech-informal/profile-pictures/user.png";
-        profileName.textContent = userData.Name || "Guest";
+        profilePicture.src = userData.PhotoURL;
+        profileName.textContent = userData.Name;
     } else {
         profilePicture.src = "https://msnetwork-server.web.app/tech-informal/profile-pictures/user.png";
         profileName.textContent = "Guest";

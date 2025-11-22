@@ -1,5 +1,10 @@
 # Changelogs
 
+## 1.0.0-alpha-8
+
+- Fixed `sidebar, isLoggedIn` bugs caused by previous update.
+- Attempt to fix blog section in `view page` on mobile devices.
+
 ## 1.0.0-alpha-7
 
 - Fixed a bug where the site was unable to dsplay post in `view` page if user is not logged in.
