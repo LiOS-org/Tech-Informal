@@ -17,7 +17,6 @@ allPosts.forEach(async post => {
     async function displayPosts() {
         const postCard = document.createElement("div");
         postCard.className = "lios-card post-card frosted_background";
-        console.log(post);
         const postDate = post.CreatedOn.toDate().toLocaleDateString();
         postCard.innerHTML =//html
             `

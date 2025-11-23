@@ -8,8 +8,20 @@ import { liosPopup } from "../../LiOS-Open/public/modules/JS/liosOpen.js";
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 const db = getFirestore(app);
-
-
+// Resource Saving Mode
+let resourceSavingMode = false;
+const checkCompatibility = async () => {
+    const deviceMemory = navigator.deviceMemory;
+    if (deviceMemory && deviceMemory <= 4) {
+        resourceSavingMode = true;
+    };
+    if (resourceSavingMode == true) {
+        const postContainer = document.querySelector(".post-container");
+        postContainer.classList.remove("frosted_background");
+        postContainer.style.background = "var(--gray)";
+    };
+};
+await checkCompatibility();
 
 let postData;
 let getPostData;
@@ -190,7 +202,7 @@ async function loadDisplayPost() {
 
     loader.style.display = "none";
     metaContainer.style.display = "flex"
-    postContainer.style.display = "flex";
+    postContainer.style.display = "block";
 
 };
 loadDisplayPost();
@@ -214,4 +226,4 @@ const userComments = (async () => {
     commentsLoader.style.display = "none";
 })();
 
-export { postData, getPostData };
+export { postData, getPostData,resourceSavingMode };

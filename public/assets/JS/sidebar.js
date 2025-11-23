@@ -20,6 +20,12 @@ await readUserData();
 document.querySelector(".sidebar-close-button").addEventListener("click", () => {
     closeSidebar();
 });
+
+// Prevent sidebar from collapsing, when clicked inside it
+// sidebar.addEventListener("click", (e)){
+//     e.
+// }
+
 export async function loadSidebar() {
     await populateFragments();
     await readUserData();
