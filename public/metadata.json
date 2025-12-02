@@ -1,6 +1,8 @@
 {
     "projectName": "Tech Informal",
     "projectDescription" : "Tech Informal is an open source channel oriented blogging platform where users can read tech related blogs and articles",
+    "baseUrl" : "https://techinformal.liosorg.com",
+    "favicon" : "/assets/favicon/favicon.png",
     "contributors":[
         {
             "name": "Md Saifullah",
@@ -22,5 +24,9 @@
             "license" : "ISC License",
             "copy" : "https://github.com/lucide-icons/lucide/blob/main/LICENSE"
         }
-    ]
+    ],
+    "cta" : {
+        "View Project" : "https://techinformal.liosorg.com",
+        "View on GitHub" : "https://github.com/LiOS-org/Tech-Informal"
+    }
 }
