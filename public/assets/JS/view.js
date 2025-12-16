@@ -3,7 +3,7 @@ import { waitForUser,userData, readUserData, userId } from "./authentication.js"
 import { getFirestore, doc, getDoc,setDoc,collection,getDocs,increment,updateDoc,arrayRemove,arrayUnion } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { initializeCommentsBox, renderComments } from "./comments.js";
 import { navigationMap, contextualBottomNavigation, bottomNavigation } from "./navigation.js";
-import { liosPopup } from "../../LiOS-Open/public/modules/JS/liosOpen.js";
+import { constructLiosPopup,liosPopup } from "../../LiOS-Open/public/modules/JS/liosOpen.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
@@ -225,5 +225,4 @@ const userComments = (async () => {
 
     commentsLoader.style.display = "none";
 })();
-
 export { postData, getPostData,resourceSavingMode };

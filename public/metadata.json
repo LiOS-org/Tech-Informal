@@ -1,6 +1,6 @@
 {
     "projectName": "Tech Informal",
-    "projectDescription" : "Tech Informal is an open source channel oriented blogging platform where users can read tech related blogs and articles",
+    "projectDescription" : "Tech Informal is your go-to source for clear and engaging content on technology, AI, software, and gadgets. Whether you're a beginner or tech-savvy, we simplify complex topics so anyone can learn, explore, and stay updated. Our platform features blogs, articles, and newsletters that break down the latest in tech and AI — all written to be accessible, informative, and fun to read.",
     "baseUrl" : "https://techinformal.liosorg.com",
     "favicon" : "/assets/favicon/favicon.png",
     "contributors":[
@@ -11,7 +11,7 @@
         }
     ],
     "channel" : "alpha",
-    "version" : "1.0.0-alpha-8",
+    "version" : "1.0.0-alpha-9",
     "github" : "https://github.com/LiOS-org/Tech-Informal",
     "licenses": [
         {

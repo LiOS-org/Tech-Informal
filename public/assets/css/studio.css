@@ -1,3 +1,4 @@
+@import url("studio/newPostPage.css");
 .virtual-dom-container{
     background: var(--frosted_white);
     border-radius: 5px;
@@ -86,4 +87,10 @@
 }
 .studio-comments-container .comment-box{
     width: 100%;
+}
+/* Owned Channels */
+.channel-card .lios-button-group{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
 }

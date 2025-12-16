@@ -1,0 +1,13 @@
+body ::-webkit-scrollbar{
+    width: 12px;
+    box-sizing: border-box;
+}
+body ::-webkit-scrollbar-track{
+    background: var(--frosted_white);
+    border-radius: inherit;
+}
+body ::-webkit-scrollbar-thumb{
+    background: var(--primary);
+    border-radius: inherit;
+    border-radius: 100vh;
+}

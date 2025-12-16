@@ -7,7 +7,8 @@ const channelId = urlParams.get("id");
 const db = getFirestore(app);
 
 // Get channel details
-
+async function constructChaneelsPage() {
+    
 await waitForUser();
 let channelName;
 let channelDesc;
@@ -25,7 +26,6 @@ if (docSnap.exists()) {
     channelOwner = channelData.creatorName;
     channelLogo = channelData.channelImage;
     creatorId = channelData.creatorId;
-    console.log(channelData);
 }
 const channelImage = document.querySelector(".channel-logo");
 const channelDisplayName = document.querySelector(".channelName")
@@ -53,7 +53,6 @@ allPosts.forEach(async post => {
     function displayPosts() {
         const postCard = document.createElement("div");
         postCard.className = "lios-card post-card frosted_background";
-        console.log(post);
         const postDate = post.createdOn.toDate().toLocaleDateString();
         postCard.innerHTML =//html
             `
@@ -88,4 +87,17 @@ if (creatorId === userId) {
     addPost.addEventListener("click",() => {
         window.location.href = `../new?onChannel=${channelData.uid}`
     })
-}
+    };
+};
+// Hide Loader
+
+async function hideLoader(){
+    const preLoader = document.querySelector(".channels-loader");
+    const mainContainer = document.querySelector(".main-container");
+
+    await constructChaneelsPage();
+    preLoader.style.display = "none";
+    mainContainer.style.display = "block";
+
+};
+hideLoader();

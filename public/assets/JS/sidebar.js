@@ -1,8 +1,6 @@
 import { isLoggedIn, readUserData, userData, waitForUser } from "./authentication.js";
 import { populateFragments } from "./fragments.js";
 import { closeSidebar, constructSidebar, updateSidearEventListner } from "./navigation.js";
-// import { channels, dashboard } from "./studio/studio.js";
-// import { userManagementPage } from "./studio/userManagementPage.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const currentViewPage = urlParams.get("currentPage");
@@ -31,6 +29,7 @@ export async function loadSidebar() {
     await readUserData();
     const profilePicture = document.querySelector(".sidebar-profile-picture");
     const profileName = document.querySelector(".sidebar-profile-name");
+
     if (isLoggedIn == true) {  
         profilePicture.src = userData.PhotoURL;
         profileName.textContent = userData.Name;
@@ -98,7 +97,13 @@ export async function constructSidebarButtons() {
                     closeSidebar();
                 }
             });
+
+
             if (currentPage != "studio") {
+                // Conditionals to handle some exceoptional pages
+                if (currentPage === "viewPost") {
+                    pageButtonSelector = "all-posts";
+                };
                 sidebar.querySelector(`.${pageButtonSelector}`).classList.add("active");
             }
             if (currentPage == "studio") {
@@ -122,17 +127,16 @@ const updateSidebarButtonStatus = async () => {
     await constructSidebarButtons();
     if (currentViewPage) {
 
-        if (currentPage == "studio") {
+        if (currentPage === "studio") {
             pageButtonSelector = currentViewPage;
         };
-        console.log(currentViewPage);
         document.querySelector(`.sidebar-button.${pageButtonSelector}`).classList.add("active");
     }
     else {
-        if (currentPage == "studio") {
+        if (currentPage === "studio") {
             document.querySelector(`.sidebar-button.dashboard`).classList.add("active");
         } else {
-            if (currentPage == "viewPost") {
+            if (currentPage === "viewPost" || currentPage === "channel") {
                 document.querySelector(`.sidebar-button.home`).classList.add("active");
             } else {
                 document.querySelector(`.sidebar-button.${pageButtonSelector}`).classList.add("active");

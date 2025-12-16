@@ -12,6 +12,17 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "headers":[
+      {
+        "source" : "/metadata.json",
+        "headers":[
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      }
     ]
   },
   "emulators": {

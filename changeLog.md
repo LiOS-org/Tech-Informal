@@ -1,8 +1,17 @@
 # Changelogs
 
-## Unreleased
+## 1.0.0-alpha-9
+
+### New Features
 
 - Added resourceSavingMode: It is currently only applicable on the `.post-container` of `view` page. It is the result of a hardware safety feature on most mobile devices, where on low end mobile devices if `backdrop-filter`(the property behind frosted glass) exceeds a certain area no matter what the blur radius is, the browser silently rejects the `backdrop-filter` effect, to counter this the `resourceSavingMode` will detect if the device has ram <= 4, if true it will remove `.frosted_background` from `post-container` and apply a solid `--gray`(see color-palette.css) as a background color. In future updates resourceSavingMode will do more optimizations on low end mobile devices.
+- New post now can be added from `studio` (enjoy the new editor UI)
+
+### Fixes & Improvements
+
+- Fixed `sidebar` on `view page`.
+- Fixed `Channels` page.
+- Fixed a bug in `sidebar` where `active` button was not being highlighted correctly on certain pages.
 
 ## 1.0.0-alpha-8
 

@@ -5,6 +5,7 @@ video.lios-nav-title {
 }
 .lios-header-nav{
     background: var(--frosted_white);
+    z-index: 99999999;
 }
 /* Bottom Navigation */
 
@@ -18,9 +19,12 @@ video.lios-nav-title {
     display: flex;
     flex-direction: row;
 }
-.navigation-icon svg{
+.navigation-icon svg,.navigation-icon img{
     width: 35px;
     height: 35px;
+}
+.navigation-icon img{
+    border-radius: 100vh;
 }
 .navigation_buttons{
     cursor: pointer;

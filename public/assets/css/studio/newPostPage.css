@@ -1,0 +1,57 @@
+.studio-new-post-page .ti-label-input{
+    background: var(--frosted_white);
+    border-radius: 15px;
+    --padding: 10px;
+    padding: var(--padding);
+    display: flex;
+    width: calc(95% - (2 * var(--padding)));
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    justify-self: center;
+    justify-content: space-between;
+    align-items: center;
+}
+.studio-new-post-page .postBody{
+    background: var(--frosted_white);
+}
+.studio-new-post-page .ti-label-input input{
+    background: var(--frosted_white);
+    border: none;
+    outline: none;
+    border-radius: inherit;
+    padding: inherit;
+    width: 90%;
+    font-size: inherit;
+}
+.studio-new-post-page .ti-label-input label{
+    padding: inherit;
+    font-size: inherit;
+    width: 10%;
+}
+.create-tags-container.ti-label-input label{
+    width: 20%;
+}
+.create-tags-container.ti-label-input input{
+    width: 60%;
+}
+.create-tags-container.ti-label-input .lios-action-button{
+    width: 10%;
+}
+.studio-new-post-page .display-new-tags{
+    background: var(--frosted_white);
+    border-radius: 15px;
+    --padding: 10px;
+    padding: var(--padding);
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(95% - (2 * var(--padding)));
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    justify-self: center;
+}
+.studio-new-post-page .post-thumbnail-preview{
+    display: flex;
+    width: 200px;
+    height: 200px;
+    border-radius: inherit;
+}

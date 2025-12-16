@@ -8,7 +8,7 @@
     background: var(--frosted_white);
 }
 .main-container.channels-page .lios-card:first-child{
-  width: 80%;
+  width: 90%;
   justify-self: center;
 }
 .channel-meta{
