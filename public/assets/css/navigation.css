@@ -5,7 +5,20 @@ video.lios-nav-title {
 }
 .lios-header-nav{
     background: var(--frosted_white);
-    z-index: 99999999;
+    z-index: 5;
+}
+.lios-nav-contents .profile-picture-container,.nav-profile-picture{
+    width: 45px;
+    height: 45px;
+    border-radius: 100vh;    
+    cursor: pointer;
+}
+.profile-picture-dialogue{
+    display: flex;
+    position: absolute;
+    top: 12%;
+    right: 5%;
+    z-index: 10;
 }
 /* Bottom Navigation */
 
@@ -15,7 +28,7 @@ video.lios-nav-title {
     justify-self: center;
     justify-items: center;
     position: sticky;
-    bottom: 5%;
+    bottom: 2%;
     display: flex;
     flex-direction: row;
 }

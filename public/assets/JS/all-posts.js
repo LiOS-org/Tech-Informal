@@ -11,43 +11,46 @@ const allPosts = allPostsSnapshot.docs.map(doc => ({
     id: doc.id,
     ...doc.data()
 }));
-
 let displayPosts;
-allPosts.forEach(async post => {
-    displayPosts = () => {
-        const postCard = document.createElement("div");
-        postCard.className = "lios-card post-card frosted_background";
-        console.log(post);
-        const postDate = post.CreatedOn.toDate().toLocaleDateString();
-        postCard.innerHTML =//html
-            `
+displayPosts = (post) => {
+    const postCard = document.createElement("div");
+    postCard.className = "lios-card post-card frosted_background";
+    const postDate = post.CreatedOn.toDate().toLocaleDateString();
+    postCard.innerHTML =//html
+        `
             <div class = "post-thumbnail-container">
                 <img class = "post-thumbnail" src = "${post.thumbnail}">
             </div>
             <h3>${post.Title}</h3>
             <div class = "tags-container"></div>
             <p>${post.Description}</p>
-            <div class = "lios-button-group"><a class = "lios-action-button" href = "../view?id=${post.uid}"><span>View Post</span></a></div>
-            <hr>
-            <div class = "display-post-meta">
-                <span> <a href = "../channel?id=${post.ChannelId}">${post.ChannelName}</a></span><span>${postDate}</span>
+            <div class = "display-post-options">
+                <div class = "lios-button-group"><a class = "lios-action-button" href = "view?id=${post.uid}"><span>View Post</span></a></div>
+                <hr>
+                <div class = "display-post-meta">
+                    <span> <a href = "channel?id=${post.ChannelId}">${post.ChannelName}</a></span><span>${postDate}</span>
+                </div>
             </div>
             `;
         
-        post.Tags.forEach(tag => {
-            const newTag = document.createElement("div");
-            newTag.className = "post-tag";
-            newTag.textContent = tag;
-            postCard.querySelector(".tags-container").appendChild(newTag);
-        });
-        document.querySelector(".posts-container").appendChild(postCard);
-    };
-});
+    post.Tags.forEach(tag => {
+        const newTag = document.createElement("div");
+        newTag.className = "post-tag";
+        newTag.textContent = tag;
+        postCard.querySelector(".tags-container").appendChild(newTag);
+    });
+    document.querySelector(".posts-container").appendChild(postCard);
+};
+const renderPosts = async () => {
+    allPosts.forEach(async post => {
+        displayPosts(post);
+    });
+};
 async function hideAllPostsLoader(){
     const preLoader = document.querySelector(".all-posts-loader");
     const mainContainer = document.querySelector(".main-container");
 
-    await displayPosts();
+    await renderPosts();
     preLoader.style.display = "none";
     mainContainer.style.display = "flex";
 

@@ -26,10 +26,12 @@ allPosts.forEach(async post => {
             <h3>${post.Title}</h3>
             <div class = "tags-container"></div>
             <p>${post.Description}</p>
-            <div class = "lios-button-group"><a class = "lios-action-button" href = "view?id=${post.uid}"><span>View Post</span></a></div>
-            <hr>
-            <div class = "display-post-meta">
-                <span> <a href = "channel?id=${post.ChannelId}">${post.ChannelName}</a></span><span>${postDate}</span>
+            <div class = "display-post-options">
+                <div class = "lios-button-group"><a class = "lios-action-button" href = "view?id=${post.uid}"><span>View Post</span></a></div>
+                <hr>
+                <div class = "display-post-meta">
+                    <span> <a href = "channel?id=${post.ChannelId}">${post.ChannelName}</a></span><span>${postDate}</span>
+                </div>
             </div>
             `;
         

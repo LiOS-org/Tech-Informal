@@ -40,18 +40,20 @@
 }
 .sidebar-button{
     display: flex;
-    padding: 5px;
+    --padding: 5px;
+    padding: var(--padding);
     border-radius: 5px;
     gap: 5px;
     align-items: center;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
     margin-top: 5px;
+    background: var(--frosted_white);
+    width: calc(100% - 2 * var(--padding));
 }
 .sidebar-button:hover{
-    color: var(--primary);
     transition: all 0.4s ease-in-out;
-    background: var(--frosted_white);
+    background: var(--frosted_brown);
 }
 .sidebar-button.active{
     background: var(--primary);
@@ -60,4 +62,12 @@
     color: var(--black);
     transition: all 0.4s ease-in-out;
     background: var(--primary);
+}
+.sidebar-bottom-button-container{
+    display: flex;
+    position: absolute;
+    bottom: 2%;
+    width: calc(100% - 2 * var(--padding));
+    align-items: center;
+    flex-direction: column;
 }

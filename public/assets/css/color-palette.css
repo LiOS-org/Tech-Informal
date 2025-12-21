@@ -1,30 +1,33 @@
+
 :root{
     --primary:#c92351;
     --secondary:#717787;
     --white:#e1e2eb;
     --black:#000000;
     --gochujang-red: #770000;
-    --grey:#553300;
+    --brown:#553300;
     --gray:#acaab3;
-    /* frosted colors */
+    
     --frosted_primary:var(--c92351);
     --frosted_secondary:var(--717787);
     --frosted_white:var(--e1e2eb);
     --frosted_black:var(--000000);
-    --frosted_grey:var(--553300);
+    --frosted_brown:var(--553300);
 }
+
 /*
 Tech Informal Eva theme
+*/
+/* 
 :root{
     --primary:#008000;
     --secondary:#819b4f;
     --white:#c2ddd3;
     --black:#032e0e;
     --gochujang-red: #819b4f;
-    /* frosted colors *//*
+
     --frosted_primary:var(--008000);
     --frosted_secondary:var(--819b4f);
     --frosted_white:var(--c2ddd3);
     --frosted_black:var(--032e0e);
-}
-*/
+} */

@@ -12,8 +12,9 @@ let pageButtonSelector = currentPage
     .replace(/([a-z])([A-Z])/g, "$1-$2") // inserts a hyphen between lowercase→uppercase
     .toLowerCase(); // makes everything lowercase
 let sidebarMap = {};
-let buttonsContainer;
-await readUserData();
+export let sidebarBottomMap = {};
+export let buttonsContainer;
+export let bottomButtonsContainer;
 
 document.querySelector(".sidebar-close-button").addEventListener("click", () => {
     closeSidebar();
@@ -26,23 +27,16 @@ document.querySelector(".sidebar-close-button").addEventListener("click", () => 
 
 export async function loadSidebar() {
     await populateFragments();
-    await readUserData();
-    const profilePicture = document.querySelector(".sidebar-profile-picture");
-    const profileName = document.querySelector(".sidebar-profile-name");
-
-    if (isLoggedIn == true) {  
-        profilePicture.src = userData.PhotoURL;
-        profileName.textContent = userData.Name;
-    } else {
-        profilePicture.src = "https://msnetwork-server.web.app/tech-informal/profile-pictures/user.png";
-        profileName.textContent = "Guest";
-    };
     buttonsContainer = document.querySelector(".sidebar-button-container");
+    bottomButtonsContainer = document.querySelector(".sidebar-bottom-button-container");
     if (currentPage == "studio") {
         sidebarMap = {
             buttons: [
                 // {}
             ]
+        };
+        sidebarBottomMap = {
+            buttons: []
         };
     } else{
         sidebarMap = {
@@ -79,11 +73,14 @@ export async function loadSidebar() {
                 }
             ]
         };
+        sidebarBottomMap = {
+            buttons: []
+        };
     };
 };
 await loadSidebar();
 export async function constructSidebarButtons() {
-    sidebarMap.buttons.forEach(button => {
+    sidebarMap.buttons?.forEach(button => {
         const navigation = document.createElement("div");
         navigation.classList.add("sidebar-button", "frosted_background", `${button.label.toLowerCase().trim().replace(/\s+/g, "-")}`);
         navigation.innerHTML = //html
@@ -121,6 +118,31 @@ export async function constructSidebarButtons() {
             }
         });
         buttonsContainer.appendChild(navigation);
+    });
+};
+export const constructSidebarBottomButtons = () => {
+    sidebarBottomMap.buttons.forEach(button => {
+        const navigation = document.createElement("div");
+        navigation.classList.add("sidebar-button", "frosted_background", `${button.label.toLowerCase().trim().replace(/\s+/g, "-")}`);
+        navigation.innerHTML = //html
+            `
+            <span>${button.icon}</span><span>${button.label}</span>
+            `
+        navigation.addEventListener("click", () => {
+            document.querySelectorAll(".sidebar-button").forEach(selector => {
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+            if (button.action) {
+                button.action(); // Execute function if provided
+            } else if (button.url) {
+                window.location.href = button.url;
+            } else {
+                console.warn(`No action or URL defined for ${button.label}`);
+            };
+        });
+        bottomButtonsContainer.appendChild(navigation);
     });
 };
 const updateSidebarButtonStatus = async () => {

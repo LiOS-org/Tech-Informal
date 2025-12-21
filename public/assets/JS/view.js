@@ -8,8 +8,35 @@ import { constructLiosPopup,liosPopup } from "../../LiOS-Open/public/modules/JS/
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 const db = getFirestore(app);
-// Resource Saving Mode
+let postData;
+let getPostData;
 let resourceSavingMode = false;
+// Fetch post details
+
+getPostData = async () => {
+    const postInfo = await getDoc(doc(db, "posts", postId));
+    postData = postInfo.data();
+};
+async function displayPost() {
+    const postContainer = document.querySelector(".post-container");
+
+    await getPostData();
+
+    // Update Meta and Title
+    const updateTitle = (() => {
+        const existingMeta = document.head.querySelector('meta[name="description"]');
+        if (existingMeta) existingMeta.remove();
+        const description = postData.Description;
+        const meta = document.createElement("meta");
+        meta.name = "description";
+        meta.content = description;
+        document.head.appendChild(meta);
+
+        document.head.querySelector("title").innerHTML = postData.Title;
+
+    })();
+    // 
+// Resource Saving Mode
 const checkCompatibility = async () => {
     const deviceMemory = navigator.deviceMemory;
     if (deviceMemory && deviceMemory <= 4) {
@@ -22,20 +49,8 @@ const checkCompatibility = async () => {
     };
 };
 await checkCompatibility();
-
-let postData;
-let getPostData;
-// Fetch post details
-
-getPostData = async () => {
-    const postInfo = await getDoc(doc(db, "posts", postId));
-    postData = postInfo.data();
-};
-async function displayPost() {
-    const postContainer = document.querySelector(".post-container");
-
-    await getPostData();
-
+// 
+    
 // Display Posts
 
     document.querySelector(".post-title").textContent = postData.Title;
@@ -59,7 +74,7 @@ async function displayPost() {
     document.querySelector(".posted-on-date").textContent = postData.CreatedOn.toDate().toLocaleDateString();
 
 
-// Display Channel Info
+    // Display Channel Info
 
     const channelLogo = document.querySelector(".channel-logo");
     const channelName = document.querySelector(".channel-name");
@@ -71,6 +86,7 @@ async function displayPost() {
     channelLogo.addEventListener("click", () => {
         window.location.href = `../channel?id=${channelId}`;
     });
+    // 
 
     // Bottom  Navigation Updates
     const updateNavigation = async () => {

@@ -1,4 +1,4 @@
-import { waitForUser } from "./authentication.js";
+import { logIn, waitForUser } from "./authentication.js";
 import { readUserData, userData, userId, isLoggedIn,googleProvider,displayName } from "./authentication.js";
 import {
   getFirestore,
@@ -21,34 +21,8 @@ import app from "../../firebase.js";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
-// Check If user is logged in 
-
-// async function userLoginStatus() {
-//   await waitForUser();
-//   if (isLoggedIn === true) {
-//     console.log(`Welcome Back ${displayName}`);
-//   }
-//   else {
-//     signInWithPopup(auth, googleProvider)
-//       .then((result) => {
-//         const credential = GoogleAuthProvider.credentialFromResult(result);
-//         const user = result.user;
-//         console.log("User signed in:");
-//         window.location.reload();
-//       })
-//       .catch((error) => {
-//         const errorCode = error.code;
-//         const errorMessage = error.message;
-//         console.log(`Error signing in: ${errorCode} - ${errorMessage}`);
-//       });
-//   }
-// }
-
-//   userLoginStatus();
-
 // Display User Info
-const profilePicture = document.querySelector(".profile-picture");
+const profilePicture = document.querySelector(".profile-info .profile-picture");
 const profileName = document.querySelector(".profile-name");
 const userEmail = document.querySelector(".user-email");
 let email;
@@ -56,10 +30,10 @@ let photoURL;
 let emailVerified;
 let updatedEmail;
 let updatedBio;
-async  function displayUser() {
-  await waitForUser();
+async function displayUser() {
   await readUserData();
-  const userEmail = document.querySelector(".user-email");
+  if (isLoggedIn === true) {
+      const userEmail = document.querySelector(".user-email");
   const profileDetails = document.querySelector(".profile-details");
   const editProflieDetails = document.querySelector(".edit-profile-details");
   const editButton = document.querySelector("#editProfile");
@@ -75,7 +49,6 @@ async  function displayUser() {
   })
   // Display Email
   userEmail.textContent = userData.Email || "";
-  console.log(userEmail.textContent);
   // Display Bio
   const userBio = document.querySelector(".user-bio");
   // Edit Email and Bio
@@ -104,10 +77,27 @@ async  function displayUser() {
   userBio.textContent = userData.Bio;
   console.log(userBio.textContent);
   // Profile Picture and Name
-  profilePicture.src = userData?.PhotoURL || profilePicture.src;
-  profileName.innerHTML = `<span>${userData?.Name || ""}</span>`;
+  profilePicture.src = userData.PhotoURL || profilePicture.src;
+  profileName.innerHTML = `<span>${userData.Name || ""}</span>`;
+  } else {
+    document.querySelector(".profile-info").innerHTML = "";
+
+    document.querySelector(".profile-info").innerHTML = //html
+      `
+        <div class = "lios-card" style = "justify-self: center;">
+          <div class = "lios-card-title"><span> Please Sign In</span></div>
+          <hr>
+          <p>This page is only available to authenticated users. To access this page and actions related to accounts please SignIn.</p>
+          <div class = "lios-action-button profile-sign-in-button"><span>Sign In </span></div>
+
+        </div>
+      `;
+    document.querySelector(".profile-info").querySelector(".profile-sign-in-button").addEventListener("click", () => {
+      logIn();
+    });
+  };
   
-}
+};
 displayUser();
 // Sign Out
 document.querySelector("#signOut").addEventListener("click", () => {
@@ -130,14 +120,15 @@ async function  hasAbilityToCreateChannels() {
   await waitForUser();
   await readUserData();
 
-  canCreateChannels = userData.canCreateChannels;
+  canCreateChannels = userData?.canCreateChannels;
   console.log(canCreateChannels);
-  if (canCreateChannels === true) {
+  if (isLoggedIn === true && canCreateChannels === true) {
     createChannel.style.display = "unset";
   }
   else {
     document.querySelector("#create-channel").style.display = "none";
-  }
+    document.querySelector(".navigation_buttons.new-channel");
+  };
 };
 hasAbilityToCreateChannels();
 // Finally create channel
@@ -186,7 +177,7 @@ let docSnap;
 async function displayChannels() {
   await readUserData();
   const displayOwnedChannles = document.querySelector(".display-owned-channels");
-  const ownedChannels = userData.ownedChannels;
+  const ownedChannels = userData?.ownedChannels;
   
   if (ownedChannels && ownedChannels.length > 0) {
     ownedChannels.forEach(async (channels) => {

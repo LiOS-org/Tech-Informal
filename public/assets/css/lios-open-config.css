@@ -21,7 +21,7 @@
     background: var(--frosted_white);
 }
 .studio-user-table{
-    --lios-table-header-background:var(--frosted_grey);
+    --lios-table-header-background:var(--frosted_brown);
     --lios-table-cell-hover-background:var(--frosted_white);
     --lios-table-cell-background:var(--frosted_white);
 }

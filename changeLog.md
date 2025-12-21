@@ -1,5 +1,23 @@
 # Changelogs
 
+## 1.0.0-alpha-10
+
+### New Features
+
+- **view page's** `mata[description]` and `title` will now update automatically to respective relevant values.
+- Replaced static button in `header navigation` with a profile picture icon, which upon click shows username and option to `Sign in or Sign Out`
+- Added `Sign in / Sign Out` button in sidebar for easiy access.
+- `Authentication.js` now provides two exports.
+  - `logIn` and `logOut`: Allows login from any `js file` without boilerplate.
+
+### Fixes & Improvements
+
+- Fixed a bug in `all-posts` page where it was only displaying 1 post from `postIndex`
+- Fixed various UI bugs.
+- Increased `alpha` of `--frosted_white` from 0.3 to 0.5 to increase readibility across the platform.
+- Changed the name of `brown` from `grey` in color-palette.css.
+- **Accounts Page** will now tell you to sign in instead of failing silently when user is not currently authenticated.
+
 ## 1.0.0-alpha-9
 
 ### New Features

@@ -20,6 +20,7 @@ import {
 import app from "../../firebase.js";
 import { populateFragments } from './fragments.js';
 import { updateAboutWindow } from "../JS/windows.js";
+import { bottomButtonsContainer, constructSidebarBottomButtons, sidebarBottomMap } from "./sidebar.js";
 
 await populateFragments();
 await updateAboutWindow();
@@ -53,6 +54,23 @@ document.addEventListener("click", (event) => {
   }
 });
 export { googleProvider };
+export const logIn = async () => {
+  signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const user = result.user;
+      window.location.reload();
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(`Error signing in: ${errorCode} - ${errorMessage}`);
+    });
+};
+export const logOut = async () => {
+  await signOut(auth);
+  window.location.reload();
+};
 // On auth state changed
 const profilePicture = document.querySelector(".profile-picture");
 const profileName = document.querySelector(".profile-name");
@@ -70,8 +88,6 @@ const waitForUser =() => {
       if (user) {
         const uid = user.uid;
         console.log("User is signed in");
-        signInButton.style.display = "none";
-        accountButton.style.display = "inline-flex";
         displayName = user.displayName;
         photoURL = user.photoURL;
         userId = user.uid;
@@ -98,8 +114,6 @@ const waitForUser =() => {
         }
       }
       else {
-        signInButton.style.display = "inline-flex";
-        accountButton.style.display = "none";
         resolve(null);
         isLoggedIn = false;
 
@@ -113,12 +127,38 @@ export { waitForUser,displayName };
 let userData;
 const readUserData = async () => {
   await waitForUser();
+  const profilePicture = document.querySelector(".nav-profile-picture");
   if(isLoggedIn==true){
     const userDoc = await getDoc(doc(db, "users", userId));
     userData = userDoc.data();
+    profilePicture.src = userData.PhotoURL;
+    bottomButtonsContainer.innerHTML = "";
+    sidebarBottomMap.buttons = [];
+    sidebarBottomMap.buttons.push(
+      {
+        "label": "Sign Out",
+        "icon": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>`,
+        "action": async () => {
+          await logOut();
+        }
+      }
+    );
   } else {
     console.log("User is not signed in");
+    profilePicture.src = "https://msnetwork-server.web.app/tech-informal/profile-pictures/user.png";
+    bottomButtonsContainer.innerHTML = "";
+    sidebarBottomMap.buttons = [];
+    sidebarBottomMap.buttons.push(
+      {
+        "label": "Sign In",
+        "icon": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-in-icon lucide-log-in"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>`,
+        "action": async () => {
+          await logIn();
+        }
+      }
+    );
   };
+  constructSidebarBottomButtons();
 }
 readUserData();
 export { readUserData, userData };

@@ -1,3 +1,4 @@
+import { isLoggedIn, logIn, logOut, readUserData, userData } from "./authentication.js";
 import { populateFragments } from "./fragments.js";
 import { loadSidebar } from "./sidebar.js";
 
@@ -179,19 +180,30 @@ export async function constructSidebar() {
     sidebarPanel.innerHTML = //html
         `
     <div class="sidebar-close-button"><span>Close Sidebar</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-open-icon lucide-panel-right-open"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/><path d="m10 15-3-3 3-3"/></svg></div>
-    <div class="profile-picture-container">
-      <img alt="Profile Picture" class="profile-picture sidebar-profile-picture">
-    </div>
-    <div class="lios-card-title"><span class="sidebar-profile-name"></span></div>
-    <hr>
     <div class="sidebar-button-container"></div>
+    <div class = "sidebar-bottom-button-container"></div>
     `;
     document.documentElement.appendChild(sidebarPanel);
 };
+// Auto scale bottom navigation
+function scaleBottomNav() {
+    const vw = window.innerWidth;
+    const navWidth = bottomNavigation.scrollWidth;
+
+    if (navWidth > vw) {
+        const excess = navWidth - vw;
+        const scale = 1 - (excess * 0.01); 
+        bottomNavigation.style.transform = `scale(${Math.max(scale, 0.7)})`;
+    } else {
+        bottomNavigation.style.transform = 'scale(1)';
+    }
+};
+
+scaleBottomNav();
+window.addEventListener('resize', scaleBottomNav);
+// 
 // Exports 
 export { navigationMap };
-// Load Sidebar
-    loadSidebar();
 // Event listner for lios-nav-title
 const eventListnerForLiosNavTitle = (async () => {
     await populateFragments();
@@ -199,3 +211,73 @@ const eventListnerForLiosNavTitle = (async () => {
         window.location.replace("/");
     });
 })();
+// Show profile in navigation profile icon
+const navProfileIcon = document.querySelector(".nav-profile-picture");
+navProfileIcon.addEventListener("click", async (e) => {
+    e.stopImmediatePropagation();
+    await readUserData();
+    if (document.querySelector(".profile-picture-dialogue")) {
+        document.body.removeChild(document.querySelector(".profile-picture-dialogue"));
+    }
+    const profilePictureDialogue = document.createElement("div");
+    profilePictureDialogue.classList.add("frosted_background", "lios-card", "profile-picture-dialogue");
+    const style = profilePictureDialogue.style;
+    style.display = "flex";
+    style.justifyContent = "center";
+
+    document.body.appendChild(profilePictureDialogue);
+    const dialogue = document.createElement("div");
+    dialogue.innerHTML = //html
+        `
+            <div class = "profile-picture-container"><img alt="profile-picture" class = "profile-picture"></div>
+            <div class = "profile-name lios-card-title"><span></span></div>
+            <hr>
+        `;
+    
+    dialogue.style.width = "100%";
+    dialogue.style.height = "100%";
+    
+    profilePictureDialogue.appendChild(dialogue);
+    if (window.innerWidth <= 768) {
+        profilePictureDialogue.style.width = "90vw";
+        profilePictureDialogue.style.right = "unset"
+    } else {
+        profilePictureDialogue.style.width = "300px";
+    };
+    if (isLoggedIn === true) {
+        profilePictureDialogue.querySelector(".profile-picture-container .profile-picture").src = userData.PhotoURL;
+        profilePictureDialogue.querySelector(".profile-name span").innerHTML = userData.Name;
+        const logOutButton = document.createElement("div");
+        logOutButton.classList.add("lios-action-button");
+        logOutButton.innerHTML = //html
+            `
+                <span>SignOut</span>
+            `;
+        logOutButton.addEventListener("click", () => {
+            logOut()
+        });
+        dialogue.appendChild(logOutButton);
+    } else {
+        profilePictureDialogue.querySelector(".profile-picture-container .profile-picture").src = "https://msnetwork-server.web.app/tech-informal/profile-pictures/user.png";
+        profilePictureDialogue.querySelector(".profile-name span").innerHTML = "Guest";
+        const logInButton = document.createElement("div");
+        logInButton.classList.add("lios-action-button");
+        logInButton.innerHTML = //html
+            `
+                <span>SignIn</span>
+            `;
+        logInButton.addEventListener("click", () => {
+            logIn()
+        });
+        dialogue.appendChild(logInButton);
+    };
+    // Hide on outside click;
+    const hideDialogue = (e) => {
+        e.stopImmediatePropagation();
+        document.body.removeChild(profilePictureDialogue);
+        document.body.removeEventListener("click", hideDialogue);
+    }
+    document.body.addEventListener("click", hideDialogue);
+    // 
+});
+// 

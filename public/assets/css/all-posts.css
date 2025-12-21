@@ -1,7 +1,9 @@
 .post-card {
+    display: flex;
     max-width: 400px;
     width: 400px;
     background: var(--frosted_white);
+    flex-direction: column;
 }
 .tags-container .post-tag {
     margin: 1px;
@@ -17,6 +19,8 @@
 .post-card .display-post-meta{
     display: flex;
     justify-content: space-between;
+    position: relative;
+    top: auto;
 }
 .post-thumbnail-container{
     --padding: 12px;
@@ -32,4 +36,12 @@
 .display-post-meta a{
     text-decoration: none;
     color: inherit;
+}
+.display-post-options{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+}
+.display-post-options hr{
+    width: 100%;
 }
