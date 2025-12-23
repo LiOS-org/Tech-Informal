@@ -1,9 +1,5 @@
 import app from "../../firebase.js";
-import { waitForUser,userData, readUserData, userId } from "./authentication.js";
-import { getFirestore, doc, getDoc,setDoc,collection,getDocs,increment,updateDoc,arrayRemove,arrayUnion } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-import { initializeCommentsBox, renderComments } from "./comments.js";
-import { navigationMap, contextualBottomNavigation, bottomNavigation } from "./navigation.js";
-import { constructLiosPopup,liosPopup } from "../../LiOS-Open/public/modules/JS/liosOpen.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, increment, updateDoc, arrayRemove, arrayUnion } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
@@ -12,15 +8,66 @@ let postData;
 let getPostData;
 let resourceSavingMode = false;
 // Fetch post details
-
-getPostData = async () => {
-    const postInfo = await getDoc(doc(db, "posts", postId));
-    postData = postInfo.data();
-};
+const checkForPost = (async () => {
+    const errorPopup = //html
+        `
+        <div class = "lios-card-title"><span> 404 Error </span></div>
+        <hr style = "width:99%">
+        <p> The post you were looking for was not found, either it's been removed or parmanently relocated. Please verify the URL.
+        <br>
+        <div class = "lios-action-button"><span> Visit All Posts Page</span></div>
+    `;
+    if (postId) {
+        getPostData = async () => {
+            const postInfo = await getDoc(doc(db, "posts", postId));
+            if (postInfo.exists()) {
+                postData = postInfo.data();
+            } else {
+                const popup = await constructLiosPopup(errorPopup, true);
+                popup.element.querySelector(".lios-action-button").addEventListener("click", () => {
+                    window.location.href = "/all-posts";
+                });
+                document.body.removeChild(document.querySelector(".main-container", ".navigation_container_bottom"));
+                return;
+            };
+        };
+    } else {
+        const popup = await constructLiosPopup(errorPopup, true);
+        popup.element.querySelector(".lios-action-button").addEventListener("click", () => {
+            window.location.href = "/all-posts";
+        });
+        document.body.removeChild(document.querySelector(".main-container", ".navigation_container_bottom"));
+        return;
+    };
+})();
+// 
 async function displayPost() {
     const postContainer = document.querySelector(".post-container");
 
     await getPostData();
+    // Inject JSONLd
+    const addStructuredData = () => {
+        const script = document.createElement("script");
+        script.type = "application/ld+json";
+
+        const jsonLd = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": postData.Title,
+            "description": postData.Description,
+            "author": {
+                "@type": "Organization",
+                "name": postData.ChannelName
+            },
+            "datePublished": postData.CreatedOn.toDate().toISOString(),
+            "url": `https://techinformal.liosorg.com/view?id=${postId}`,
+            "image": postData.thumbnail
+        };
+        script.text = JSON.stringify(jsonLd);
+        document.head.appendChild(script);
+    };
+    addStructuredData();
+    // 
 
     // Update Meta and Title
     const updateTitle = (() => {
@@ -221,15 +268,19 @@ async function loadDisplayPost() {
     postContainer.style.display = "block";
 
 };
-loadDisplayPost();
+await loadDisplayPost();
 // Tag as canonical 
-
-
-
 const link = document.createElement('link');
 link.rel = 'canonical';
 link.href = window.location.href;
 document.head.appendChild(link);
+// 
+// 
+
+import { waitForUser,userData, readUserData, userId } from "./authentication.js";
+import { initializeCommentsBox, renderComments } from "./comments.js";
+import { navigationMap, contextualBottomNavigation, bottomNavigation } from "./navigation.js";
+import { constructLiosPopup,liosPopup } from "../../LiOS-Open/public/modules/JS/liosOpen.js";
 
 // Comments
 const userComments = (async () => {

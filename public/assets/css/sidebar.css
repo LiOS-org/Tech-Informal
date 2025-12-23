@@ -1,5 +1,5 @@
 .sidebar{
-    background: var(--frosted_white);
+    /* background: var(--frosted_white); */
     border-radius: 15px;
     height: 80%;
     width: 300px;
@@ -10,7 +10,7 @@
     position: fixed;
     transition: all 0.4s ease-in-out;
     transform: translateX(-105%);
-    z-index: 10;
+    z-index: 11;
     top: 10%;
 }
 .sidebar hr{
@@ -40,28 +40,37 @@
 }
 .sidebar-button{
     display: flex;
-    --padding: 5px;
+    --total-space: 5px;
+    --border: 2px;
+    --padding: calc(var(--total-space) - var(--border));
     padding: var(--padding);
     border-radius: 5px;
     gap: 5px;
+    height: 40px;
     align-items: center;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
     margin-top: 5px;
     background: var(--frosted_white);
     width: calc(100% - 2 * var(--padding));
+    border: var(--border) outset transparent;
+    box-sizing: border-box;
 }
 .sidebar-button:hover{
     transition: all 0.4s ease-in-out;
-    background: var(--frosted_brown);
+    --background:var(--frosted_brown);
+    background: var(--background);
+    border: var(--border) outset var(--background);
+    color: var(--black);
 }
 .sidebar-button.active{
-    background: var(--primary);
+    --background: var(--primary);
+    background: var(--background);
 }
 .sidebar-button.active:hover{
     color: var(--black);
     transition: all 0.4s ease-in-out;
-    background: var(--primary);
+    background: var(--background);
 }
 .sidebar-bottom-button-container{
     display: flex;

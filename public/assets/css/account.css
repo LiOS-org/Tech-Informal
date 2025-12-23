@@ -86,3 +86,8 @@
   display: flex;
   justify-self: center;
 }
+/* Channel card */
+.channel-card{
+  background: unset;
+}
+/*  */

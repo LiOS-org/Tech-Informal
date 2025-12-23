@@ -185,7 +185,7 @@ async function displayChannels() {
       if (docSnap.exists()) {
         channelData = docSnap.data();
         displayOwnedChannles.innerHTML =
-          `<div class = "channel-card lios-card frosted_background">
+          `<div class = "lios-card channel-card lios-frosted-glass">
                     <div class = "profile-picture-container"><img src = "${channelData.channelImage}" alt = "Channel Logo"></img></div>
                     <div class = "lios-card-title">${channelData.channelName}</div>
                     <hr>

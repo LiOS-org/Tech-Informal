@@ -15,7 +15,7 @@ video.lios-nav-title {
 }
 .profile-picture-dialogue{
     display: flex;
-    position: absolute;
+    position: fixed;
     top: 12%;
     right: 5%;
     z-index: 10;
@@ -31,6 +31,7 @@ video.lios-nav-title {
     bottom: 2%;
     display: flex;
     flex-direction: row;
+    box-sizing: border-box;
 }
 .navigation-icon svg,.navigation-icon img{
     width: 35px;

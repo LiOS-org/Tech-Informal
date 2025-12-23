@@ -4,3 +4,6 @@
 .lios-pop-up .meta-container{
     display: block;
 }
+.lios-pop-up{
+    z-index: 10;
+}

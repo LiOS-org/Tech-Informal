@@ -1,5 +1,18 @@
 # Changelogs
 
+## 1.0.0-alpha-11
+
+### New Features
+
+- Some UI elements are completely `glass` now.
+- View Page throws an error when post is not available or postId is not passed in URL Parameter.
+- Added `JSON-LD` foe better SEO.
+  
+### Improvements
+
+- SEO Improvements.
+- UI enhancements.
+
 ## 1.0.0-alpha-10
 
 ### New Features
@@ -57,7 +70,7 @@
 ## 1.0.0-alpha-5
 
 - Increased the height of ql-editor.
-- Updated `Authentication.js` tp know also get `user name` and `user email` automatically upon sign in.
+- Updated `Authentication.js` to  also get `user name` and `user email` automatically upon sign in.
 - Replaced `prompt` with `LiOS-PopUp` in `studio.js` for thumbnail URL;
 - Updated `navigation.js` to now add `navigation.label` as class to each button for easier targeting via CSS.
 - Updated `view.js` to import and use `contextualBottomNavigation` function as async.
@@ -65,7 +78,7 @@
 - Added comments moderation in Studio page under channels/{channel}/{post}/comments. Currently, channel owners and moderators can delete comments. Channel-level and platform-wide bans will be introduced in future updates.
 - Added `user management` page in `studio` page: For now only accessible to `"mods" and "owner"`.
 - Added `Loading Animation`.
-- Reactions: Users can now react to a post via either of `Like` or `Dislike` button using the `Contextual Bottom Navifation`.
+- Reactions: Users can now react to a post via either of `Like` or `Dislike` button using the `Contextual Bottom Navigation`.
 
 ## Hotfix 24/10/25
 

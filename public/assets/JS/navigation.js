@@ -179,7 +179,7 @@ export async function constructSidebar() {
     sidebarPanel.classList.add("sidebar", "frosted_background");
     sidebarPanel.innerHTML = //html
         `
-    <div class="sidebar-close-button"><span>Close Sidebar</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-open-icon lucide-panel-right-open"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/><path d="m10 15-3-3 3-3"/></svg></div>
+    <div class="sidebar-close-button lios-frosted-glass" style = "border: 2px outset var(--frosted_secondary)"><span>Close Sidebar</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-open-icon lucide-panel-right-open"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/><path d="m10 15-3-3 3-3"/></svg></div>
     <div class="sidebar-button-container"></div>
     <div class = "sidebar-bottom-button-container"></div>
     `;

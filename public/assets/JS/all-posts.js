@@ -25,7 +25,7 @@ displayPosts = (post) => {
             <div class = "tags-container"></div>
             <p>${post.Description}</p>
             <div class = "display-post-options">
-                <div class = "lios-button-group"><a class = "lios-action-button" href = "view?id=${post.uid}"><span>View Post</span></a></div>
+                <div class = "lios-button-group"><a class = "lios-action-button" href = "/view?id=${post.uid}"><span>View Post</span></a></div>
                 <hr>
                 <div class = "display-post-meta">
                     <span> <a href = "channel?id=${post.ChannelId}">${post.ChannelName}</a></span><span>${postDate}</span>
